@@ -3,10 +3,13 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 public class UserDatabase implements UserExists, UserCreator{
+    File accounts;
+    public UserDatabase(File accounts){
+        this.accounts = accounts;
+    }
     @Override
     public boolean UserExists(String username, String email) {
-        File accounts = new File("UserAccounts.csv");
-        try(Scanner x = new Scanner(accounts)){
+        try(Scanner x = new Scanner(this.accounts)){
             x.useDelimiter("\n");
             while(x.hasNext()) {
                 String[] y = x.next().split(",");
@@ -25,8 +28,7 @@ public class UserDatabase implements UserExists, UserCreator{
     //
     @Override
     public void createUser(String username, String password, String email) {
-            File accounts = new File("UserAccounts.csv");
-            try(PrintWriter out = new PrintWriter(accounts)){
+            try(PrintWriter out = new PrintWriter(this.accounts)){
                 out.println(username + "," + password + "," + email + "," + "no" + "," + "offline");
                 out.flush();
             }catch (FileNotFoundException e){
