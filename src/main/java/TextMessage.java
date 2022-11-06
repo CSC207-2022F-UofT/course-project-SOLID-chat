@@ -1,15 +1,35 @@
 import java.time.LocalDateTime;
 
 public class TextMessage extends Message {
-    public final String SENDER_ID;
-    public String msgContent;
-    public final LocalDateTime TIMESTAMP;
-    public final String MSG_ID;
+    private final String senderID;
+    private String msgContent;
+    private final LocalDateTime timestamp;
+    private final String msgID;
 
     public TextMessage(String senderID, String msgContent, LocalDateTime timestamp, String msgID) {
-        this.SENDER_ID = senderID;
+        this.senderID = senderID;
         this.msgContent = msgContent;
-        this.TIMESTAMP = timestamp;
-        this.MSG_ID = msgID;
+        this.timestamp = timestamp;
+        this.msgID = msgID;
+    }
+
+    public String getSenderID() {
+        return senderID;
+    }
+
+    public String getMsgContent() {
+        return msgContent;
+    }
+
+    public void setMsgContent(String msgContent) {
+        this.msgContent = msgContent;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public String getMsgID() {
+        return msgID;
     }
 }
