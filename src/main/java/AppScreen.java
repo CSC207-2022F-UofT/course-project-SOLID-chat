@@ -1,13 +1,15 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class AppScreen implements loginUsecase, AppScreenPresenter, AppScreenController {
+public class AppScreen implements AppScreenPresenter, AppScreenController {
 
-    private final JFrame jFrame;
-    protected ArrayList<Chat> chatOrdering;
+    private final JFrame JFRAME;
+    public ArrayList<Chat> chatOrdering;
 
     public AppScreen(ArrayList<Chat> chatOrdering) {
-        this.jFrame = new JFrame();
+        this.JFRAME = new JFrame();
         this.chatOrdering = chatOrdering;
 
     }
@@ -28,21 +30,38 @@ public class AppScreen implements loginUsecase, AppScreenPresenter, AppScreenCon
     @Override
     public void displayAppScreen(){
 
-        // getting the names of each chat to display
-        String[] orderedChats = new String[this.chatOrdering.size()];
+        JPanel jPanel = new JPanel();
 
+        // getting the names of each chat to display and creating buttons for each chat
         for (int i = 0; i < chatOrdering.size(); i++){
-            orderedChats[i] = chatOrdering.get(i).id; // id = name of chat
+
+            JButton b = new JButton(chatOrdering.get(i).id); // id could be replaced with a user/chat's name
+
+            // defines the action of opening a chat when a chat is clicked on
+            b.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    // call chatView to open the display the window (?) for chat
+                    /* not sure if AppScreen and ChatView would be combined into one window, or
+                       two separate windows
+                     */
+                }
+            });
+            jPanel.add(b);
         }
-        JList<String> chatButtons = new JList<>(orderedChats);
-        this.jFrame.add(chatButtons);
-        this.jFrame.setSize(200, 500);
+
+        // setting the layout of chats to appear on the screen and the size of the window
+        jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
+        this.JFRAME.setSize(200, 500);
+        this.JFRAME.add(jPanel);
 
         // making the window visible
-        this.jFrame.setVisible(true);
+        this.JFRAME.setVisible(true);
 
         // terminating the program upon closing the window
-        this.jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.JFRAME.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
 
