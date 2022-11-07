@@ -30,8 +30,4 @@ public class UserDatabaseTest {
         UserDatabase accountDatabase = new UserDatabase(accounts);
         Assertions.assertTrue(accountDatabase.UserExists("MeenakshiGopakumar", "ma"));
     }
-
-    @Test
-    public void UserRetrieval() {
-    }
     }

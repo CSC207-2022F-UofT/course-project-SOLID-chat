@@ -45,6 +45,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator{
     }
 
     @Override
+//  To be edited to get user from the array format rather than the serialized format.
     public User getUser(String username) {
         User user = null;
         try(FileInputStream fileIn = new FileInputStream(accounts);
