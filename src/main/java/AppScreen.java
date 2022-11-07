@@ -1,29 +1,57 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class AppScreen implements AppScreenPresenter, AppScreenController {
 
     private final JFrame JFRAME;
-    public ArrayList<Chat> chatOrdering;
+    private ArrayList<Chat> chats;
 
-    public AppScreen(ArrayList<Chat> chatOrdering) {
+    public AppScreen(ArrayList<Chat> chats) {
         this.JFRAME = new JFrame();
-        this.chatOrdering = chatOrdering;
+        this.chats = chats;
+        this.checkChatOrder();
 
     }
 
     public ArrayList<Chat> getChatOrdering(){
-        return this.chatOrdering;
+        return new ArrayList<Chat>(this.chatOrdering);
     }
 
-    @Override
+    public boolean isOrdered(){
+
+        LocalTime currentTime = LocalTime.now();
+        for (Chat c: this.chats){
+
+            // check if the time of a chat's latest update in conversation history is before currentTime
+            if (c.convHist.getLatestTime().isBefore(currentTime)){
+                return false;
+            }
+            // Reassign the current time to the latest chat's updated time
+            currentTime = c.convHist.getLatestTime();
+        }
+        return true;
+
+    }
+
     public void updateChatOrder(){
 
         /* any changes to conversation history or chat initiation (or deletion) should
-        call changeChatOrdering so the order of chats in AppScreen can change
+        call updateChatOrder so the order of chats in AppScreen can change
          */
+        displayAppScreen();
+
+    }
+
+    public void checkChatOrder(){
+        if (isOrdered()){
+            displayAppScreen();
+        }
+        else{
+            updateChatOrder();
+        }
 
     }
 
