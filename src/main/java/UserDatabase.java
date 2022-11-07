@@ -45,7 +45,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator{
     }
 
     @Override
-    public User getUser(String username, String email) {
+    public User getUser(String username) {
         User user = null;
         try(FileInputStream fileIn = new FileInputStream(accounts);
             ObjectInputStream in = new ObjectInputStream(fileIn)){
@@ -55,7 +55,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator{
                 }catch(NullPointerException e){
                     break;
                 }
-            }while(!user.getEmail().equals(email) && !user.getUsername().equals(username));
+            }while(!user.getUsername().equals(username));
         }catch(IOException e){
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
