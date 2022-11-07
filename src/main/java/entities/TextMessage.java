@@ -1,3 +1,5 @@
+package entities;
+
 import java.time.LocalDateTime;
 
 public class TextMessage extends Message {
