@@ -29,8 +29,8 @@ public class UserDatabase implements UserExists, UserCreator{
     // The order is username, password, email address, verification status, status
     //
     @Override
-    public void createUser(String username, String password, String email){
-        User newUser = new User(username, password, email);
+    public void createUser(String username, String password, String email, String type){
+        User newUser = UserFactory.BirthUser(username, password, email, type);
         try(FileOutputStream fileOut = new FileOutputStream(accounts)){
             try(ObjectOutputStream out = new ObjectOutputStream(fileOut)){
                 out.writeObject(newUser);

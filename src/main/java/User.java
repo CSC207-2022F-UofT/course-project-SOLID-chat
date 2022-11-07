@@ -1,8 +1,8 @@
 import java.io.Serializable;
-public class User implements Serializable{
-    private String username;
-    private String password;
-    private String email;
+public abstract class User implements Serializable{
+    protected String username;
+    protected String password;
+    protected String email;
     boolean verified = false;
     boolean online = false;
     public User(String username, String password, String email){
@@ -16,7 +16,7 @@ public class User implements Serializable{
     public String getUsername(){
         return this.username;
     }
-    public String getPassword(){
+    private String getPassword(){
         return this.password;
     }
 

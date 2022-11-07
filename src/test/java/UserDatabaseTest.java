@@ -8,14 +8,14 @@ public class UserDatabaseTest {
     public void addingFilesRightEmailAndUser(){
         File accounts = new File("TestUserDatabase2.csv");
         UserDatabase accountDatabase = new UserDatabase(accounts);
-        accountDatabase.createUser("MadhavGopakumar", "123", "madhavgopan2000@gmail.com");
+        accountDatabase.createUser("MadhavGopakumar", "123", "madhavgopan2000@gmail.com", "Basic");
         Assertions.assertTrue(accountDatabase.UserExists("MadhavGopakumar", "madhavgopan2000@gmail.com"));
     }
     @Test
     public void addingMultipleFiles(){
         File accounts = new File("TestUserDatabase2.csv");
         UserDatabase accountDatabase = new UserDatabase(accounts);
-        accountDatabase.createUser("MeenakshiGopakumar", "123", "meena@gmail.com");
+        accountDatabase.createUser("MeenakshiGopakumar", "123", "meena@gmail.com", "Basic");
         Assertions.assertTrue(accountDatabase.UserExists("MeenakshiGopakumar", "meena@gmail.com"));
     }
     @Test
