@@ -24,6 +24,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator{
         }
         return user != null;
     }
+//    TODO: create userExists that takes 1 parameter: username.
 
     // Creates a new user with a username and password, and an email address
     // The order is username, password, email address, verification status, status
