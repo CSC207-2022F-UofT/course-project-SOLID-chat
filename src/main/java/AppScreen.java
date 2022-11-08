@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
@@ -22,7 +23,6 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
 
     }
 
-
     /*
     @return boolean This returns true if and only if AppScreen's chats are ordered by time,
     otherwise return false.
@@ -32,12 +32,14 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
         LocalTime currentTime = LocalTime.now();
         for (Chat c: this.chats){
 
+            LocalTime chatTime = c.convHist.latestMessage().getTimeStamp();
+
             // check if the time of a chat's latest update in conversation history is before currentTime
-            if (c.convHist.getLatestTime().isBefore(currentTime)){
+            if (chatTime.isBefore(currentTime)){
                 return false;
             }
             // Reassign the current time to the latest chat's updated time
-            currentTime = c.convHist.getLatestTime();
+            currentTime = chatTime;
         }
         return true;
 
@@ -80,7 +82,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
         // getting the names of each chat to display and creating buttons for each chat
         for (int i = 0; i < chatOrdering.size(); i++){
 
-            JButton b = new JButton(chatOrdering.get(i).id); // id could be replaced with a user/chat's name
+            JButton b = new JButton(chatOrdering.get(i).name);
 
             // defines the action of opening a chat when a chat is clicked on
             b.addActionListener(new ActionListener() {
@@ -97,16 +99,26 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
             jPanel.add(b);
         }
 
-        // setting the layout of chats to appear on the screen and the size of the window
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
+
+        // making the chat list scrollable
+        scrollableChats(jPanel);
+
         this.JFRAME.setSize(200, 500);
-        this.JFRAME.add(jPanel);
-
-        // making the window visible
         this.JFRAME.setVisible(true);
-
-        // terminating the program upon closing the window
         this.JFRAME.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+    }
+
+    /*
+    Make the chat list scrollable
+    @param jPanel The panel containing the chats
+     */
+    private void scrollableChats(JPanel jPanel) {
+        JScrollPane scrollFrame = new JScrollPane(jPanel);
+        scrollFrame.setAutoscrolls(true);
+        scrollFrame.setPreferredSize(new Dimension( 200,500));
+        this.JFRAME.add(scrollFrame);
     }
 
 
