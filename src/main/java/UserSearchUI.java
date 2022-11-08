@@ -32,10 +32,16 @@ public class UserSearchUI implements UserPresenter{
 //  UserPresenter makes UI implement showProfile to invert the use-case --> UI dependency
     @Override
     public String showProfile(String username) {
-        String[] features = UserReader.read(username);
-        String email = features[1];
-        return("<html>Username: " + username + "<br>Email: " + email + "</html>");
+        if (userDatabase.userExists(username)){
+            String[] features = UserReader.read(username);
+            String email = features[1];
+            return("<html>Username: " + username + "<br>Email: " + email + "</html>");
+        }
+        else{
+            return("User with given username does not exist.");
+        }
 //        TODO: add name to be displayed (potentially)
+//        TODO: fix reference to userDatabase
     }
 
 // for trying out the code:
