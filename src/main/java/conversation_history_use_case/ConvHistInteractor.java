@@ -11,16 +11,36 @@ public class ConvHistInteractor implements ConversationHistoryInputBoundary{
         this.msgFactory = msgFactory;  // msgType of MsgFactory specified in Main
     }
 
+    /**
+     *
+     * @param requestModel
+     * @return
+     */
     @Override
     public MsgSenderResponseModel create(MsgSenderRequestModel requestModel) {
         // Create new message
         Message message = msgFactory.createMsg(requestModel.getSenderID(), requestModel.getMsgContent());
 
-        // Add message to chat in entity list
-        userDatabase.save(); // save DsRequestModel (specific model for adding messages, vs. adding users/chats)
+        // Add message to specified chat in user list
+        userDatabase.save(); // save DsRequestModel (specific request model for adding messages, vs. adding users/chats)
 
         // TODO: javadoc
-        // TODO: finishing code outline (i.e. other scenario walkthru)
+        // TODO: finishing code outline (i.e. presenter, reviewing written code)
         // TODO: understanding all aspects of UserLoginCleanArchitecture example
+    }
+
+    /**
+     *
+     * @param requestModel
+     * @return
+     */
+    @Override
+    public MsgSenderResponseModel create(ConvHistRequestModel requestModel) {
+        String userID = requestModel.getChatID(); // TODO: do we need to pass this
+        String chatID = requestModel.getChatID();
+
+        // Find chat under specified User
+        Chat chat = userDatabase.getAccounts().get(userID).getChats().get(chatID);
+
     }
 }
