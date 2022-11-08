@@ -4,11 +4,17 @@ import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+
 public class AppScreen implements AppScreenPresenter, AppScreenController {
 
-    private final JFrame JFRAME;
-    private ArrayList<Chat> chats;
+    final JFrame JFRAME;
+    ArrayList<Chat> chats;
 
+
+    /*
+    Create an AppScreen object
+    @param chats This is a list of chats given by the user
+     */
     public AppScreen(ArrayList<Chat> chats) {
         this.JFRAME = new JFrame();
         this.chats = chats;
@@ -16,10 +22,11 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
 
     }
 
-    public ArrayList<Chat> getChatOrdering(){
-        return new ArrayList<Chat>(this.chatOrdering);
-    }
 
+    /*
+    @return boolean This returns true if and only if AppScreen's chats are ordered by time,
+    otherwise return false.
+     */
     public boolean isOrdered(){
 
         LocalTime currentTime = LocalTime.now();
@@ -36,6 +43,10 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
 
     }
 
+    /*
+    Update the order of the chats by latest conversation times - Most recent chats would appear
+    at the top and descend chronologically down
+     */
     public void updateChatOrder(){
 
         /* any changes to conversation history or chat initiation (or deletion) should
@@ -45,6 +56,9 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
 
     }
 
+    /*
+    Check whether AppScreen's current list of chats is ordered by time
+     */
     public void checkChatOrder(){
         if (isOrdered()){
             displayAppScreen();
@@ -56,6 +70,9 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
     }
 
     @Override
+    /*
+    Display a screen containing an ordered list of chats to the user based on latest conversation times
+     */
     public void displayAppScreen(){
 
         JPanel jPanel = new JPanel();
