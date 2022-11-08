@@ -35,6 +35,7 @@ public class UserSearchUI implements UserPresenter{
         String[] features = UserReader.read(username);
         String email = features[1];
         return("<html>Username: " + username + "<br>Email: " + email + "</html>");
+//        TODO: add name to be displayed (potentially)
     }
 
 // for trying out the code:

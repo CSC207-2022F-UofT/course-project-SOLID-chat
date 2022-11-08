@@ -3,8 +3,8 @@ public class UserReader {
         User user = UserDatabase.getUser(username);
         String email = user.getEmail();
         String[] out = new String[] {username, email};
-//        test without user/ user database branch using:
-//        String[] out = new String[] {username, username + "@gmail.com"};
+//        TODO: make sure correct getUser method is used based on the new (array-based implementation) of UserDatabase
+//        TODO: add name to be read potentially
         return out;
 
     }
