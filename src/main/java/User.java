@@ -1,5 +1,5 @@
 import java.io.Serializable;
-public abstract class User implements Serializable{
+public abstract class User implements Serializable, Changeable{
     protected String username;
     protected String password;
     protected String email;
@@ -18,6 +18,18 @@ public abstract class User implements Serializable{
     }
     private String getPassword(){
         return this.password;
+    }
+
+    @Override
+//    from Changeable
+    public void changeFeature(String feature, String newFeature){
+        if (feature == "Username"){
+            this.username = newFeature;
+        } else if (feature == "Password"){
+            this.password = newFeature;
+        } else if (feature == "Email"){
+            this.email = newFeature;
+        }
     }
 
 }
