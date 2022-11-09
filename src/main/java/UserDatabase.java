@@ -1,6 +1,7 @@
 import java.io.*;
-import java.util.Scanner;
-public class UserDatabase implements UserExists, UserRetriever, UserCreator{
+import java.util.ArrayList;
+import java.util.List;
+public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList{
     File accounts;
     public UserDatabase(File accounts){
         this.accounts = accounts;
@@ -63,5 +64,21 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator{
             throw new RuntimeException(e);
         }
         return user;
+    }
+    //Returns an ArrayList with the users that is extracted from the file, so that other objects can use this list.
+    @Override
+    public List<User> getList() {
+        List<User> users = new ArrayList<>();
+        try(FileInputStream fileIn = new FileInputStream(accounts);
+            ObjectInputStream in = new ObjectInputStream(fileIn)){
+            User user = (User) in.readObject();
+            while(user != null){
+                users.add(user);
+                user = (User)in.readObject();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return users;
     }
 }
