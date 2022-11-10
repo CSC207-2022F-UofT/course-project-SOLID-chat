@@ -2,19 +2,40 @@ package conversation_history_use_case;
 
 import entities.*;
 
+/**
+ * Interactor responsible for adding messages to a chat's conversation history and displaying this history upon opening
+ * a chat
+ */
 public class ConvHistInteractor implements ConversationHistoryInputBoundary{
+    /**
+     * File and in-memory storage of users nad their chats (incl. conversation history)
+     */
     final UserDatabase userDatabase;
+    /**
+     * Factory for creating a new Message
+     */
     final MsgFactory msgFactory;
+    /**
+     * Presenter with necessary information to display a chat's conversation history
+     */
+    final ConvHistPresenter convHistPresenter;
 
-    public ConvHistInteractor(UserDatabase userDatabase, MsgFactory msgFactory) {
+    /**
+     * Construct ConvHistInteractor given storage, message factory, and presenter
+     * @param userDatabase storage
+     * @param msgFactory message factory
+     * @param convHistPresenter presenter
+     */
+    public ConvHistInteractor(UserDatabase userDatabase, MsgFactory msgFactory, ConvHistPresenter convHistPresenter) {
         this.userDatabase = userDatabase;
         this.msgFactory = msgFactory;  // msgType of MsgFactory specified in Main
+        this.convHistPresenter = convHistPresenter;
     }
 
     /**
-     *
-     * @param requestModel
-     * @return
+     * Creates and adds message to a chat's conversation history
+     * @param requestModel input data
+     * @return a presenter
      */
     @Override
     public MsgSenderResponseModel create(MsgSenderRequestModel requestModel) {
@@ -30,9 +51,9 @@ public class ConvHistInteractor implements ConversationHistoryInputBoundary{
     }
 
     /**
-     *
-     * @param requestModel
-     * @return
+     * Displays conversation history upon opening a chat
+     * @param requestModel input data
+     * @return a presenter
      */
     @Override
     public MsgSenderResponseModel create(ConvHistRequestModel requestModel) {
