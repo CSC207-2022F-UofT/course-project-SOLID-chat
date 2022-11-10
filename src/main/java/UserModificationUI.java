@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 public class UserModificationUI implements ChangeController{
     private JLabel label;
+    UserDatabase db = UserDatabase(accounts);
     public UserModificationUI() {
         final JFrame frame = new JFrame();
         frame.setSize(1200, 100);
@@ -65,20 +66,18 @@ public class UserModificationUI implements ChangeController{
     @Override
 //    TODO: fix based on new UserDatabase/ getUser features
     public boolean reportChange(String username, String password, String feature, String newFeature) {
-        if (userDatabase.UserExists(username)){
-            User user = userDatabase.getUser(username);
-            if (user.getPassword().equals(password) && user.getUsername().equals(username)){
-                user.changeFeature(feature, newFeature);
-                return true;
-            }
+        User user = db.getUser(username);
+        if (user.getPassword().equals(password) && user.getUsername().equals(username)){
+            user.changeFeature(feature, newFeature);
+            return true;
         }
         return false;
     }
 
 // for trying out the code:
-    public static void main(String[] args) {
-        new UserModificationUI();
-
-    }
+//    public static void main(String[] args) {
+//        new UserModificationUI();
+//
+//    }
 
 }

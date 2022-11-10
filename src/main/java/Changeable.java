@@ -1,3 +1,3 @@
-public interface Changable {
+public interface Changeable {
     public void changeFeature(String feature, String newFeature);
 }
