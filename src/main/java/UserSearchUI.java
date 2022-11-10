@@ -6,8 +6,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class UserSearchUI implements UserPresenter{
     private JLabel label;
+    UserDatabase db = UserDatabase(accounts);
     public UserSearchUI() {
         final JFrame frame = new JFrame();
         frame.setSize(300, 100);
@@ -32,7 +34,7 @@ public class UserSearchUI implements UserPresenter{
 //  UserPresenter makes UI implement showProfile to invert the use-case --> UI dependency
     @Override
     public String showProfile(String username) {
-        if (userDatabase.userExists(username)){
+        if (db.userExists(username)){
             String[] features = UserReader.read(username);
             String email = features[1];
             return("<html>Username: " + username + "<br>Email: " + email + "</html>");
@@ -41,7 +43,6 @@ public class UserSearchUI implements UserPresenter{
             return("User with given username does not exist.");
         }
 //        TODO: add name to be displayed (potentially)
-//        TODO: fix reference to userDatabase
     }
 
 // for trying out the code:
