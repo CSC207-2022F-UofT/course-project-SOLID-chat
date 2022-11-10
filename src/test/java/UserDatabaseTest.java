@@ -2,6 +2,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDatabaseTest {
     @Test
@@ -30,4 +32,24 @@ public class UserDatabaseTest {
         UserDatabase accountDatabase = new UserDatabase(accounts);
         Assertions.assertTrue(accountDatabase.UserExists("MeenakshiGopakumar", "ma"));
     }
+    @Test
+    public void listedUsers(){
+        File accounts = new File("TestUserDatabase2.csv");
+        UserDatabase accountDatabase = new UserDatabase(accounts);
+        accountDatabase.createUser("MeenakshiGopakumar", "123", "meena@gmail.com", "Basic");
+        List<User> lst = accountDatabase.getList();
+        String email = lst.get(0).getEmail();
+        Assertions.assertTrue(email.equals("meena@gmail.com"));
+    }
+
+    @Test
+    public void userGot() {
+        File accounts = new File("TestUserDatabase2.csv");
+        UserDatabase accountDatabase = new UserDatabase(accounts);
+        accountDatabase.createUser("MeenakshiGopakumar", "123", "meena@gmail.com", "Basic");
+        User user = accountDatabase.getUser("MeenakshiGopakumar");
+        String email = user.getEmail();
+        Assertions.assertTrue(email.equals("meena@gmail.com"));
+    }
+
     }
