@@ -2,36 +2,40 @@ package entities;
 
 import java.time.LocalDateTime;
 
+/**
+ * A message with text as its content (child of Message)
+ */
 public class TextMessage extends Message {
-    private final String senderID;
+    /**
+     * Text content of message
+     */
     private String msgContent;
-    private final LocalDateTime timestamp;
-    private final String msgID;
 
+    /**
+     * Construct a text message
+     * @param senderID ID of sender
+     * @param msgContent text content
+     * @param timestamp message timestamp
+     * @param msgID ID of message
+     */
     public TextMessage(String senderID, String msgContent, LocalDateTime timestamp, String msgID) {
-        this.senderID = senderID;
+        super(senderID, timestamp, msgID);
         this.msgContent = msgContent;
-        this.timestamp = timestamp;
-        this.msgID = msgID;
     }
 
-    public String getSenderID() {
-        return senderID;
-    }
-
+    /**
+     * Gets text content of a message
+     * @return message content
+     */
     public String getMsgContent() {
         return msgContent;
     }
 
+    /**
+     * Sets text content of a message
+     * @param msgContent updated message content
+     */
     public void setMsgContent(String msgContent) {
         this.msgContent = msgContent;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public String getMsgID() {
-        return msgID;
     }
 }

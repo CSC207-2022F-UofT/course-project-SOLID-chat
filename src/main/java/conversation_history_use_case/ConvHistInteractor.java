@@ -45,7 +45,6 @@ public class ConvHistInteractor implements ConversationHistoryInputBoundary{
         // Add message to specified chat in user list
         userDatabase.save(); // save DsRequestModel (specific request model for adding messages, vs. adding users/chats)
 
-        // TODO: javadoc
         // TODO: finishing code outline (i.e. presenter, reviewing written code)
         // TODO: understanding all aspects of UserLoginCleanArchitecture example
     }
