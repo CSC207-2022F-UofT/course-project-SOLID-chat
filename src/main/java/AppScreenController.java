@@ -2,5 +2,6 @@ import java.util.ArrayList;
 
 public interface AppScreenController {
 
-    void updateChatOrder();
+    boolean hasUpdate(Chat chat);
+
 }
