@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class AppScreen implements AppScreenPresenter, AppScreenController {
 
-    public final JFrame JFRAME;
-    private ArrayList<Chat> chats;
+    final JFrame JFRAME;
+    final User CURR_USER;
+    public ArrayList<Chat> chats;
 
 
     /*
@@ -16,7 +17,8 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
     @param chats This is a list of chats given by the user (the list will always come as sorted with the
     most recent chats at the end of the list)
      */
-    public AppScreen(ArrayList<Chat> chats) {
+    public AppScreen(ArrayList<Chat> chats, User user) {
+        this.CURR_USER = user;
         this.JFRAME = new JFrame();
         this.JFRAME.setSize(200, 500);
         this.JFRAME.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -27,7 +29,6 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
 
     }
 
-    @Override
     /*
     Return true if a chat has an update (e.g. new message, new chat created, changes to conversation
     history), and add/move the chat to the end of the chats list.
@@ -38,13 +39,12 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
     public boolean hasUpdate(Chat chat){
 
         if (this.chats.contains(chat)) {
-            ArrayList<Chat> temp = new ArrayList<>();
             this.chats.remove(chat);
-            temp.addAll(this.chats);
+            ArrayList<Chat> temp = new ArrayList<>(this.chats);
             temp.add(chat);
             this.chats = temp;
         }
-        else{
+        else {
             this.chats.add(chat);
         }
         // refresh the screen
@@ -61,9 +61,10 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
         JPanel jPanel = new JPanel();
 
         // getting the names of each chat to display and creating buttons for each chat
-        for (int i = 0; i < chats.size(); i++){
+        for (Chat chat : chats) {
 
-            JButton b = new JButton(chats.get(i).id);  // not sure what to display as the name for each chat
+            String chatName = getName(chat);
+            JButton b = new JButton(chatName);
 
             // defines the action of opening a chat when a chat is clicked on
             b.addActionListener(new ActionListener() {
@@ -72,8 +73,8 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
                 public void actionPerformed(ActionEvent e) {
 
                     /* TODO: call chatView to open the display the window (?) for chat
-                       - should AppScreen and ChatView would be combined into one window, or
-                       two separate windows?
+                     - not sure if AppScreen and ChatView would be combined into one window, or
+                       two separate windows
                      */
                 }
             });
@@ -89,6 +90,21 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
     }
 
     /*
+    Return the username of the user that the current user is conversing with. Right now, this method
+    only works for private chats, and would need to add another case for group chats.
+    @param chat The subject chat
+    @return The username to be displayed
+     */
+    public String getName(Chat chat){
+        for (User user: chat.getUsers()){
+            if (!(user.equals(this.CURR_USER))){
+                return user.getUsername();
+            }
+        }
+        throw new RuntimeException("The current user is not part of this chat");
+    }
+
+    /*
     Make the chat list scrollable
     @param jPanel The panel containing the chats
      */
@@ -98,5 +114,6 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
         scrollFrame.setPreferredSize(new Dimension( 200,500));
         this.JFRAME.add(scrollFrame);
     }
+
 
 }
