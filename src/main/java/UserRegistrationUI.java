@@ -3,83 +3,87 @@ import junit.framework.JUnit4TestAdapter;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import java.io.File;
 
 public class UserRegistrationUI implements UserRegistrationUseCase, ActionListener {
-    private UserDatabase database;
+    private final UserDatabase database;
 
-    //Front end related objects
-    private JFrame RegisterFrame;
-    private JPanel RegisterPanel;
-    private JLabel usernameLabel;
-    private JLabel passwordLabel;
-    private JLabel emailLabel;
     private JTextField usernameText;
     private JTextField passwordText;
     private JTextField emailText;
     private JButton register;
 
+    private final int code;
+
     public UserRegistrationUI(UserDatabase database) {
         this.database = database;
+        code = new Random().nextInt(1244254);
     }
     void GetUserCredentials(){
-        RegisterFrame = new JFrame();
-        RegisterFrame.setSize(300, 300);
-        RegisterFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        RegisterPanel = new JPanel();
-        RegisterFrame.add(RegisterPanel);
+        //Front end related objects
+        JFrame registerFrame = new JFrame();
+        registerFrame.setSize(300, 300);
+        registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel registerPanel = new JPanel();
+        registerFrame.add(registerPanel);
 
         //The textbox for entering the Username
-        RegisterPanel.setLayout(null);
-        usernameLabel = new JLabel("Username");
+        registerPanel.setLayout(null);
+        JLabel usernameLabel = new JLabel("Username");
         usernameLabel.setBounds(10, 25, 100, 25);
-        RegisterPanel.add(usernameLabel);
+        registerPanel.add(usernameLabel);
 
         usernameText = new JTextField(20);
         usernameText.setBounds(100, 20, 165, 25);
-        RegisterPanel.add(usernameText);
+        registerPanel.add(usernameText);
 
         //The textbox for entering the password
-        passwordLabel = new JLabel("Password");
+        JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10, 55, 100, 25);
-        RegisterPanel.add(passwordLabel);
+        registerPanel.add(passwordLabel);
 
         passwordText = new JPasswordField();
         passwordText.setBounds(100, 50, 165, 25);
-        RegisterPanel.add(passwordText);
+        registerPanel.add(passwordText);
 
         //The textbox for entering the email
-        emailLabel = new JLabel("Email");
+        JLabel emailLabel = new JLabel("Email");
         emailLabel.setBounds(10, 85, 100, 25);
-        RegisterPanel.add(emailLabel);
+        registerPanel.add(emailLabel);
 
         emailText = new JTextField(20);
         emailText.setBounds(100, 80, 165, 25);
-        RegisterPanel.add(emailText);
+        registerPanel.add(emailText);
 
         //The Button
         register = new JButton("Register");
         register.setBounds(100, 110, 165, 25);
-        RegisterPanel.add(register);
+        register.addActionListener(this);
+        registerPanel.add(register);
 
 
 
-        RegisterFrame.setVisible(true);
+        registerFrame.setVisible(true);
     }
     @Override
     public void registerUser(String username, String password, String email) {
         if(database.UserExists(username, email)){
+            //Will change below to be a label
             System.out.println("The username or password is already in use, please try again");
         }else{
             database.createUser(username, password, email, "Basic");
+            //Will change below to be a label
             System.out.println("Your account has been created, please verify to login");
-            UserVerificationUI verifyUser = new UserVerificationUI(389);
+            UserVerificationUI verifyUser = new UserVerificationUI(code);
+            verifyUser.sendVerificationCode(email);
             verifyUser.verify(email);
         }
     }
 
     public static void main(String[] args){
-        UserDatabase testDB = new UserDatabase();
+        UserDatabase testDB = new UserDatabase(new File("TestUserDatabase2.csv"));
+        System.out.println(testDB.UserExists("RandomUser", "abdfeg@gmail.com"));
         UserRegistrationUI testUI = new UserRegistrationUI(testDB);
         testUI.GetUserCredentials();
     }
