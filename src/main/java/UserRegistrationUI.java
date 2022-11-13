@@ -8,7 +8,7 @@ import java.io.File;
 
 public class UserRegistrationUI implements UserRegistrationUseCase, ActionListener {
     private final UserDatabase database;
-
+    private JLabel registrationSuccess;
     private JTextField usernameText;
     private JTextField passwordText;
     private JTextField emailText;
@@ -18,12 +18,16 @@ public class UserRegistrationUI implements UserRegistrationUseCase, ActionListen
 
     public UserRegistrationUI(UserDatabase database) {
         this.database = database;
-        code = new Random().nextInt(1244254);
+        /*TODO: For now the code is 389 for testing purposes, but once UserVerificationUI.sendVerificationCode() is
+            implemented this will be a random integer.
+        */
+        /*code = new Random().nextInt(1244254);*/
+        code = 389;
     }
     void GetUserCredentials(){
         //Front end related objects
         JFrame registerFrame = new JFrame();
-        registerFrame.setSize(300, 300);
+        registerFrame.setSize(500, 300);
         registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel registerPanel = new JPanel();
         registerFrame.add(registerPanel);
@@ -62,25 +66,26 @@ public class UserRegistrationUI implements UserRegistrationUseCase, ActionListen
         register.addActionListener(this);
         registerPanel.add(register);
 
-
+        //Success/Failure Label
+        registrationSuccess = new JLabel("");
+        registrationSuccess.setBounds(10, 140, 350, 25);
+        registerPanel.add(registrationSuccess);
 
         registerFrame.setVisible(true);
     }
     @Override
     public void registerUser(String username, String password, String email) {
         if(database.UserExists(username, email)){
-            //Will change below to be a label
-            System.out.println("The username or password is already in use, please try again");
+            registrationSuccess.setText("The username or password is already in use, please try again");
         }else{
             database.createUser(username, password, email, "Basic");
-            //Will change below to be a label
-            System.out.println("Your account has been created, please verify to login");
+            registrationSuccess.setText("Your account has been created, please verify to login");
             UserVerificationUI verifyUser = new UserVerificationUI(code);
             verifyUser.sendVerificationCode(email);
             verifyUser.verify(email);
         }
     }
-
+    //For Testing purposes
     public static void main(String[] args){
         UserDatabase testDB = new UserDatabase(new File("TestUserDatabase2.csv"));
         System.out.println(testDB.UserExists("RandomUser", "abdfeg@gmail.com"));

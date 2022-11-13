@@ -6,10 +6,13 @@ public class UserVerificationUI implements UserVerifier, ActionListener {
     Random random;
     private final int code;
     private JTextField verificationCodeText;
+    private JLabel success;
 
     public UserVerificationUI(int code){
         this.code = code;
     }
+
+    //Asks for the verification code from the user, and matches it with this.code to potentially verify the user
     public void verify(String email){
         //Creating the UI to input the verification code
         JFrame verificationFrame = new JFrame();
@@ -27,32 +30,38 @@ public class UserVerificationUI implements UserVerifier, ActionListener {
         verificationPanel.add(verificationLabel);
         verificationPanel.add(verificationCodeText);
 
+        //Success/Failure Labels
+        success = new JLabel("");
+        success.setBounds(10, 50, 100, 25);
+        verificationPanel.add(success);
+
         JButton verifyButton = new JButton("verify");
         verifyButton.setBounds(125, 50, 100, 25);
         verificationPanel.add(verifyButton);
         verifyButton.addActionListener(this);
         verificationFrame.setVisible(true);
     }
-
+    //Sends this.code to the email address given by String email
     public void sendVerificationCode(String email){
-        //When this is implemented, a verification code(this.code) will be sent to email with email address "email",
-        //The code will be a random number that is generated, when the user presses the register
-        // button(see UserRegistrationUI).
+        /*TODO: When this is implemented, a verification code(this.code) will be sent to email with email address "email",
+           The code will be a random number that is generated, when the user presses the register
+           button(see UserRegistrationUI).*/
     }
-    public static void main(String[] args){
+
+    //For testing purposes
+    /*public static void main(String[] args){
         UserVerificationUI ver = new UserVerificationUI(389);
         ver.verify("abc");
-    }
+    }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {
         int verCode = Integer.parseInt(verificationCodeText.getText());
         if(code == verCode){
-            //Going to change below to a label, and will link to LoginUI
-            System.out.println("verified");
+            //TODO: Going to change below to a label, and will link to LoginUI
+            success.setText("verified!");
         }else{
-            //Going to change below to a label
-            System.out.println("verification unsuccessful");
+            success.setText("Try again");
         }
     }
 }
