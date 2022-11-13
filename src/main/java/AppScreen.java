@@ -3,39 +3,47 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import testerEntities.*;
 
 
-public class AppScreen implements AppScreenPresenter, AppScreenController {
+public class AppScreen implements AppScreenPresenter, AppScreenController, ChatName {
 
-    final JFrame JFRAME;
-    final User CURR_USER;
-    public ArrayList<Chat> chats;
+    final JFrame jFrame;
+    final User currentUser;
+    private ArrayList<Chat> chats;
 
 
-    /*
+    /**
     Create an AppScreen object
     @param chats This is a list of chats given by the user (the list will always come as sorted with the
     most recent chats at the end of the list)
      */
-    public AppScreen(ArrayList<Chat> chats, User user) {
-        this.CURR_USER = user;
-        this.JFRAME = new JFrame();
-        this.JFRAME.setSize(200, 500);
-        this.JFRAME.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    public AppScreen(User user, ArrayList<Chat> chats) {
+        this.currentUser = user;
+        this.chats = chats;
+        this.jFrame = new JFrame();
+        this.jFrame.setSize(300, 500);
+        this.jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+
+        // top panel containing the buttons for creating a new chat
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new GridLayout(1,2));
+        JButton addPrivateChat = new JButton("+ Private Chat");
+        JButton addGroupChat = new JButton("+ Group Chat");
+
+        // TODO: implement the action listeners for +PrivateChat and +GroupChat
+
+        topPanel.add(addPrivateChat);
+        topPanel.add(addGroupChat);
+        this.jFrame.add(topPanel, BorderLayout.NORTH);
 
         this.chats = chats;
-
         displayAppScreen();
 
     }
 
-    /*
-    Return true if a chat has an update (e.g. new message, new chat created, changes to conversation
-    history), and add/move the chat to the end of the chats list.
-    Note: If a chat has no update, this method shouldn't be called.
-    @param chat The chat with the new update
-    @return true
-     */
+    @Override
     public boolean hasUpdate(Chat chat){
 
         if (this.chats.contains(chat)) {
@@ -48,12 +56,12 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
             this.chats.add(chat);
         }
         // refresh the screen
-        this.JFRAME.revalidate();
+        this.jFrame.revalidate();
         return true;
     }
 
 
-    /*
+    /**
     Display a screen containing an ordered list of chats to the user based on latest conversation times
      */
     public void displayAppScreen(){
@@ -63,8 +71,9 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
         // getting the names of each chat to display and creating buttons for each chat
         for (Chat chat : chats) {
 
-            String chatName = getName(chat);
+            String chatName = getChatName(chat);
             JButton b = new JButton(chatName);
+            b.setPreferredSize(new Dimension(200, 40));
 
             // defines the action of opening a chat when a chat is clicked on
             b.addActionListener(new ActionListener() {
@@ -80,31 +89,21 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
             });
             jPanel.add(b);
         }
-        jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
+        //jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
+        jPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+        jPanel.setPreferredSize(new Dimension(100, 500));
+        jPanel.setMaximumSize(new Dimension(100, 500));
+        jPanel.setBorder(BorderFactory.createTitledBorder("My Chats"));
+        jFrame.getContentPane().add(jPanel);
 
         // making the chat list scrollable
         scrollableChats(jPanel);
 
-        this.JFRAME.setVisible(true);
+        this.jFrame.setVisible(true);
 
     }
 
-    /*
-    Return the username of the user that the current user is conversing with. Right now, this method
-    only works for private chats, and would need to add another case for group chats.
-    @param chat The subject chat
-    @return The username to be displayed
-     */
-    public String getName(Chat chat){
-        for (User user: chat.getUsers()){
-            if (!(user.equals(this.CURR_USER))){
-                return user.getUsername();
-            }
-        }
-        throw new RuntimeException("The current user is not part of this chat");
-    }
-
-    /*
+    /**
     Make the chat list scrollable
     @param jPanel The panel containing the chats
      */
@@ -112,8 +111,17 @@ public class AppScreen implements AppScreenPresenter, AppScreenController {
         JScrollPane scrollFrame = new JScrollPane(jPanel);
         scrollFrame.setAutoscrolls(true);
         scrollFrame.setPreferredSize(new Dimension( 200,500));
-        this.JFRAME.add(scrollFrame);
+        this.jFrame.add(scrollFrame);
     }
 
 
+    /**
+     * Get the name of the chat
+     * @param chat The chat in context
+     * @return name
+     */
+    @Override
+    public String getChatName(Chat chat) {
+        return chat.getName();
+    }
 }
