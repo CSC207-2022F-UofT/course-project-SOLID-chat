@@ -15,6 +15,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
                 try{
                     user = (User)in.readObject();
                 }catch(NullPointerException e){
+                    user = null;
                     break;
                 }
             }while(!user.getEmail().equals(email) && !user.getUsername().equals(username));
