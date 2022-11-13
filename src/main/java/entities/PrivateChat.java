@@ -37,4 +37,7 @@ public class PrivateChat extends Chat{
         return this.recipientUsername;
     }
 
+    public void setRecipientUsername(String recipientUsername) {
+        this.recipientUsername= recipientUsername;
+    }
 }

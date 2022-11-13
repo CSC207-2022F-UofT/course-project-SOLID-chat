@@ -160,7 +160,23 @@ class ChatView extends JFrame implements  ActionListener{
 
         }
     }
+    public static void main(String args[]) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ChatView chat = new ChatView();
+                chat.chatdisplay();
 
+                chat.addbutton.addActionListener(chat);
+                //todo
+                //after chat history is done next line code can run.
+//                chat.send.addActionListener(chat);
+
+
+            }
+        });
+
+    }
 
 }
 

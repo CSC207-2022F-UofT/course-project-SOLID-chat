@@ -1,4 +1,7 @@
 package chatlinitation;
+
+import entities.PrivateChat;
+
 /**
  * chatviewmodel  connects our ChatView UI to our Entities.
  * It provide data to the view, so that view can put that data on the screen.
@@ -24,7 +27,7 @@ public class ChatViewmodel {
 
     // when we click the  addbutton for username.our private chat should update it's Recipientusername.
     public void setRecipientUsername(String recipientUsername) {
-        this.privatechat.setrecipientUsername(recipientUsername) ;
+        this.privatechat.setRecipientUsername(recipientUsername) ;
     }
 
 
@@ -32,7 +35,7 @@ public class ChatViewmodel {
     //and privatechat should  the txtmessage to conversation.
     public void setMessage(String content) {
         this.txtmessage.setMsgContent(content) ;
-        privatechatchat.addtoconvHist(txtmessage);
+        privatechat.addtoconvHist(txtmessage);
 
     }
 

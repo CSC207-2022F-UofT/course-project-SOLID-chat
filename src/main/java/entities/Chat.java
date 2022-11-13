@@ -47,8 +47,9 @@ public class Chat {
      * Add a message to the chat's conversation history when a message is sent or received
      * @param message Message that is sent or received
      */
-    public void sendRecieveMessage(Message message){
+    public void addtoconvHist(Message message){
         this.convHist.add(message);
     }
+
 
 }
