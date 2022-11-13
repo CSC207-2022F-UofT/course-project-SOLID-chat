@@ -2,7 +2,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> 15-userdatabase-and-user
 import java.util.List;
 
 public class UserDatabaseTest {
@@ -24,6 +27,10 @@ public class UserDatabaseTest {
     public void rightEmailWrongUser(){
         File accounts = new File("TestUserDatabase2.csv");
         UserDatabase accountDatabase = new UserDatabase(accounts);
+<<<<<<< HEAD
+=======
+        accountDatabase.createUser("MadhavGopakumar", "123", "madhavgopan2000@gmail.com", "Basic");
+>>>>>>> 15-userdatabase-and-user
         Assertions.assertTrue(accountDatabase.UserExists("MadG", "madhavgopan2000@gmail.com"));
     }
     @Test
