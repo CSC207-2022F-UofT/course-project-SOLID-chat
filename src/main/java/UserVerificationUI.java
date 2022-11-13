@@ -40,6 +40,8 @@ public class UserVerificationUI implements UserVerifier, ActionListener {
         verificationPanel.add(verifyButton);
         verifyButton.addActionListener(this);
         verificationFrame.setVisible(true);
+
+        this.sendVerificationCode(email);
     }
     //Sends this.code to the email address given by String email
     public void sendVerificationCode(String email){

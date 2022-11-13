@@ -81,13 +81,12 @@ public class UserRegistrationUI implements UserRegistrationUseCase, ActionListen
             database.createUser(username, password, email, "Basic");
             registrationSuccess.setText("Your account has been created, please verify to login");
             UserVerificationUI verifyUser = new UserVerificationUI(code);
-            verifyUser.sendVerificationCode(email);
             verifyUser.verify(email);
         }
     }
     //For Testing purposes
     public static void main(String[] args){
-        UserDatabase testDB = new UserDatabase(new File("TestUserDatabase2.csv"));
+        UserDatabase testDB = new UserDatabase(new File("TestUserDatabase3.csv"));
         System.out.println(testDB.UserExists("RandomUser", "abdfeg@gmail.com"));
         UserRegistrationUI testUI = new UserRegistrationUI(testDB);
         testUI.GetUserCredentials();
