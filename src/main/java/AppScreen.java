@@ -9,7 +9,7 @@ import testerEntities.*;
 public class AppScreen implements AppScreenPresenter, AppScreenController, ChatName {
 
     final JFrame jFrame;
-    final User currentUser;
+    final String currentUserName;
     private ArrayList<Chat> chats;
 
 
@@ -18,8 +18,8 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     @param chats This is a list of chats given by the user (the list will always come as sorted with the
     most recent chats at the end of the list)
      */
-    public AppScreen(User user, ArrayList<Chat> chats) {
-        this.currentUser = user;
+    public AppScreen(String currentUserName, ArrayList<Chat> chats) {
+        this.currentUserName = currentUserName;
         this.chats = chats;
         this.jFrame = new JFrame();
         this.jFrame.setSize(300, 500);
@@ -31,6 +31,9 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         topPanel.setLayout(new GridLayout(1,2));
         JButton addPrivateChat = new JButton("+ Private Chat");
         JButton addGroupChat = new JButton("+ Group Chat");
+
+        addPrivateChat.setPreferredSize(new Dimension(40, 30));
+        addGroupChat.setPreferredSize(new Dimension(40, 30));
 
         // TODO: implement the action listeners for +PrivateChat and +GroupChat
 
@@ -44,20 +47,17 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     }
 
     @Override
-    public boolean hasUpdate(Chat chat){
+    public void update(Chat chat){
 
         if (this.chats.contains(chat)) {
             this.chats.remove(chat);
-            ArrayList<Chat> temp = new ArrayList<>(this.chats);
-            temp.add(chat);
-            this.chats = temp;
+            this.chats.add(chat);
         }
         else {
             this.chats.add(chat);
         }
         // refresh the screen
-        this.jFrame.revalidate();
-        return true;
+        displayAppScreen();
     }
 
 
@@ -66,14 +66,19 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
      */
     public void displayAppScreen(){
 
+
         JPanel jPanel = new JPanel();
 
         // getting the names of each chat to display and creating buttons for each chat
-        for (Chat chat : chats) {
+        for (int i = this.chats.size() - 1; i > -1; i--) {
 
-            String chatName = getChatName(chat);
+            String chatName = getChatName(this.chats.get(i));
             JButton b = new JButton(chatName);
-            b.setPreferredSize(new Dimension(200, 40));
+            b.setPreferredSize(new Dimension(280, 50));
+            JLabel jLabel = new JLabel("time");
+            jLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+            jLabel.setFont(new Font(null, Font.BOLD, 11));
+            b.add(jLabel);
 
             // defines the action of opening a chat when a chat is clicked on
             b.addActionListener(new ActionListener() {
@@ -89,7 +94,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
             });
             jPanel.add(b);
         }
-        //jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
+
         jPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
         jPanel.setPreferredSize(new Dimension(100, 500));
         jPanel.setMaximumSize(new Dimension(100, 500));
@@ -110,7 +115,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     private void scrollableChats(JPanel jPanel) {
         JScrollPane scrollFrame = new JScrollPane(jPanel);
         scrollFrame.setAutoscrolls(true);
-        scrollFrame.setPreferredSize(new Dimension( 200,500));
+        scrollFrame.setPreferredSize(new Dimension( 100,500));
         this.jFrame.add(scrollFrame);
     }
 
