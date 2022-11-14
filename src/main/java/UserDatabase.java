@@ -35,7 +35,17 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
         return false;
     }
 
-    // Creates a new user with a username and password, and an email address
+    @Override
+    public boolean UserExists(String username) {
+        for(User user: this.accountList){
+            if(user.getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+        // Creates a new user with a username and password, and an email address
     // The order is username, password, email address, verification status, status
     //
     @Override
@@ -56,7 +66,6 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
     }
 
     @Override
-//  To be edited to get user from the array format rather than the serialized format.
     public User getUser(String username) {
         User ans = null;
         for (int i = 0; i < (this.getList().size()); i++) {

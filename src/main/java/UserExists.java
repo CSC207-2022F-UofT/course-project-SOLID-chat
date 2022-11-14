@@ -1,3 +1,4 @@
 public interface UserExists {
-    boolean UserExists(String username, String password);
+    boolean UserExists(String username, String email);
+    boolean UserExists(String username);
 }
