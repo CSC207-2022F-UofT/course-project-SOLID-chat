@@ -11,10 +11,6 @@ import java.io.File;
 public class UserSearchUI implements UserPresenter{
     private JLabel label;
 
-//    setting up access to the database of users:
-    UserDatabase db = UserDatabase(accounts);
-
-
     public UserSearchUI() {
         final JFrame frame = new JFrame();
         frame.setSize(300, 100);
@@ -39,9 +35,12 @@ public class UserSearchUI implements UserPresenter{
 //  UserPresenter makes UI implement showProfile to invert the use-case --> UI dependency
     @Override
     public String showProfile(String username) {
+        //    setting up access to the database of users:
+        UserDatabase db = UserDatabase(accounts);
         if (db.UserExists(username)){
+            User user = db.getUser(username);
             UserReader reader = new UserReader();
-            String[] features = reader.UserReader(username);
+            String[] features = reader.UserReader(user);
             String email = features[1];
             return("<html>Username: " + username + "<br>Email: " + email + "</html>");
         }
