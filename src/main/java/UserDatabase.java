@@ -5,10 +5,17 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
     File accounts;
     List<User> accountList;
     public UserDatabase(){
-        this.accounts = new File("UserAccounts.csv");
+        this.accounts = new File("TestUserDatabase3.csv");
         this.accountList = this.getList();
     }
     public UserDatabase(File accounts){
+        if(!accounts.exists()){
+            try {
+                accounts.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         this.accounts = accounts;
         this.accountList = this.getList();
     }

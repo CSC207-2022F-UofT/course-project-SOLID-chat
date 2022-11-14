@@ -41,13 +41,8 @@ public class UserVerificationUI implements UserVerifier, ActionListener {
         verifyButton.addActionListener(this);
         verificationFrame.setVisible(true);
 
-        this.sendVerificationCode(email);
-    }
-    //Sends this.code to the email address given by String email
-    public void sendVerificationCode(String email){
-        /*TODO: When this is implemented, a verification code(this.code) will be sent to email with email address "email",
-           The code will be a random number that is generated, when the user presses the register
-           button(see UserRegistrationUI).*/
+        verificationMethodFactory mailMan = new verificationMethodFactory(email, "Email", code);
+        mailMan.deliverCode();
     }
 
     //For testing purposes
