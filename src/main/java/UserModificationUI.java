@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 public class UserModificationUI implements ChangeController{
     private JLabel label;
-    UserDatabase db = UserDatabase(accounts);
     public UserModificationUI() {
         final JFrame frame = new JFrame();
         frame.setSize(1200, 100);
@@ -65,6 +64,7 @@ public class UserModificationUI implements ChangeController{
 //      ChangeController makes UI implement reportChange to invert the use-case --> UI dependency
     @Override
     public boolean reportChange(String username, String password, String feature, String newFeature) {
+        UserDatabase db = UserDatabase(accounts);
         User user = db.getUser(username);
         if (user.getPassword().equals(password) && user.getUsername().equals(username)){
             user.changeFeature(feature, newFeature);
