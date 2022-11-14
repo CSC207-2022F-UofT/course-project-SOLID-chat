@@ -64,7 +64,6 @@ public class UserModificationUI implements ChangeController{
 
 //      ChangeController makes UI implement reportChange to invert the use-case --> UI dependency
     @Override
-//    TODO: fix based on new UserDatabase/ getUser features
     public boolean reportChange(String username, String password, String feature, String newFeature) {
         User user = db.getUser(username);
         if (user.getPassword().equals(password) && user.getUsername().equals(username)){
