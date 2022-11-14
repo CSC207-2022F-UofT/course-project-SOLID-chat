@@ -66,7 +66,7 @@ public class UserModificationUI implements ChangeController{
     public boolean reportChange(String username, String password, String feature, String newFeature) {
         UserDatabase db = UserDatabase(accounts);
         User user = db.getUser(username);
-        if (user.getPassword().equals(password) && user.getUsername().equals(username)){
+        if (user.PasswordMatch(password) && user.getUsername().equals(username)){
             user.changeFeature(feature, newFeature);
             return true;
         }
