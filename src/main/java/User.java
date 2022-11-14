@@ -20,6 +20,10 @@ public abstract class User implements Serializable, Changeable{
         return this.password;
     }
 
+    public Boolean PasswordMatch(String attempt){
+        return (this.getPassword().equals(attempt));
+    }
+
     @Override
 //    from Changeable
     public void changeFeature(String feature, String newFeature){
