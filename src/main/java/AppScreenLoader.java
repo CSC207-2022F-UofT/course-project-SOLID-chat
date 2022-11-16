@@ -1,5 +1,5 @@
-import testerEntities.Chat;
-import testerEntities.User;
+import testerEntities.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class AppScreenLoader implements LoginSuccess {
@@ -9,13 +9,13 @@ public class AppScreenLoader implements LoginSuccess {
     public AppScreen appScreen;
 
     /**
-     * Create the appscreen loader (and store its user and chat information)
+     * Create the app screen loader (and store its user and chat information)
      * @param username The username of the current user
-     * @param chats The chats that the user is in
      */
-    public AppScreenLoader(String username, ArrayList<Chat> chats){
+    public AppScreenLoader(String username, File accounts){
         this.username = username;
-        this.chats = chats;
+        UserChatGateway userChatsGateway = new UserChatGateway(accounts);
+        this.chats = userChatsGateway.getChats(username);
         try {
             openScreen();
         } catch (Exception e) {

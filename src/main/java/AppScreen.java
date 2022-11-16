@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import testerEntities.*;
 
 
-public class AppScreen implements AppScreenPresenter, AppScreenController, ChatName {
+public class AppScreen implements AppScreenPresenter, AppScreenController, ChatName, Refresh {
 
     final JFrame jFrame;
     final String currentUserName;
@@ -46,8 +46,12 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
     }
 
+    /**
+     * Update the order of the chats
+     * @param chat The chat that has an update
+     */
     @Override
-    public void update(Chat chat){
+    public void updateChatOrder(Chat chat){
 
         if (this.chats.contains(chat)) {
             this.chats.remove(chat);
@@ -56,10 +60,8 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         else {
             this.chats.add(chat);
         }
-        // refresh the screen
-        displayAppScreen();
-    }
 
+    }
 
     /**
     Display a screen containing an ordered list of chats to the user based on latest conversation times
@@ -99,7 +101,8 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         jPanel.setPreferredSize(new Dimension(100, 500));
         jPanel.setMaximumSize(new Dimension(100, 500));
         jPanel.setBorder(BorderFactory.createTitledBorder("My Chats"));
-        jFrame.getContentPane().add(jPanel);
+
+        //jFrame.getContentPane().add(jPanel);
 
         // making the chat list scrollable
         scrollableChats(jPanel);
@@ -114,8 +117,8 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
      */
     private void scrollableChats(JPanel jPanel) {
         JScrollPane scrollFrame = new JScrollPane(jPanel);
-        scrollFrame.setAutoscrolls(true);
-        scrollFrame.setPreferredSize(new Dimension( 100,500));
+        //scrollFrame.setAutoscroll(true);
+        scrollFrame.setPreferredSize(new Dimension( 200,500));
         this.jFrame.add(scrollFrame);
     }
 
@@ -128,5 +131,29 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     @Override
     public String getChatName(Chat chat) {
         return chat.getName();
+    }
+
+    /**
+     * Return true if the given chat as an update to its conversation history
+     * @param chat The given chat
+     * @return true/false
+     */
+    @Override
+    public boolean hasUpdate(Chat chat) {
+        return this.chats.get(this.chats.size() - 1) != chat;
+    }
+
+    /**
+     * Update the screen if the given chat has been updated
+     * @param chat The given chat
+     */
+    @Override
+    public void updateScreen(Chat chat) {
+        if (hasUpdate(chat)){
+            updateChatOrder(chat);
+
+            // refresh the screen
+            displayAppScreen();
+        }
     }
 }
