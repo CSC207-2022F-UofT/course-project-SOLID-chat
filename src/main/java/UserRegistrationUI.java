@@ -86,9 +86,11 @@ public class UserRegistrationUI implements UserRegistrationUseCase, ActionListen
     }
     //For Testing purposes
     public static void main(String[] args){
-        UserDatabase testDB = new UserDatabase();
+        UserDatabase testDB = new UserDatabase(new File("Test4"));
         System.out.println(testDB.UserExists("RandomUser", "abdfeg@gmail.com"));
+        System.out.println(testDB.getList().size());
         UserRegistrationUI testUI = new UserRegistrationUI(testDB);
+
         testUI.GetUserCredentials();
     }
 
