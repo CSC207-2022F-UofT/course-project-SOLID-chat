@@ -44,7 +44,7 @@ public class UserModificationUI implements ChangeController{
                 String username = (usernameField.getText());
                 String password = (passwordField.getText());
                 String item = cb.getSelectedItem().toString();
-                String newFeature = (passwordField.getText());
+                String newFeature = (newFeatureField.getText());
                 boolean success = reportChange(username, password, item, newFeature);
                 if (success){
                     label.setText("Your " + item + " was successfully changed.");
@@ -73,13 +73,15 @@ public class UserModificationUI implements ChangeController{
 //      ChangeController makes UI implement reportChange to invert the use-case --> UI dependency
     @Override
     public boolean reportChange(String username, String password, String feature, String newFeature) {
-        UserDatabase db = UserDatabase(accounts);
+        UserDatabase db = new UserDatabase();
         if (db.UserExists(username)){
             User user = db.getUser(username);
-            if (user.PasswordMatch(password) && user.getUsername().equals(username)){
+            if (user.PasswordMatch(password) & user.getUsername().equals(username)){
                 user.changeFeature(feature, newFeature);
+                // this serializes the change
+                db.modifyUser(username, user);
                 return true;
-        }
+            }
         }
         return false;
     }
