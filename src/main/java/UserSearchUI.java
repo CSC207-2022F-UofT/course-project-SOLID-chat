@@ -36,7 +36,7 @@ public class UserSearchUI implements UserPresenter{
     @Override
     public String showProfile(String username) {
         //    setting up access to the database of users:
-        UserDatabase db = UserDatabase(accounts);
+        UserDatabase db = new UserDatabase();
         if (db.UserExists(username)){
             User user = db.getUser(username);
             UserReader reader = new UserReader();
@@ -50,10 +50,10 @@ public class UserSearchUI implements UserPresenter{
     }
 
 // for trying out the code:
-    public static void main(String[] args) {
-        new UserSearchUI();
-
-    }
+//    public static void main(String[] args) {
+//        new UserSearchUI();
+//
+//    }
 
 }
 
