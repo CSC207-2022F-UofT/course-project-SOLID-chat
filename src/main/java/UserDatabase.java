@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList{
+public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway{
     File accounts;
     List<User> accountList;
     public UserDatabase(){
@@ -92,6 +92,26 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
             return users;
             } catch (IOException | ClassNotFoundException ex) {
             throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public void modifyUser(String oldUsername, User modified){
+//        swap in modified user to accountList
+        this.accountList.remove(this.getUser(oldUsername));
+        this.accountList.add(modified);
+
+//        overwrite the serialized file
+        try(FileOutputStream fileOut = new FileOutputStream(accounts)){
+            try(ObjectOutputStream out = new ObjectOutputStream(fileOut)){
+                out.writeObject(this.accountList);
+                out.close();
+                fileOut.close();
+            }catch(Exception e){
+                System.out.println("Error");
+            }
+        }catch(Exception e){
+            System.out.println("Error");
         }
     }
 }
