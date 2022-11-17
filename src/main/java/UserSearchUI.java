@@ -2,7 +2,7 @@
  * Provides the UI elements
  */
 import javax.swing.*;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,7 +15,7 @@ public class UserSearchUI implements UserPresenter{
         final JFrame frame = new JFrame();
         frame.setSize(300, 100);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout());
+        frame.setLayout(new FlowLayout());
 
         final JTextField field = new JTextField("Enter a username");
 
@@ -50,10 +50,10 @@ public class UserSearchUI implements UserPresenter{
     }
 
 // for trying out the code:
-//    public static void main(String[] args) {
-//        new UserSearchUI();
-//
-//    }
+    public static void main(String[] args) {
+        new UserSearchUI();
+
+    }
 
 }
 
