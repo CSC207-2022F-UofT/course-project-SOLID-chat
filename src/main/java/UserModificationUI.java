@@ -2,7 +2,7 @@
  * Provides the UI elements
  */
 import javax.swing.*;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,25 +10,34 @@ public class UserModificationUI implements ChangeController{
     private JLabel label;
     public UserModificationUI() {
         final JFrame frame = new JFrame();
-        frame.setSize(1200, 100);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout());
+        frame.setSize(500, 300);
 
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setLayout(new FlowLayout());
+
+//      Field for username
         final JTextField usernameField = new JTextField("Enter your current username");
+        usernameField.setBounds(10, 25, 100, 25);
         String username = (usernameField.getText());
 
+//      Field for password
         final JTextField passwordField = new JTextField("Enter your current password");
         String password = (passwordField.getText());
+        passwordField.setBounds(10, 25, 100, 25);
 
+//      to select feature that user wants to change
         JLabel lbl = new JLabel("<html>Select what feature<br>you wish to change</html>");
         lbl.setVisible(true);
+        lbl.setBounds(10, 25, 100, 25);
         String[] choices = { "Username","Password", "Email"};
-        final JComboBox<String> cb = new JComboBox<String>(choices);
+        final JComboBox<String> cb = new JComboBox<>(choices);
 
+//      new value of the feature
         final JTextField newFeatureField = new JTextField("Enter the new value for this feature and click OK");
-        String newFeature = (newFeatureField.getText());
+        newFeatureField.setBounds(10, 25, 100, 25);
 
 
+//      OK button to process
         JButton btn = new JButton("OK");
 
         btn.addActionListener(new ActionListener() {
@@ -65,10 +74,12 @@ public class UserModificationUI implements ChangeController{
     @Override
     public boolean reportChange(String username, String password, String feature, String newFeature) {
         UserDatabase db = UserDatabase(accounts);
-        User user = db.getUser(username);
-        if (user.PasswordMatch(password) && user.getUsername().equals(username)){
-            user.changeFeature(feature, newFeature);
-            return true;
+        if (db.UserExists){
+            User user = db.getUser(username);
+            if (user.PasswordMatch(password) && user.getUsername().equals(username)){
+                user.changeFeature(feature, newFeature);
+                return true;
+        }
         }
         return false;
     }
