@@ -4,12 +4,12 @@ import java.io.File;
 
 public class TestUserChange {
     public void correctChange() {
-        File accounts = new File("TestUserDatabase2.csv");
-        UserDatabase accountDatabase = new UserDatabase(accounts);
-        accountDatabase.createUser("parmism", "123", "parmis@gmail.com", "Basic");
+        UserDatabase db = new UserDatabase();
+        db.createUser("parmism", "123", "parmis@gmail.com", "Basic");
         UserModificationUI ui = new UserModificationUI();
-        ui.reportChange("parmism", "123", "Password", "456");
-        String actual = accountDatabase.getUser("parmism").getPassword();
-        Assertions.assertEquals("456", actual);
+        ui.reportChange("parmism", "123", "Email", "parmis@yahoo.com");
+        UserDatabase db2 = new UserDatabase();
+        String actual = db2.getUser("parmism").getEmail();
+        Assertions.assertEquals("parmis@yahoo.com", actual);
     }
 }
