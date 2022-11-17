@@ -4,29 +4,23 @@ import java.util.List;
 public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList{
     File accounts;
     List<User> accountList;
+    public UserDatabase(){
+        this.accounts = new File("TestUserDatabase3.csv");
+        this.accountList = this.getList();
+    }
     public UserDatabase(File accounts){
+        if(!accounts.exists()){
+            try {
+                accounts.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         this.accounts = accounts;
         this.accountList = this.getList();
     }
     @Override
     public boolean UserExists(String username, String email) {
-        /*User user = null;
-        try(FileInputStream fileIn = new FileInputStream(accounts);
-        ObjectInputStream in = new ObjectInputStream(fileIn)){
-            do{
-                try{
-                    user = (User)in.readObject();
-                }catch(NullPointerException e){
-                    user = null;
-                    break;
-                }
-            }while(!user.getEmail().equals(email) && !user.getUsername().equals(username));
-        }catch(IOException e){
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return user != null;*/
         for(User user: this.accountList){
             if(user.getUsername().equals(username) || user.getEmail().equals(email)){
                 return true;
@@ -41,10 +35,10 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
     @Override
     public void createUser(String username, String password, String email, String type){
         User newUser = UserFactory.BirthUser(username, password, email, type);
+        this.accountList.add(newUser);
         try(FileOutputStream fileOut = new FileOutputStream(accounts)){
             try(ObjectOutputStream out = new ObjectOutputStream(fileOut)){
-                out.writeObject(newUser);
-                this.accountList.add(newUser);
+                out.writeObject(this.accountList);
                 out.close();
                 fileOut.close();
             }catch(Exception e){
@@ -72,19 +66,22 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
     public List<User> getList() {
         List<User> users = new ArrayList<>();
         try(FileInputStream fileIn = new FileInputStream(accounts);
-            ObjectInputStream in = new ObjectInputStream(fileIn)){
-            /*User user = (User) in.readObject();*/
+            ObjectInputStream in = new ObjectInputStream(fileIn)) {
+
+            users = (ArrayList<User>) in.readObject();
+            /*
             while(true){
                 try{
                     User user = (User) in.readObject();
                     users.add(user);}
                 catch(EOFException e){
                     break;
-                }
-            }
-        }catch(Exception e){
-            e.printStackTrace();
+                }*/
+            return users;
+        }catch(EOFException e){
+            return users;
+            } catch (IOException | ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
         }
-        return users;
     }
 }
