@@ -1,7 +1,16 @@
+package UI;
+
+import Controllers.IRetrieveList;
+import Controllers.UserExists;
+import Entities.User;
+import Entities.UserFactory;
+import UseCase.UserCreator;
+import UseCase.UserRetriever;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList{
+public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList {
     File accounts;
     List<User> accountList;
     public UserDatabase(){
@@ -72,7 +81,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
             /*
             while(true){
                 try{
-                    User user = (User) in.readObject();
+                    Entities.User user = (Entities.User) in.readObject();
                     users.add(user);}
                 catch(EOFException e){
                     break;

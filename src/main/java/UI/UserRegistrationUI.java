@@ -1,9 +1,9 @@
-import junit.framework.JUnit4TestAdapter;
+package UI;
 
+import Controllers.UserRegistrationUseCase;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 import java.io.File;
 
 public class UserRegistrationUI implements UserRegistrationUseCase, ActionListener {
@@ -18,7 +18,7 @@ public class UserRegistrationUI implements UserRegistrationUseCase, ActionListen
 
     public UserRegistrationUI(UserDatabase database) {
         this.database = database;
-        /*TODO: For now the code is 389 for testing purposes, but once UserVerificationUI.sendVerificationCode() is
+        /*TODO: For now the code is 389 for testing purposes, but once UI.UserVerificationUI.sendVerificationCode() is
             implemented this will be a random integer.
         */
         /*code = new Random().nextInt(1244254);*/
@@ -86,7 +86,7 @@ public class UserRegistrationUI implements UserRegistrationUseCase, ActionListen
     }
     //For Testing purposes
     public static void main(String[] args){
-        UserDatabase testDB = new UserDatabase(new File("Test4"));
+        UserDatabase testDB = new UserDatabase(new File("Test5"));
         System.out.println(testDB.UserExists("RandomUser", "abdfeg@gmail.com"));
         System.out.println(testDB.getList().size());
         UserRegistrationUI testUI = new UserRegistrationUI(testDB);

@@ -1,3 +1,8 @@
+package UI;
+
+import UseCase.UserVerifier;
+import UseCase.verificationMethodFactory;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,7 +52,7 @@ public class UserVerificationUI implements UserVerifier, ActionListener {
 
     //For testing purposes
     /*public static void main(String[] args){
-        UserVerificationUI ver = new UserVerificationUI(389);
+        UI.UserVerificationUI ver = new UI.UserVerificationUI(389);
         ver.verify("abc");
     }*/
 
