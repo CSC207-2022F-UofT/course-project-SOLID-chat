@@ -29,6 +29,16 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
         return false;
     }
 
+    @Override
+    public boolean UserExists(String username) {
+        for(User user: this.accountList){
+            if(user.getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Creates a new user with a username and password, and an email address
     // The order is username, password, email address, verification status, status
     //
