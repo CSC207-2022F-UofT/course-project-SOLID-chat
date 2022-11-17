@@ -18,11 +18,9 @@ public class UserModificationUI implements ChangeController{
 //      Field for username
         final JTextField usernameField = new JTextField("Enter your current username");
         usernameField.setBounds(10, 25, 100, 25);
-        String username = (usernameField.getText());
 
 //      Field for password
         final JTextField passwordField = new JTextField("Enter your current password");
-        String password = (passwordField.getText());
         passwordField.setBounds(10, 25, 100, 25);
 
 //      to select feature that user wants to change
@@ -43,6 +41,8 @@ public class UserModificationUI implements ChangeController{
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String username = (usernameField.getText());
+                String password = (passwordField.getText());
                 String item = cb.getSelectedItem().toString();
                 String newFeature = (passwordField.getText());
                 boolean success = reportChange(username, password, item, newFeature);
