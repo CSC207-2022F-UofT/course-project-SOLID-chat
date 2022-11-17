@@ -63,9 +63,9 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
 //  To be edited to get user from the array format rather than the serialized format.
     public User getUser(String username) {
         User ans = null;
-        for (int i = 0; i < (this.getList().size()); i++) {
-            if (this.getList().get(i).getUsername().equals(username)) {
-                ans = this.getList().get(i);
+        for (int i = 0; i < (this.accountList.size()); i++) {
+            if (this.accountList.get(i).getUsername().equals(username)) {
+                ans = this.accountList.get(i);
             }
         }
         return ans;
