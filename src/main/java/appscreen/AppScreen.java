@@ -95,8 +95,9 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         }
 
         jPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
-        jPanel.setPreferredSize(new Dimension(100, 500));
-        jPanel.setMaximumSize(new Dimension(100, 500));
+
+        // set height of panel to appropriate size based on the number of chats
+        jPanel.setPreferredSize(new Dimension(100, 60 * this.chats.size()));
         jPanel.setBorder(BorderFactory.createTitledBorder("My Chats"));
 
 
@@ -115,7 +116,8 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         JScrollPane scrollFrame = new JScrollPane(jPanel);
         jScrollPane = scrollFrame;
         scrollFrame.setPreferredSize(new Dimension( 200,500));
-        jFrame.add(scrollFrame);
+        scrollFrame. getVerticalScrollBar().setUnitIncrement(5);
+        jFrame.getContentPane().add(scrollFrame);
     }
 
 
@@ -147,7 +149,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
     /**
      * Add a new chat to the screen, if the chat already exists (i.e. there exists a chat with the
-     * same ID, do nothing.
+     * same ID, do nothing)
      * @param chat The new chat to be added
      */
     public void addNewChat(Chat chat){
