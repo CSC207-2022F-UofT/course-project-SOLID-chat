@@ -1,5 +1,6 @@
 package UI;
 
+import Controllers.UserRegistrationUseCase;
 import UseCase.UserVerifier;
 import UseCase.verificationMethodFactory;
 
@@ -7,19 +8,26 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-public class UserVerificationUI implements UserVerifier, ActionListener {
+public class UserRegistrationController implements UserVerifier, ActionListener, UserRegistrationUseCase {
+    private final String username;
+    private final String password;
+    private final String email;
+    private UserDatabase database;
     Random random;
     private final int code;
     private JTextField verificationCodeText;
     private JLabel success;
 
-    public UserVerificationUI(int code){
+    public UserRegistrationController(int code, String Username, String Password, String email, UserDatabase database){
         this.code = code;
+        this.username = Username;
+        this.password = Password;
+        this.email = email;
+        this.database = database;
     }
 
     //Asks for the verification code from the user, and matches it with this.code to potentially verify the user
     public void verify(String email){
-        //Creating the UI to input the verification code
         JFrame verificationFrame = new JFrame();
         verificationFrame.setSize(400, 200);
         verificationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +58,14 @@ public class UserVerificationUI implements UserVerifier, ActionListener {
         mailMan.deliverCode();
     }
 
+    public void registerUser() {
+        if(database.UserExists(this.username, this.email)){
+            System.out.println("A user with this username or email already exists");
+        }else{
+            this.verify(email);
+        }
+    }
+
     //For testing purposes
     /*public static void main(String[] args){
         UI.UserVerificationUI ver = new UI.UserVerificationUI(389);
@@ -59,11 +75,11 @@ public class UserVerificationUI implements UserVerifier, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int verCode = Integer.parseInt(verificationCodeText.getText());
-        if(code == verCode){
-            //TODO: Going to change below to a label, and will link to LoginUI
-            success.setText("verified!");
+        if(verCode == this.code){
+            database.createUser(this.username, this.password, this.email, "Basic");
+            System.out.println("Verification successful");
         }else{
-            success.setText("Try again");
+            System.out.println("Could not verify please try again");
         }
     }
 }

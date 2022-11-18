@@ -1,12 +1,11 @@
 package UI;
 
-import Controllers.UserRegistrationUseCase;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class UserRegistrationUI implements UserRegistrationUseCase, ActionListener {
+public class UserRegistrationUI implements ActionListener {
     private final UserDatabase database;
     private JLabel registrationSuccess;
     private JTextField usernameText;
@@ -73,17 +72,21 @@ public class UserRegistrationUI implements UserRegistrationUseCase, ActionListen
 
         registerFrame.setVisible(true);
     }
-    @Override
-    public void registerUser(String username, String password, String email) {
+    /*@Override*/
+    /*public void registerUser(String username, String password, String email) {
         if(database.UserExists(username, email)){
             registrationSuccess.setText("The username or password is already in use, please try again");
         }else{
-            database.createUser(username, password, email, "Basic");
-            registrationSuccess.setText("Your account has been created, please verify to login");
-            UserVerificationUI verifyUser = new UserVerificationUI(code);
-            verifyUser.verify(email);
+            registrationSuccess.setText("Please verify to create your account");
+            UserVerificationUI verifyUser = new UserVerificationUI(code, email);
+            if(verifyUser.verify(email)){
+                database.createUser(username, password, email, "Basic");
+                registrationSuccess.setText("Your account is now created");
+            }else{
+                registrationSuccess.setText("You could not be verified, please try again");
+            };
         }
-    }
+    }*/
     //For Testing purposes
     public static void main(String[] args){
         UserDatabase testDB = new UserDatabase(new File("Test5"));
@@ -99,7 +102,7 @@ public class UserRegistrationUI implements UserRegistrationUseCase, ActionListen
         String username = usernameText.getText();
         String password = passwordText.getText();
         String email = emailText.getText();
-        this.registerUser(username, password, email);
-
+        UserRegistrationController verifyUser = new UserRegistrationController(code, username, password, email, database);
+        verifyUser.registerUser();
     }
 }
