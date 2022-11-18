@@ -162,7 +162,6 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         }
     }
 
-
     /**
      * Update the order of chats that appear on screen if there was a change to conversation history
      * @param chatID The ID of the given chat
