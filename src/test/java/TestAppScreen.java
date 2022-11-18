@@ -1,6 +1,7 @@
 
-import java.io.File;
 import java.util.ArrayList;
+
+import appscreen.AppScreen;
 import testerEntities.*;
 
 public class TestAppScreen {
@@ -34,14 +35,14 @@ public class TestAppScreen {
         myChats.add(privateChat2);
         myChats.add(privateChat1);
         AppScreen appScreen = new AppScreen("Amy", myChats);
-//        AppScreenLoader appScreenLoader = new AppScreenLoader("amy", myChats);
+//        appscreen.AppScreenLoader appScreenLoader = new appscreen.AppScreenLoader("amy", myChats);
 //        appScreenLoader.openScreen();
 //        appScreenLoader.appScreen.updateScreen(privateChat2);
         appScreen.updateScreen(groupChat2);
         //appScreen.update(groupChat1);
         //myChats.add(privateChat1);
         //appScreen.displayAppScreen();
-        //AppScreenLoader appScreenLoader = new AppScreenLoader("Amy", myChats);
+        //appscreen.AppScreenLoader appScreenLoader = new appscreen.AppScreenLoader("Amy", myChats);
 
 
     }
