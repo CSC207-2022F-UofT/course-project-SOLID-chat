@@ -1,3 +1,5 @@
+package appscreen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,8 +10,9 @@ import testerEntities.*;
 
 public class AppScreen implements AppScreenPresenter, AppScreenController, ChatName, Refresh {
 
-    final JFrame jFrame;
-    final String currentUserName;
+    private final JFrame jFrame;
+    private JScrollPane jScrollPane;
+    private final String currentUsername;
     private ArrayList<Chat> chats;
 
 
@@ -18,12 +21,12 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     @param chats This is a list of chats given by the user (the list will always come as sorted with the
     most recent chats at the end of the list)
      */
-    public AppScreen(String currentUserName, ArrayList<Chat> chats) {
-        this.currentUserName = currentUserName;
+    public AppScreen(String currentUsername, ArrayList<Chat> chats) {
+        this.currentUsername = currentUsername;
         this.chats = chats;
-        this.jFrame = new JFrame();
-        this.jFrame.setSize(300, 500);
-        this.jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jFrame = new JFrame();
+        jFrame.setSize(300, 500);
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 
         // top panel containing the buttons for creating a new chat
@@ -35,11 +38,11 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         addPrivateChat.setPreferredSize(new Dimension(40, 30));
         addGroupChat.setPreferredSize(new Dimension(40, 30));
 
-        // TODO: implement the action listeners for +PrivateChat and +GroupChat
+        // TODO: implement the action listeners for the buttons +PrivateChat and +GroupChat
 
         topPanel.add(addPrivateChat);
         topPanel.add(addGroupChat);
-        this.jFrame.add(topPanel, BorderLayout.NORTH);
+        jFrame.add(topPanel, BorderLayout.NORTH);
 
         this.chats = chats;
         openScreen();
@@ -47,18 +50,14 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     }
 
     /**
-     * Update the order of the chats
-     * @param chat The chat that has an update
+     * Attempts to open the screen to display to the user
      */
-
-    public void updateChatOrder(Chat chat){
-
-        if (this.chats.contains(chat)) {
-            this.chats.remove(chat);
-            this.chats.add(chat);
-        }
-        else {
-            this.chats.add(chat);
+    @Override
+    public void openScreen() {
+        try{
+            displayAppScreen();
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to to open screen");
         }
 
     }
@@ -102,12 +101,11 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         jPanel.setMaximumSize(new Dimension(100, 500));
         jPanel.setBorder(BorderFactory.createTitledBorder("My Chats"));
 
-        //jFrame.getContentPane().add(jPanel);
 
         // making the chat list scrollable
         scrollableChats(jPanel);
 
-        this.jFrame.setVisible(true);
+        jFrame.setVisible(true);
 
     }
 
@@ -117,9 +115,9 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
      */
     private void scrollableChats(JPanel jPanel) {
         JScrollPane scrollFrame = new JScrollPane(jPanel);
-        //scrollFrame.setAutoscroll(true);
+        jScrollPane = scrollFrame;
         scrollFrame.setPreferredSize(new Dimension( 200,500));
-        this.jFrame.add(scrollFrame);
+        jFrame.add(scrollFrame);
     }
 
 
@@ -134,36 +132,51 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     }
 
     /**
-     * Return true if the given chat as an update to its conversation history
-     * @param chat The given chat
-     * @return true/false
+     * Update the order of the chats
+     * @param chat The chat that has an update
      */
-    @Override
-    public boolean hasUpdate(Chat chat) {
-        return this.chats.get(this.chats.size() - 1) != chat;
+    public void updateChatOrder(Chat chat){
+
+        if (this.chats.contains(chat)) {
+            this.chats.remove(chat);
+            this.chats.add(chat);
+        }
+        else {
+            this.chats.add(chat);
+        }
+
     }
+
 
     /**
      * Update the screen if the given chat has been updated
-     * @param chat The given chat
+     * @param chatID The ID of the given chat
      */
     @Override
-    public void updateScreen(Chat chat) {
-        if (hasUpdate(chat)){
-            updateChatOrder(chat);
+    public void updateScreen(String chatID) {
+        if (hasUpdate(chatID)){
+
+            updateChatOrder(getChat(chatID));
+            jFrame.remove(this.jScrollPane);
 
             // refresh the screen
             displayAppScreen();
         }
     }
 
+    /**
+     * Return true if the given chat as an update to its conversation history
+     * @param chatID The ID of the given chat
+     * @return true/false
+     */
     @Override
-    public void openScreen() {
-        displayAppScreen();
+    public boolean hasUpdate(String chatID) {
+        Chat chat = getChat(chatID);
+        return this.chats.get(this.chats.size() - 1) != chat;
     }
 
     @Override
-    public Chat getUpdatedChat(String chatID) {
+    public Chat getChat(String chatID) {
         for (Chat chat: this.chats){
             if (chat.getChatID().equals(chatID)){
                 return chat;
@@ -172,4 +185,11 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         throw new RuntimeException("Current user is not part of this chat");
     }
 
+    /**
+     * Get the username of the current user
+     * @return currentUserName
+     */
+    public String getCurrentUsername() {
+        return currentUsername;
+    }
 }

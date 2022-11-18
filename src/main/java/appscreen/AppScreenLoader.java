@@ -1,5 +1,6 @@
+package appscreen;
+
 import testerEntities.*;
-import java.io.File;
 import java.util.ArrayList;
 
 public class AppScreenLoader implements LoginSuccess {
@@ -11,11 +12,11 @@ public class AppScreenLoader implements LoginSuccess {
     /**
      * Create the app screen loader (and store its user and chat information)
      * @param username The username of the current user
+     * @param userDataBase User information
      */
-    public AppScreenLoader(String username, File accounts){
+    public AppScreenLoader(String username, UserDataBase userDataBase){
         this.username = username;
-        UserChatGateway userChatsGateway = new UserChatGateway(accounts);
-        this.chats = userChatsGateway.getChats(username);
+        this.chats = userDataBase.getUserChats(username);
         try {
             openScreen();
         } catch (Exception e) {
@@ -25,7 +26,7 @@ public class AppScreenLoader implements LoginSuccess {
     }
 
     /**
-     * Open an app screen for the user to see containing all their chats
+     * Open an app screen for the user to see all their chats
      */
     @Override
     public void openScreen() {

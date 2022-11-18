@@ -1,6 +1,4 @@
-import testerEntities.*;
-import java.util.ArrayList;
-
+package appscreen;
 public interface LoginSuccess {
     void openScreen();
 }

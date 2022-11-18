@@ -1,5 +1,7 @@
+package appscreen;
+
 import testerEntities.*;
 public interface AppScreenController extends LoginSuccess{
-    Chat getUpdatedChat(String chatID);
+    Chat getChat(String chatID);
 
 }
