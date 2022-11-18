@@ -42,7 +42,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         this.jFrame.add(topPanel, BorderLayout.NORTH);
 
         this.chats = chats;
-        displayAppScreen();
+        openScreen();
 
     }
 
@@ -50,7 +50,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
      * Update the order of the chats
      * @param chat The chat that has an update
      */
-    @Override
+
     public void updateChatOrder(Chat chat){
 
         if (this.chats.contains(chat)) {
@@ -156,4 +156,20 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
             displayAppScreen();
         }
     }
+
+    @Override
+    public void openScreen() {
+        displayAppScreen();
+    }
+
+    @Override
+    public Chat getUpdatedChat(String chatID) {
+        for (Chat chat: this.chats){
+            if (chat.getChatID().equals(chatID)){
+                return chat;
+            }
+        }
+        throw new RuntimeException("Current user is not part of this chat");
+    }
+
 }

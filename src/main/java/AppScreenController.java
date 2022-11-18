@@ -1,6 +1,5 @@
 import testerEntities.*;
-public interface AppScreenController {
-
-    void updateChatOrder(Chat chat);
+public interface AppScreenController extends LoginSuccess{
+    Chat getUpdatedChat(String chatID);
 
 }
