@@ -26,7 +26,7 @@ public class AppScreenLoader implements LoginSuccess {
     }
 
     /**
-     * Open an app screen for the user to see all their chats
+     * Create the screen to show to the user
      */
     @Override
     public void openScreen() {

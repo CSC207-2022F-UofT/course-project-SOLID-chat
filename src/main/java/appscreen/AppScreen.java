@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import testerEntities.*;
 
-
 public class AppScreen implements AppScreenPresenter, AppScreenController, ChatName, Refresh {
 
     private final JFrame jFrame;
@@ -17,9 +16,9 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
 
     /**
-    Create an appscreen.AppScreen object
-    @param chats This is a list of chats given by the user (the list will always come as sorted with the
-    most recent chats at the end of the list)
+     Create an AppScreen object
+     @param chats This is a list of chats given by the user (the list will always come as sorted with the
+     most recent chats at the end of the list)
      */
     public AppScreen(String currentUsername, ArrayList<Chat> chats) {
         this.currentUsername = currentUsername;
@@ -63,10 +62,9 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     }
 
     /**
-    Display a screen containing an ordered list of chats to the user based on latest conversation times
+     Display a screen containing an ordered list of chats to the user based on latest conversation times
      */
     public void displayAppScreen(){
-
 
         JPanel jPanel = new JPanel();
 
@@ -88,7 +86,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
                 public void actionPerformed(ActionEvent e) {
 
                     /* TODO: call chatView to open the display the window (?) for chat
-                     - not sure if appscreen.AppScreen and ChatView would be combined into one window, or
+                     - not sure if AppScreen and ChatView would be combined into one window, or
                        two separate windows
                      */
                 }
@@ -110,8 +108,8 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     }
 
     /**
-    Make the chat list scrollable
-    @param jPanel The panel containing the chats
+     Make the chat list scrollable
+     @param jPanel The panel containing the chats
      */
     private void scrollableChats(JPanel jPanel) {
         JScrollPane scrollFrame = new JScrollPane(jPanel);
@@ -147,9 +145,26 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
     }
 
+    /**
+     * Add a new chat to the screen, if the chat already exists (i.e. there exists a chat with the
+     * same ID, do nothing.
+     * @param chat The new chat to be added
+     */
+    public void addNewChat(Chat chat){
+
+        if (!(this.chats.contains(chat))){
+            updateChatOrder(chat);
+            jFrame.remove(this.jScrollPane);
+
+            // refresh the screen
+            displayAppScreen();
+
+        }
+    }
+
 
     /**
-     * Update the screen if the given chat has been updated
+     * Update the order of chats that appear on screen if there was a change to conversation history
      * @param chatID The ID of the given chat
      */
     @Override
@@ -175,6 +190,11 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         return this.chats.get(this.chats.size() - 1) != chat;
     }
 
+    /**
+     * Get the chat object given its chat ID
+     * @param chatID The ID of the chat
+     * @return The chat with the given ID
+     */
     @Override
     public Chat getChat(String chatID) {
         for (Chat chat: this.chats){
