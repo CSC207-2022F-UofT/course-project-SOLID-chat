@@ -17,7 +17,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
 
     /**
-    Create an AppScreen object
+    Create an appscreen.AppScreen object
     @param chats This is a list of chats given by the user (the list will always come as sorted with the
     most recent chats at the end of the list)
      */
@@ -88,7 +88,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
                 public void actionPerformed(ActionEvent e) {
 
                     /* TODO: call chatView to open the display the window (?) for chat
-                     - not sure if AppScreen and ChatView would be combined into one window, or
+                     - not sure if appscreen.AppScreen and ChatView would be combined into one window, or
                        two separate windows
                      */
                 }

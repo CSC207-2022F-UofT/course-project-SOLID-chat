@@ -1,5 +1,9 @@
 package appscreen;
+
+import testerEntities.*;
+
 public interface Refresh {
-    boolean hasUpdate(String chatID);
-    void updateScreen(String chatID);
+    boolean hasUpdate(Chat chat);
+
+    void updateScreen(Chat chat);
 }
