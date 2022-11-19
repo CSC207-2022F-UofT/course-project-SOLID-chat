@@ -3,13 +3,11 @@ package conversation_history_use_case;
 public class MsgSenderRequestModel {
     private String senderID;
     private Object msgContent;
-    private String userID;
     private String chatID;
 
-    public MsgSenderRequestModel(String senderID, Object msgContent, String userID, String chatID) {
+    public MsgSenderRequestModel(String senderID, Object msgContent, String chatID) {
         this.senderID = senderID;
         this.msgContent = msgContent;
-        this.userID = userID;
         this.chatID = chatID;
     }
 
@@ -27,14 +25,6 @@ public class MsgSenderRequestModel {
 
     public void setMsgContent(Object msgContent) {
         this.msgContent = msgContent;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
     }
 
     public String getChatID() {

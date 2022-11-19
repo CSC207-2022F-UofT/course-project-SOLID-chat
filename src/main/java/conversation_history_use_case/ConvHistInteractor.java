@@ -50,7 +50,7 @@ public class ConvHistInteractor{
         Message message = msgFactory.createMsg(requestModel.getSenderID(), requestModel.getMsgContent());
 
         // Add message to specified chat in user list
-        String userID = requestModel.getUserID();  // need a user in the chat to get the chat
+        String userID = requestModel.getSenderID();  // need a user in the chat to get the chat
         String chatID = requestModel.getChatID();
 
         MsgSenderDsRequestModel dsRequestModel = new MsgSenderDsRequestModel(userID, chatID, message);
