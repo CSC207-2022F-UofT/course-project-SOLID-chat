@@ -1,7 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway{
+public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway,
+ConvHistGateway, MsgSenderGateway {
     File accounts;
     List<User> accountList;
     public UserDatabase(){
@@ -114,4 +115,36 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
             System.out.println("Error");
         }
     }
+
+    // Below two methods are used by conversation history-related interactors
+    // (Commented as objects are not found)
+//    /**
+//     * Pushes a new message to a chat's conversation history (in memory not persisting storage)
+//     * @param dsRequestModel input data containing user ID, chat ID, message content
+//     */
+//    public void saveMessage(MsgSenderDsRequestModel dsRequestModel) {
+//        String userID = dsRequestModel.getUserID();
+//        String chatID = dsRequestModel.getChatID();
+//        Message message = dsRequestModel.getMessage();
+//
+//        // Find chat under specified User
+//        Chat chat = this.getUser(userID).getChat(chatID);
+//
+//        chat.addMessage(message);
+//    }
+//
+//    /**
+//     * Gets a chat's conversation history (from memory not persisting storage)
+//     * @param dsRequestModel input data containing user ID, chat ID
+//     * @return a chat's conversation history
+//     */
+//    public ArrayList<Message> getConversationHistory(ConvHistDsRequestModel dsRequestModel) {
+//        String userID = dsRequestModel.getUserID();
+//        String chatID = dsRequestModel.getChatID();
+//
+//        // Find chat under specified User
+//        Chat chat = this.getUser(userID).getChat(chatID);
+//
+//        return Chat.getConversationHistory();
+//    }
 }
