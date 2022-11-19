@@ -1,4 +1,4 @@
-package Controllers;
+package ControllersPresentersGateways;
 
 public interface UserExists {
     boolean UserExists(String username, String password);

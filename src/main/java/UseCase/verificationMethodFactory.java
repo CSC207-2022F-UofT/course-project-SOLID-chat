@@ -10,6 +10,7 @@ public class verificationMethodFactory {
     int code;
     ISendVerificationCode mailMan;
     public verificationMethodFactory(String credential, String type, int code){
+        this.code = code;
         this.credential = credential;
         this.type = type;
         if(type.equals("Phone")){

@@ -1,9 +1,12 @@
 package UI;
 
+import ControllersPresentersGateways.UserRegistrationController;
+import ControllersPresentersGateways.UserRegistrationGateway;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Random;
 
 public class UserRegistrationUI implements ActionListener {
     private final UserDatabase database;
@@ -12,7 +15,8 @@ public class UserRegistrationUI implements ActionListener {
     private JTextField passwordText;
     private JTextField emailText;
     private JButton register;
-
+    private static JButton phoneVerify = new JButton("Phone");
+    private static JButton emailVerify = new JButton("Email");
     private final int code;
 
     public UserRegistrationUI(UserDatabase database) {
@@ -20,8 +24,7 @@ public class UserRegistrationUI implements ActionListener {
         /*TODO: For now the code is 389 for testing purposes, but once UI.UserVerificationUI.sendVerificationCode() is
             implemented this will be a random integer.
         */
-        /*code = new Random().nextInt(1244254);*/
-        code = 389;
+        code = new Random().nextInt(1244254);
     }
     void GetUserCredentials(){
         //Front end related objects
@@ -72,22 +75,27 @@ public class UserRegistrationUI implements ActionListener {
 
         registerFrame.setVisible(true);
     }
-    /*@Override*/
-    /*public void registerUser(String username, String password, String email) {
-        if(database.UserExists(username, email)){
-            registrationSuccess.setText("The username or password is already in use, please try again");
-        }else{
-            registrationSuccess.setText("Please verify to create your account");
-            UserVerificationUI verifyUser = new UserVerificationUI(code, email);
-            if(verifyUser.verify(email)){
-                database.createUser(username, password, email, "Basic");
-                registrationSuccess.setText("Your account is now created");
-            }else{
-                registrationSuccess.setText("You could not be verified, please try again");
-            };
-        }
-    }*/
-    //For Testing purposes
+
+    public void getPreferredDeliveryMethod(){
+        JFrame preference = new JFrame();
+        preference.setSize(400, 200);
+        JPanel preferancePanel = new JPanel();
+        preference.add(preferancePanel);
+
+        JLabel message = new JLabel("Send verification code via:");
+        message.setBounds(30, 120, 300, 20);
+        preferancePanel.add(message);
+
+        emailVerify.setBounds(30, 150, 140, 25);
+        emailVerify.addActionListener(this);
+        phoneVerify.setBounds(150, 150, 140, 25);
+        phoneVerify.addActionListener(this);
+        preferancePanel.add(emailVerify);
+        preferancePanel.add(phoneVerify);
+        preference.setVisible(true);
+
+    }
+
     public static void main(String[] args){
         UserDatabase testDB = new UserDatabase(new File("Test5"));
         System.out.println(testDB.UserExists("RandomUser", "abdfeg@gmail.com"));
@@ -102,7 +110,20 @@ public class UserRegistrationUI implements ActionListener {
         String username = usernameText.getText();
         String password = passwordText.getText();
         String email = emailText.getText();
-        UserRegistrationController verifyUser = new UserRegistrationController(code, username, password, email, database);
-        verifyUser.registerUser();
+
+        UserRegistrationGateway properties = new UserRegistrationGateway();
+        properties.setUsername(username);
+        properties.setPassword(password);
+        properties.setEmail(email);
+        properties.setUserExists(database.UserExists(username, email));
+        properties.setCode(code);
+        properties.setDatabase(this.database);
+        getPreferredDeliveryMethod();
+        //Not an error below, we just have not implemented sending code via phone yet.
+        if(e.getSource() == emailVerify || e.getSource() == phoneVerify){
+            properties.setPreference("Email");
+            UserRegistrationController verifyUser = new UserRegistrationController(properties);
+            verifyUser.registerUser();
+        }
     }
 }

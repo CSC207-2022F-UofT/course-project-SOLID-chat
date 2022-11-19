@@ -1,7 +1,7 @@
 package UI;
 
-import Controllers.IRetrieveList;
-import Controllers.UserExists;
+import ControllersPresentersGateways.IRetrieveList;
+import ControllersPresentersGateways.UserExists;
 import Entities.User;
 import Entities.UserFactory;
 import UseCase.UserCreator;
@@ -78,14 +78,6 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
             ObjectInputStream in = new ObjectInputStream(fileIn)) {
 
             users = (ArrayList<User>) in.readObject();
-            /*
-            while(true){
-                try{
-                    Entities.User user = (Entities.User) in.readObject();
-                    users.add(user);}
-                catch(EOFException e){
-                    break;
-                }*/
             return users;
         }catch(EOFException e){
             return users;
