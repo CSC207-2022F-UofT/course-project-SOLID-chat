@@ -1,8 +1,12 @@
+package Screens;
+
+import Entities.User;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway,
-ConvHistGateway, MsgSenderGateway {
+        ConvHistGateway, MsgSenderGateway {
     File accounts;
     List<User> accountList;
     public UserDatabase(){
@@ -83,7 +87,7 @@ ConvHistGateway, MsgSenderGateway {
             /*
             while(true){
                 try{
-                    User user = (User) in.readObject();
+                    Entities.User user = (Entities.User) in.readObject();
                     users.add(user);}
                 catch(EOFException e){
                     break;
@@ -127,7 +131,7 @@ ConvHistGateway, MsgSenderGateway {
 //        String chatID = dsRequestModel.getChatID();
 //        Message message = dsRequestModel.getMessage();
 //
-//        // Find chat under specified User
+//        // Find chat under specified Entities.User
 //        Chat chat = this.getUser(userID).getChat(chatID);
 //
 //        chat.addMessage(message);
@@ -142,7 +146,7 @@ ConvHistGateway, MsgSenderGateway {
 //        String userID = dsRequestModel.getUserID();
 //        String chatID = dsRequestModel.getChatID();
 //
-//        // Find chat under specified User
+//        // Find chat under specified Entities.User
 //        Chat chat = this.getUser(userID).getChat(chatID);
 //
 //        return Chat.getConversationHistory();

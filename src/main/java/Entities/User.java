@@ -1,5 +1,7 @@
+package Entities;
+
 import java.io.Serializable;
-public abstract class User implements Serializable, Changeable{
+public abstract class User implements Serializable, Changeable {
     protected String username;
     protected String password;
     protected String email;
@@ -25,7 +27,7 @@ public abstract class User implements Serializable, Changeable{
     }
 
     @Override
-//    from Changeable
+//    from UseCases.Changeable
     public void changeFeature(String feature, String newFeature){
         if (feature == "Username"){
             this.username = newFeature;
