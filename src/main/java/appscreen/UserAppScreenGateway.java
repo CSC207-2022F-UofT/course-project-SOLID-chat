@@ -1,10 +1,12 @@
 package appscreen;
 
+import testerEntities.User;
+
 import java.util.ArrayList;
 
 public class UserAppScreenGateway implements Username {
 
-    private final UserDataBase userDataBase;
+    private final UserDatabase userDatabase;
     private String username;
     private ArrayList<Chat> userChats;
 
@@ -12,8 +14,8 @@ public class UserAppScreenGateway implements Username {
      * Create gateway between user and appscreen
      * @param userDataBase The user database
      */
-    public UserAppScreenGateway(UserDataBase userDataBase){
-        this.userDataBase = userDataBase;
+    public UserAppScreenGateway(UserDatabase userDatabase){
+        this.userDatabase = userDatabase;
     }
 
     /**
