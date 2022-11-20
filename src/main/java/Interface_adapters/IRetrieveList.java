@@ -1,6 +1,6 @@
 package Interface_adapters;
 
-import Entities.User_Entities.User;
+import entities.user_entities.User;
 
 import java.util.List;
 

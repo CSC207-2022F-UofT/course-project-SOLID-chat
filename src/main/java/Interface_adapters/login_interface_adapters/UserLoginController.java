@@ -1,6 +1,6 @@
 package Interface_adapters.login_interface_adapters;
 
-import Entities.User_Entities.User;
+import entities.user_entities.User;
 import Interface_adapters.UserRetriever;
 
 import javax.swing.*;

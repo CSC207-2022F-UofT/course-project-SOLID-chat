@@ -1,10 +1,10 @@
 package data_access;
 
-import Entities.User_Entities.User;
+import entities.user_entities.User;
 import Interface_adapters.*;
 import Interface_adapters.UserModificationGateway;
 import use_cases.UserCreator;
-import use_cases.UserFactory;
+import entities.user_entities.UserFactory;
 import Interface_adapters.UserRetriever;
 
 import java.io.*;

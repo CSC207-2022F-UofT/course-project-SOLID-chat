@@ -1,4 +1,4 @@
-package Screens.login_screen;
+package screens.login_screen;
 import Interface_adapters.login_interface_adapters.UserLoginController;
 import Interface_adapters.login_interface_adapters.UserLoginGateway;
 import Interface_adapters.UserRetriever;

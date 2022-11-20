@@ -1,7 +1,7 @@
-package Entities.User_Entities;
+package entities.user_entities;
 
 import Interface_adapters.login_interface_adapters.Login;
-import use_cases.Changeable;
+import use_cases.user_attribute_modification_use_case.Changeable;
 
 import java.io.Serializable;
 public abstract class User implements Serializable, Changeable, Login {
@@ -25,12 +25,8 @@ public abstract class User implements Serializable, Changeable, Login {
         return this.password;
     }
 
-    public Boolean PasswordMatch(String attempt){
-        return (this.password.equals(attempt));
-    }
-
     @Override
-//    from UseCases.Changeable
+//    from Changeable
     public void changeFeature(String feature, String newFeature){
         if (feature == "Username"){
             this.username = newFeature;
