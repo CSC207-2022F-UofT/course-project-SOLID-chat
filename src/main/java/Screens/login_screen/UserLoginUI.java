@@ -1,7 +1,7 @@
-package Screens;
-import Interface_adapters.UserLoginController;
-import Interface_adapters.UserLoginGateway;
-import UseCases.UserRetriever;
+package Screens.login_screen;
+import Interface_adapters.login_interface_adapters.UserLoginController;
+import Interface_adapters.login_interface_adapters.UserLoginGateway;
+import Interface_adapters.UserRetriever;
 import data_access.UserDatabase;
 
 import javax.swing.*;

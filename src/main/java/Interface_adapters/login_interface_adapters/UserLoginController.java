@@ -1,7 +1,7 @@
-package Interface_adapters;
+package Interface_adapters.login_interface_adapters;
 
-import Entities.User;
-import UseCases.UserRetriever;
+import Entities.User_Entities.User;
+import Interface_adapters.UserRetriever;
 
 import javax.swing.*;
 
@@ -11,9 +11,9 @@ public class UserLoginController {
     private final UserRetriever database;
 
     public UserLoginController(UserLoginGateway properties){
-        this.credential = properties.credential;
-        this.password = properties.password;
-        this.database = properties.database;
+        this.credential = properties.getCredential();
+        this.password = properties.getPassword();
+        this.database = properties.getDatabase();
     }
 
     public void allowLogin(){

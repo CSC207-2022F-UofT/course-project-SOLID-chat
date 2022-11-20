@@ -1,4 +1,4 @@
-import Entities.User;
+import Entities.User_Entities.User;
 import data_access.UserDatabase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,4 @@
-package Entities;
-
-import Entities.User;
+package Entities.User_Entities;
 
 public class BasicUser extends User {
     public BasicUser(String Username, String Password, String Email){

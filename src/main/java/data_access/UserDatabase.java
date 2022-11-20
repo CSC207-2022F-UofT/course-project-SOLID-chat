@@ -1,10 +1,11 @@
 package data_access;
 
-import Entities.User;
+import Entities.User_Entities.User;
 import Interface_adapters.*;
-import UseCases.UserCreator;
-import UseCases.UserFactory;
-import UseCases.UserRetriever;
+import Interface_adapters.UserModificationGateway;
+import use_cases.UserCreator;
+import use_cases.UserFactory;
+import Interface_adapters.UserRetriever;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
             /*
             while(true){
                 try{
-                    Entities.User user = (Entities.User) in.readObject();
+                    Entities.User_Entities.User user = (Entities.User_Entities.User) in.readObject();
                     users.add(user);}
                 catch(EOFException e){
                     break;
@@ -135,7 +136,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
 //        String chatID = dsRequestModel.getChatID();
 //        Message message = dsRequestModel.getMessage();
 //
-//        // Find chat under specified Entities.User
+//        // Find chat under specified Entities.User_Entities.User
 //        Chat chat = this.getUser(userID).getChat(chatID);
 //
 //        chat.addMessage(message);
@@ -150,7 +151,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
 //        String userID = dsRequestModel.getUserID();
 //        String chatID = dsRequestModel.getChatID();
 //
-//        // Find chat under specified Entities.User
+//        // Find chat under specified Entities.User_Entities.User
 //        Chat chat = this.getUser(userID).getChat(chatID);
 //
 //        return Chat.getConversationHistory();

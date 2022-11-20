@@ -1,7 +1,7 @@
-package Entities;
+package Entities.User_Entities;
 
-import Interface_adapters.Login;
-import UseCases.Changeable;
+import Interface_adapters.login_interface_adapters.Login;
+import use_cases.Changeable;
 
 import java.io.Serializable;
 public abstract class User implements Serializable, Changeable, Login {
