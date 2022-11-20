@@ -1,14 +1,18 @@
 import java.io.Serializable;
+import java.util.ArrayList;
+
 public abstract class User implements Serializable, Changeable{
     protected String username;
     protected String password;
     protected String email;
     boolean verified = false;
     boolean online = false;
+//    protected ArrayList<Chat> chats;
     public User(String username, String password, String email){
         this.username = username;
         this.password = password;
         this.email = email;
+//        this.chats = new ArrayList<Chat>();
     }
     public String getEmail(){
         return this.email;
@@ -19,6 +23,10 @@ public abstract class User implements Serializable, Changeable{
     private String getPassword(){
         return this.password;
     }
+
+//    public ArrayList<Chat> getChats() {
+//        return this.chats;
+//    }
 
     public Boolean PasswordMatch(String attempt){
         return (this.getPassword().equals(attempt));
