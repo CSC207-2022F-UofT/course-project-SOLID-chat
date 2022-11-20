@@ -1,3 +1,4 @@
+import data_access.UserDatabase;
 import screens.Profile_screen.UserSearchUI;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
