@@ -2,7 +2,7 @@ package appscreen;
 
 import testerEntities.*;
 
-public interface AppScreenController extends LoginSuccess{
+public interface AppScreenController{
     Chat getChat(String chatID);
 
 }

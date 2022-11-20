@@ -3,7 +3,7 @@ package appscreen;
 import testerEntities.*;
 import java.util.ArrayList;
 
-public class AppScreenLoader implements LoginSuccess {
+public class AppScreenLoader implements AppScreenPresenter {
 
     private final String username;
     private final ArrayList<Chat> chats;
