@@ -1,3 +1,5 @@
+package entities.user_entities;
+
 import use_cases.user_attribute_modification_use_case.Changeable;
 
 import java.io.Serializable;
