@@ -1,11 +1,10 @@
 package appscreen;
 
+import testerEntities.Chat;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import testerEntities.*;
 
 public class AppScreen implements AppScreenPresenter, AppScreenController, ChatName, Refresh {
 
@@ -31,13 +30,24 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         // top panel containing the buttons for creating a new chat
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(1,2));
+
         JButton addPrivateChat = new JButton("+ Private Chat");
         JButton addGroupChat = new JButton("+ Group Chat");
 
         addPrivateChat.setPreferredSize(new Dimension(40, 30));
         addGroupChat.setPreferredSize(new Dimension(40, 30));
 
-        // TODO: implement the action listeners for the buttons +PrivateChat and +GroupChat
+        // adding the action listeners for the +private-chat and +group-chat buttons
+        addPrivateChat.addActionListener(e -> {
+            ChatView newChat = new ChatView(currentUsername, true);
+            newChat.chatDisplay();
+
+        });
+        addGroupChat.addActionListener(e -> {
+            ChatView newChat = new ChatView(currentUsername, true);
+            newChat.chatDisplay();
+        });
+
 
         topPanel.add(addPrivateChat);
         topPanel.add(addGroupChat);
@@ -80,16 +90,10 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
             b.add(jLabel);
 
             // defines the action of opening a chat when a chat is clicked on
-            b.addActionListener(new ActionListener() {
+            b.addActionListener(e -> {
 
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                    /* TODO: call chatView to open the display the window (?) for chat
-                     - not sure if AppScreen and ChatView would be combined into one window, or
-                       two separate windows
-                     */
-                }
+                ChatView newChat = new ChatView(currentUsername, false);
+                newChat.chatDisplay();
             });
             jPanel.add(b);
         }
@@ -206,11 +210,4 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         throw new RuntimeException("Current user is not part of this chat");
     }
 
-    /**
-     * Get the username of the current user
-     * @return currentUserName
-     */
-    public String getCurrentUsername() {
-        return currentUsername;
-    }
 }
