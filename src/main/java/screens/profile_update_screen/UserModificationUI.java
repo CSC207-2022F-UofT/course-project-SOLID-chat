@@ -1,7 +1,7 @@
-package profile_update_screen; /**
+package screens.profile_update_screen; /**
  * Provides the UI elements
  */
-import profile_modification_IA.ChangeController;
+import interface_adapters.profile_modification_IA.ChangeController;
 
 import javax.swing.*;
 import java.awt.*;

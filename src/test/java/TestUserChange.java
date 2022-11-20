@@ -1,5 +1,5 @@
 import org.junit.jupiter.api.Assertions;
-import profile_update_screen.UserModificationUI;
+import screens.profile_update_screen.UserModificationUI;
 
 public class TestUserChange {
     public void correctChange() {
