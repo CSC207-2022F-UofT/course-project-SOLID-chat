@@ -1,6 +1,6 @@
 package Entities;
 
-import PresentersControllersGateways.Login;
+import Interface_adapters.Login;
 import UseCases.Changeable;
 
 import java.io.Serializable;
@@ -39,6 +39,10 @@ public abstract class User implements Serializable, Changeable, Login {
         } else if (feature == "Email"){
             this.email = newFeature;
         }
+    }
+
+    public void login(){
+
     }
 
 }

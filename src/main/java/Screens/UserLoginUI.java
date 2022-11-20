@@ -1,7 +1,8 @@
 package Screens;
-import Entities.User;
-import PresentersControllersGateways.UserLoginGateway;
+import Interface_adapters.UserLoginController;
+import Interface_adapters.UserLoginGateway;
 import UseCases.UserRetriever;
+import data_access.UserDatabase;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -59,6 +60,8 @@ public class UserLoginUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         UserLoginGateway properties = new UserLoginGateway(credentialText.getText(), passwordText.getText(), this.database);
+        UserLoginController guard = new UserLoginController(properties);
+        guard.allowLogin();
 
     }
 }

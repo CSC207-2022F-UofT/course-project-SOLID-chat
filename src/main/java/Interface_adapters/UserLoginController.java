@@ -1,4 +1,4 @@
-package PresentersControllersGateways;
+package Interface_adapters;
 
 import Entities.User;
 import UseCases.UserRetriever;
@@ -16,12 +16,12 @@ public class UserLoginController {
         this.database = properties.database;
     }
 
-    public void allowLogin(String credential, String password){
-        User user = database.getUser(credential);
+    public void allowLogin(){
+        User user = database.getUser(this.credential);
         try{
-            boolean allowLogin = user.PasswordMatch(password);
+            boolean allowLogin = user.PasswordMatch(this.password);
             if(allowLogin){
-                user.login(user);
+                user.login();
             }else{
                 accessDenied("Wrong Password");
             }

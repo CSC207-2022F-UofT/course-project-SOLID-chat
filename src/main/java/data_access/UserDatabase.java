@@ -1,7 +1,7 @@
-package Screens;
+package data_access;
 
 import Entities.User;
-import PresentersControllersGateways.*;
+import Interface_adapters.*;
 import UseCases.UserCreator;
 import UseCases.UserFactory;
 import UseCases.UserRetriever;

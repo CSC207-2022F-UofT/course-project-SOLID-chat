@@ -1,4 +1,4 @@
-package PresentersControllersGateways;
+package Interface_adapters;
 
 public interface UserExists {
     boolean UserExists(String username, String email);
