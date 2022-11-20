@@ -1,7 +1,7 @@
 package Interface_adapters.login_interface_adapters;
 
 import entities.user_entities.User;
-import Interface_adapters.UserRetriever;
+import Interface_adapters.User_search_IA.UserRetriever;
 
 import javax.swing.*;
 

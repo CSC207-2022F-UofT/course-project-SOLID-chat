@@ -1,4 +1,4 @@
-package Interface_adapters;
+package Interface_adapters.user_registration_interface_adapter;
 
 public interface UserExists {
     boolean UserExists(String username, String email);

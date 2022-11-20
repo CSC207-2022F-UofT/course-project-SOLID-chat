@@ -1,11 +1,12 @@
 package data_access;
 
+import Interface_adapters.User_search_IA.IRetrieveList;
+import Interface_adapters.user_registration_interface_adapter.UserExists;
 import entities.user_entities.User;
-import Interface_adapters.*;
-import Interface_adapters.UserModificationGateway;
-import use_cases.UserCreator;
+import Interface_adapters.profile_modification_IA.UserModificationGateway;
+import use_cases.user_registration_use_cases.UserCreator;
 import entities.user_entities.UserFactory;
-import Interface_adapters.UserRetriever;
+import Interface_adapters.User_search_IA.UserRetriever;
 
 import java.io.*;
 import java.util.ArrayList;

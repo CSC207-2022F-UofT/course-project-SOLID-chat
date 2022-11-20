@@ -1,4 +1,4 @@
-package Interface_adapters;
+package Interface_adapters.User_search_IA;
 
 import entities.user_entities.User;
 

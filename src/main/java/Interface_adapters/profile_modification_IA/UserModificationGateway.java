@@ -1,4 +1,4 @@
-package Interface_adapters;
+package Interface_adapters.profile_modification_IA;
 
 import entities.user_entities.User;
 
