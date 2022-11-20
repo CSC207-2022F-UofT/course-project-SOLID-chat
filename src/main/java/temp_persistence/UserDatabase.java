@@ -46,6 +46,6 @@ public class UserDatabase{  // this needs to extend an interface
         // Find chat under specified User
         Chat chat = temp_accounts.get(userID).getChats().get(chatID);
 
-        return Chat.getConversationHistory();
+        return chat.getConversationHistory();
     }
 }
