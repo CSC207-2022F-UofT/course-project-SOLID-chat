@@ -1,7 +1,10 @@
 package screens.profile_update_screen; /**
  * Provides the UI elements
  */
+import data_access.UserDatabase;
+import entities.user_entities.User;
 import interface_adapters.profile_modification_IA.ChangeController;
+import interface_adapters.user_registration_interface_adapters.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,7 +79,7 @@ public class UserModificationUI implements ChangeController {
     @Override
     public boolean reportChange(String username, String password, String feature, String newFeature) {
         UserDatabase db = new UserDatabase();
-        if (db.UserExists(username)){
+        if (db.UserExists(username, "")){
             User user = db.getUser(username);
             if (user.PasswordMatch(password) & user.getUsername().equals(username)){
                 user.changeFeature(feature, newFeature);
