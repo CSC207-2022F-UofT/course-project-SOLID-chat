@@ -1,8 +1,12 @@
+package data_access;
+
+import entities.userEntities.User;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway,
-ConvHistGateway, MsgSenderGateway, UserChatGateway {
+        ConvHistGateway, MsgSenderGateway, UserChatGateway {
     File accounts;
     List<User> accountList;
     public UserDatabase(){
@@ -83,7 +87,7 @@ ConvHistGateway, MsgSenderGateway, UserChatGateway {
             /*
             while(true){
                 try{
-                    User user = (User) in.readObject();
+                    entities.userEntities.User user = (entities.userEntities.User) in.readObject();
                     users.add(user);}
                 catch(EOFException e){
                     break;
@@ -128,7 +132,7 @@ ConvHistGateway, MsgSenderGateway, UserChatGateway {
 //        String chatID = dsRequestModel.getChatID();
 //        Message message = dsRequestModel.getMessage();
 //
-//        // Find chat under specified User
+//        // Find chat under specified entities.userEntities.User
 //        Chat chat = this.getUser(userID).getChat(chatID);
 //
 //        chat.addMessage(message);
@@ -143,7 +147,7 @@ ConvHistGateway, MsgSenderGateway, UserChatGateway {
 //        String userID = dsRequestModel.getUserID();
 //        String chatID = dsRequestModel.getChatID();
 //
-//        // Find chat under specified User
+//        // Find chat under specified entities.userEntities.User
 //        Chat chat = this.getUser(userID).getChat(chatID);
 //
 //        return Chat.getConversationHistory();
@@ -156,7 +160,7 @@ ConvHistGateway, MsgSenderGateway, UserChatGateway {
 // also be used by ChatInteractor  (Chat entity is undefined here and at the moment user doesn't have chats)
 //    @Override
 //    public ArrayList<Chat> getUserChats(String username) {
-//        for (User user: accountList){
+//        for (entities.userEntities.User user: accountList){
 //            if (user.getUsername().equals(username)){
 //                return user.getChats();
 //            }

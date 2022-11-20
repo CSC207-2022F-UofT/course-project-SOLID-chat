@@ -1,3 +1,7 @@
+package entities.userEntities;
+
+import interface_adapters.User.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -34,7 +38,7 @@ public abstract class User implements Serializable, Changeable, UserAuthenticati
     }
 
     @Override
-//    from Changeable
+//    from interface_adapters.User.Changeable
     public void changeFeature(String feature, String newFeature){
         if (feature == "Username"){
             this.username = newFeature;
