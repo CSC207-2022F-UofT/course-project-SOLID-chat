@@ -2,7 +2,7 @@ package data_access;
 
 import interface_adapters.IRetrieveList;
 import interface_adapters.user_registration_interface_adapters.UserExists;
-import entities.user_entities.User;
+import entities.user_entities.*;
 import entities.user_entities.UserFactory;
 import use_cases.user_login_use_case.UserCreator;
 import interface_adapters.UserRetriever;
