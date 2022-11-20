@@ -1,6 +1,8 @@
 package screens.profile_update_screen; /**
  * Provides the UI elements
  */
+import data_access.UserDatabase;
+import entities.userEntities.User;
 import interface_adapters.profile_modification_IA.ChangeController;
 
 import javax.swing.*;

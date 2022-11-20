@@ -1,6 +1,11 @@
 package data_access;
 
 import entities.userEntities.User;
+import entities.userEntities.UserFactory;
+import interface_adapters.Chat.ConvHistGateway;
+import interface_adapters.Chat.MsgSenderGateway;
+import interface_adapters.Chat.UserChatGateway;
+import interface_adapters.User.*;
 
 import java.io.*;
 import java.util.ArrayList;
