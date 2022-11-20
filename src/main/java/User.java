@@ -1,7 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class User implements Serializable, Changeable{
+public abstract class User implements Serializable, Changeable, UserAuthenticationI {
     protected String username;
     protected String password;
     protected String email;
@@ -28,6 +28,7 @@ public abstract class User implements Serializable, Changeable{
 //        return this.chats;
 //    }
 
+    @Override
     public Boolean PasswordMatch(String attempt){
         return (this.getPassword().equals(attempt));
     }
