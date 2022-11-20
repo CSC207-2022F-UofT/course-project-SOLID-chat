@@ -1,6 +1,5 @@
 package appscreen;
 
-import testerEntities.*;
 import java.util.ArrayList;
 
 public class AppScreenLoader implements AppScreenPresenter {
@@ -12,11 +11,10 @@ public class AppScreenLoader implements AppScreenPresenter {
     /**
      * Create the app screen loader (and store its user and chat information)
      * @param username The username of the current user
-     * @param userDataBase User information
      */
-    public AppScreenLoader(String username, UserDataBase userDataBase){
+    public AppScreenLoader(String username, ArrayList<Chat> chats){
         this.username = username;
-        this.chats = userDataBase.getUserChats(username);
+        this.chats = chats;
         try {
             openScreen();
         } catch (Exception e) {
@@ -33,17 +31,4 @@ public class AppScreenLoader implements AppScreenPresenter {
         this.appScreen = new AppScreen(this.username, this.chats);
     }
 
-    /**
-     * @return The username of the current user
-     */
-    public String getUsername(){
-        return this.username;
-    }
-
-    /**
-     * @return A list of chats that the user is in
-     */
-    public ArrayList<Chat> getChats(){
-        return new ArrayList<>(this.chats);
-    }
 }

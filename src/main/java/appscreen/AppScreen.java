@@ -1,6 +1,5 @@
 package appscreen;
 
-import testerEntities.Chat;
 
 import javax.swing.*;
 import java.awt.*;
