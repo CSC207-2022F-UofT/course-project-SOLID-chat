@@ -1,3 +1,4 @@
+import data_access.UserDatabase;
 import org.junit.jupiter.api.Assertions;
 import screens.profile_update_screen.UserModificationUI;
 
