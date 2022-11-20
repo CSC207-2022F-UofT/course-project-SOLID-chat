@@ -3,6 +3,9 @@ package entities.user_entities;
 import Interface_adapters.login_interface_adapters.Login;
 import use_cases.user_attribute_modification_use_case.Changeable;
 
+import UseCases.Changeable;
+import app_screen_interface_adapters.UserAppScreenGateway;
+
 import java.io.Serializable;
 public abstract class User implements Serializable, Changeable, Login {
     protected String username;
@@ -38,7 +41,7 @@ public abstract class User implements Serializable, Changeable, Login {
     }
 
     public void login(){
-
+        UserAppScreenGateway appScreenGateway = new UserAppScreenGateway(this.getUsername());
     }
 
 }
