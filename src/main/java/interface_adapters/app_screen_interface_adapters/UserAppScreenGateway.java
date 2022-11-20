@@ -1,7 +1,8 @@
-package app_screen_interface_adapters;
+package interface_adapters.app_screen_interface_adapters;
 
-import Interface_adapters.Login;
-import entities.User;
+import java.util.ArrayList;
+import interface_adapters.*;
+import entities.*;
 import data_access.UserDatabase;
 import java.util.ArrayList;
 
