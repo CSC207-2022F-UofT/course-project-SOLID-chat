@@ -11,11 +11,11 @@ import entities.*;
 
 //public class temp_persistence.UserDatabase implements UserExists, UserCreator{
 public class UserDatabase{  // this needs to extend an interface
-    Map<String, User> temp_accounts;
+//    Map<String, User> temp_accounts;
     File accounts;
     public UserDatabase(File accounts){
         this.accounts = accounts;
-        this.temp_accounts = new HashMap<String, User>();
+//        this.temp_accounts = new HashMap<String, User>();
         // Can have code to populate temp_accounts
     }
 
@@ -29,9 +29,9 @@ public class UserDatabase{  // this needs to extend an interface
         Message message = dsRequestModel.getMessage();
 
         // Find chat under specified User
-        Chat chat = temp_accounts.get(userID).getChats().get(chatID);
-
-        chat.addMessage(message);
+//        Chat chat = temp_accounts.get(userID).getChats().get(chatID);
+//
+//        chat.addMessage(message);
     }
 
     /**
@@ -44,8 +44,9 @@ public class UserDatabase{  // this needs to extend an interface
         String chatID = dsRequestModel.getChatID();
 
         // Find chat under specified User
-        Chat chat = temp_accounts.get(userID).getChats().get(chatID);
-
-        return chat.getConversationHistory();
+//        Chat chat = temp_accounts.get(userID).getChats().get(chatID);
+//
+//        return chat.getConversationHistory();
+        return new ArrayList<>();
     }
 }
