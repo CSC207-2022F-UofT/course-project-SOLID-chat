@@ -1,7 +1,10 @@
 package Entities;
 
+import PresentersControllersGateways.Login;
+import UseCases.Changeable;
+
 import java.io.Serializable;
-public abstract class User implements Serializable, Changeable {
+public abstract class User implements Serializable, Changeable, Login {
     protected String username;
     protected String password;
     protected String email;
@@ -23,7 +26,7 @@ public abstract class User implements Serializable, Changeable {
     }
 
     public Boolean PasswordMatch(String attempt){
-        return (this.getPassword().equals(attempt));
+        return (this.password.equals(attempt));
     }
 
     @Override

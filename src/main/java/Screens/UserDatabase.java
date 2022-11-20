@@ -1,6 +1,10 @@
 package Screens;
 
 import Entities.User;
+import PresentersControllersGateways.*;
+import UseCases.UserCreator;
+import UseCases.UserFactory;
+import UseCases.UserRetriever;
 
 import java.io.*;
 import java.util.ArrayList;
