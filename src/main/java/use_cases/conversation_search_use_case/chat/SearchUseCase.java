@@ -1,11 +1,12 @@
-package tutorial;
+package use_cases.conversation_search_use_case;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import entites.chat as 
 //try to push
 
 public class SearchUseCase implements SearchInputBoundary {
-    private final Chat c;
+    private final entities.chat.Chat c;
     private int size;
 
     private Message temp;

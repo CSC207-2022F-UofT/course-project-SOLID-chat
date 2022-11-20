@@ -1,4 +1,4 @@
-package tutorial;
+package use_cases.conversation_search_use_case;
 
 public class HelloWorld {
 
