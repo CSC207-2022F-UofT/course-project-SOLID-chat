@@ -1,12 +1,14 @@
-/**
+package profile_update_screen; /**
  * Provides the UI elements
  */
+import profile_modification_IA.ChangeController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UserModificationUI implements ChangeController{
+public class UserModificationUI implements ChangeController {
     private JLabel label;
     public UserModificationUI() {
         final JFrame frame = new JFrame();
@@ -70,7 +72,7 @@ public class UserModificationUI implements ChangeController{
         frame.setVisible(true);
     }
 
-//      ChangeController makes UI implement reportChange to invert the use-case --> UI dependency
+//      profile_modification_IA.ChangeController makes UI implement reportChange to invert the use-case --> UI dependency
     @Override
     public boolean reportChange(String username, String password, String feature, String newFeature) {
         UserDatabase db = new UserDatabase();
@@ -88,7 +90,7 @@ public class UserModificationUI implements ChangeController{
 
 // for trying out the code:
 //    public static void main(String[] args) {
-//        new UserModificationUI();
+//        new profile_update_screen.UserModificationUI();
 //
 //    }
 
