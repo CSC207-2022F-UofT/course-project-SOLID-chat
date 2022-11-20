@@ -2,7 +2,7 @@ package appscreen;
 
 import java.util.ArrayList;
 
-public class UserAppScreenGateway {
+public class UserAppScreenGateway implements Username {
 
     private final UserDataBase userDataBase;
     private String username;
@@ -21,9 +21,18 @@ public class UserAppScreenGateway {
      * @param user The current user
      */
     public void login(User user){
-        this.username = user.getUsername();
+        this.username = getUsername(user);
         this.userChats = userDataBase.getUserChats(this.username);
         AppScreenLoader appScreenLoader = new AppScreenLoader(this.username, this.userChats);
     }
 
+    /**
+     * Get the username of the user
+     * @param user The current user
+     * @return Username of the user
+     */
+    @Override
+    public String getUsername(User user) {
+        return user.getUsername();
+    }
 }
