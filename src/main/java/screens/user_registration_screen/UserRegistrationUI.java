@@ -99,7 +99,7 @@ public class UserRegistrationUI implements ActionListener {
     }
 
     public static void main(String[] args){
-        UserDatabase testDB = new UserDatabase(new File("Test5"));
+        UserDatabase testDB = new UserDatabase(new File("Test8"));
         System.out.println(testDB.UserExists("RandomUser", "abdfeg@gmail.com"));
         System.out.println(testDB.getList().size());
         UserRegistrationUI testUI = new UserRegistrationUI(testDB);
