@@ -1,4 +1,4 @@
-package conversation_history_use_case;
+package use_cases.conversation_history_use_case;
 
 public class MsgSenderRequestModel {
     private String senderID;

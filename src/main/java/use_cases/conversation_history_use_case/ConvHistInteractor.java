@@ -1,8 +1,8 @@
-package conversation_history_use_case;
+package use_cases.conversation_history_use_case;
 
-import entities.*;
-
-import temp_persistence.UserDatabase;
+import entities.message.Message;
+import entities.message.MsgFactory;
+import data_access.UserDatabase;
 
 import java.util.ArrayList;
 import java.util.List;

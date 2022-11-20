@@ -1,6 +1,6 @@
-package conversation_history_use_case;
+package use_cases.conversation_history_use_case;
 
-import entities.Message;
+import entities.message.Message;
 
 import java.util.List;
 

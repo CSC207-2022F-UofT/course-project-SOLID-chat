@@ -1,4 +1,4 @@
-package entities;
+package entities.message;
 
 import java.time.LocalDateTime;
 
