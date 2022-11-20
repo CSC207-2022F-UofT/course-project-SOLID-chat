@@ -1,4 +1,4 @@
-/**
+package Profile_screen; /**
  * Provides the UI elements
  */
 import javax.swing.*;
@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 
-public class UserSearchUI implements UserPresenter{
+public class UserSearchUI implements UserPresenter {
     private JLabel label;
 
     public UserSearchUI() {
@@ -32,7 +32,7 @@ public class UserSearchUI implements UserPresenter{
         frame.setVisible(true);
   }
 
-//  UserPresenter makes UI implement showProfile to invert the use-case --> UI dependency
+//  User_search_IA.UserPresenter makes UI implement showProfile to invert the use-case --> UI dependency
     @Override
     public String showProfile(String username) {
         //    setting up access to the database of users:
@@ -51,7 +51,7 @@ public class UserSearchUI implements UserPresenter{
 
 // for trying out the code:
 //    public static void main(String[] args) {
-//        new UserSearchUI();
+//        new Profile_screen.UserSearchUI();
 //
 //    }
 

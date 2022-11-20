@@ -1,7 +1,6 @@
+import Profile_screen.UserSearchUI;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
 
 public class TestUserSearch {
     @Test
