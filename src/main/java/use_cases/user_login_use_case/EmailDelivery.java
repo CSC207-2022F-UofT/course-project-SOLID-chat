@@ -1,4 +1,5 @@
-package UseCase;
+package use_cases.user_login_use_case;
+
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

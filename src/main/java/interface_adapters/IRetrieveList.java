@@ -1,5 +1,5 @@
-package ControllersPresentersGateways;
-import Entities.User;
+package interface_adapters;
+import Entities.user_entities.User;
 import java.util.List;
 
 public interface IRetrieveList {

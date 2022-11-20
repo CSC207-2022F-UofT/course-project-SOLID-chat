@@ -1,6 +1,4 @@
-package UseCase;
-
-import UseCase.ISendVerificationCode;
+package use_cases.user_login_use_case;
 
 public class PhoneDelivery implements ISendVerificationCode {
     public void sendVerificationCode(String phoneNumber, int code){

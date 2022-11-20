@@ -1,7 +1,9 @@
-package UI;
+package screens.user_registration_screen;
 
-import ControllersPresentersGateways.UserRegistrationController;
-import ControllersPresentersGateways.UserRegistrationGateway;
+import interface_adapters.user_registration_interface_adapters.UserRegistrationController;
+import interface_adapters.user_registration_interface_adapters.UserRegistrationGateway;
+import data_access.UserDatabase;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,8 +1,7 @@
-package ControllersPresentersGateways;
+package interface_adapters.user_registration_interface_adapters;
 
-import UseCase.UserCreator;
-import UseCase.UserVerifier;
-import UseCase.verificationMethodFactory;
+import use_cases.user_login_use_case.UserCreator;
+import use_cases.user_login_use_case.verificationMethodFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,11 +1,11 @@
-package UI;
+package data_access;
 
-import ControllersPresentersGateways.IRetrieveList;
-import ControllersPresentersGateways.UserExists;
-import Entities.User;
-import Entities.UserFactory;
-import UseCase.UserCreator;
-import UseCase.UserRetriever;
+import interface_adapters.IRetrieveList;
+import interface_adapters.user_registration_interface_adapters.UserExists;
+import Entities.user_entities.User;
+import Entities.user_entities.UserFactory;
+import use_cases.user_login_use_case.UserCreator;
+import interface_adapters.UserRetriever;
 
 import java.io.*;
 import java.util.ArrayList;

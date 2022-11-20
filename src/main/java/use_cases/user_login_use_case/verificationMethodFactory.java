@@ -1,8 +1,4 @@
-package UseCase;
-
-import UseCase.EmailDelivery;
-import UseCase.ISendVerificationCode;
-import UseCase.PhoneDelivery;
+package use_cases.user_login_use_case;
 
 public class verificationMethodFactory {
     String credential;
