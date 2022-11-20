@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway,
-ConvHistGateway, MsgSenderGateway {
+ConvHistGateway, MsgSenderGateway, UserChatGateway {
     File accounts;
     List<User> accountList;
     public UserDatabase(){
@@ -116,6 +116,7 @@ ConvHistGateway, MsgSenderGateway {
         }
     }
 
+
     // Below two methods are used by conversation history-related interactors
     // (Commented as objects are not found)
 //    /**
@@ -147,4 +148,20 @@ ConvHistGateway, MsgSenderGateway {
 //
 //        return Chat.getConversationHistory();
 //    }
+
+
+
+
+// This method will get a user's chats; this will be used by AppScreenLoader to display chats and could
+// also be used by ChatInteractor  (Chat entity is undefined here and at the moment user doesn't have chats)
+//    @Override
+//    public ArrayList<Chat> getUserChats(String username) {
+//        for (User user: accountList){
+//            if (user.getUsername().equals(username)){
+//                return user.getChats();
+//            }
+//        }
+//        throw new RuntimeException("Invalid username: user does not exist");
+//    }
+
 }
