@@ -1,4 +1,4 @@
-package Profile_screen; /**
+package screens.Profile_screen; /**
  * Provides the UI elements
  */
 import javax.swing.*;
