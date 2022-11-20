@@ -2,7 +2,7 @@ package screens.Profile_screen; /**
  * Provides the UI elements
  */
 import data_access.UserDatabase;
-import entities.user_entities.User;
+import entities.userEntities.User;
 import interface_adapters.User_search_IA.UserPresenter;
 import use_cases.user_profile_display_use_case.UserReader;
 

@@ -1,5 +1,7 @@
 package use_cases.user_profile_display_use_case;
 
+import entities.userEntities.User;
+
 import java.io.File;
 
 public class UserReader {
