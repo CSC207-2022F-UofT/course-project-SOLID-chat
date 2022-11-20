@@ -1,7 +1,8 @@
-package chatlinitation;
+package screens.chat_screen;
 
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 
 import java.awt.*;
@@ -15,7 +16,7 @@ import java.awt.event.ActionListener;
  * "userB'S username." AT the bottom of the frame, there is another text field to type a message and
  * send button to send the message
  *
- * In the middle of the frame I put andJTextArea for the chat History.
+ * In the middle of the frame there i sJpanel and Jlabels for the converstaion history.
  *
  */
 
@@ -26,22 +27,32 @@ import java.awt.event.ActionListener;
 
 class ChatView extends JFrame implements  ActionListener{
 
-    private ChatViewmodel viewmodel;
+//    private ChatInteractor chatInteractor;
     private JFrame frame ;
     private JButton addbutton;
-    private JButton send;
+    private JButton sendbutton;
     private JLabel l;
     private JLabel label;
     private JTextField usernametextfield;
     private JTextField messagetextfield;
     private JMenuBar menubar;
     private JPanel panel;
-    private JTextArea textArea;
+
+    private JPanel conversationHistoryPanel;
+    private JPanel messagePanel;
+    private JLabel testMessageHeader;
+    private JLabel testMessage;
+
+    //isNewchat check we already have a chat with a user
+    private boolean isNewchat;
+
 
 
     //this is constructor od this class
-    public ChatView(){
-        viewmodel = new ChatViewmodel();
+    public ChatView(boolean isNewchat){
+
+        this.isNewchat = isNewchat;
+
         frame= new JFrame();
 
         // create a menubar  at the top of the frame
@@ -59,7 +70,8 @@ class ChatView extends JFrame implements  ActionListener{
         addbutton = new JButton("add");
         addbutton.setFocusable(false);
 
-
+        // create conversation history-related components
+        conversationHistoryPanel = new JPanel();
 
         //create a new "panel" and new "label" and a text flied ."label"a nd "txtfield1"
         panel = new JPanel();
@@ -68,11 +80,12 @@ class ChatView extends JFrame implements  ActionListener{
 
 
         //adding "send" button
-        send = new JButton("Send");
-        send.setFocusable(false);
+        sendbutton = new JButton("Send");
+        sendbutton.setFocusable(false);
 
 
     }
+
 
 
     // create a setup for display of buttons and other component of the frame.
@@ -94,18 +107,51 @@ class ChatView extends JFrame implements  ActionListener{
         // adding label and textfiled1 to our panel .
         panel.add(label);
         panel.add(messagetextfield);
-        panel.add(send);
+        panel.add(sendbutton);
 
 
 
-        // set the text part in the middle
-        textArea = new JTextArea();
+        // add content to conversationHistoryPanel
+        conversationHistoryPanel.setLayout(new BoxLayout(conversationHistoryPanel, BoxLayout.Y_AXIS));
+
+//        messagePanel = new JPanel();
+//        messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
+//        testMessageHeader = new JLabel("Username placeholder | Timestamp placeholder");
+//        testMessage = new JLabel("Message placeholder");
+//        messagePanel.add(testMessageHeader);
+//        messagePanel.add(testMessage);
+//
+//        conversationHistoryPanel.add(messagePanel);
+
+        JPanel messagePanel1 = new JPanel();
+        messagePanel1.setLayout(new BoxLayout(messagePanel1, BoxLayout.Y_AXIS));
+        messagePanel1.setBorder(new EmptyBorder(10, 10, 10, 10));
+        JLabel testMessageHeader1 = new JLabel("Username placeholder1 | Timestamp placeholder");
+        JLabel testMessage1 = new JLabel("Message placeholder1");
+        messagePanel1.add(testMessageHeader1);
+        messagePanel1.add(testMessage1);
+
+        JPanel messagePanel2 = new JPanel();
+        messagePanel2.setLayout(new BoxLayout(messagePanel2, BoxLayout.Y_AXIS));
+        messagePanel2.setBorder(new EmptyBorder(10, 10, 10, 10));
+        JLabel testMessageHeader2 = new JLabel("Username placeholder2 | Timestamp placeholder");
+        JLabel testMessage2 = new JLabel("Message placeholder2");
+        messagePanel2.add(testMessageHeader2);
+        messagePanel2.add(testMessage2);
+
+        conversationHistoryPanel.add(messagePanel1);
+        conversationHistoryPanel.add(messagePanel2);
+
+
 
 
         //Locating the Components to the frame.
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        frame.getContentPane().add(BorderLayout.NORTH, menubar);
-        frame.getContentPane().add(BorderLayout.CENTER, textArea);
+        if (isNewchat){
+            frame.getContentPane().add(BorderLayout.NORTH, menubar);
+        }
+
+        frame.getContentPane().add(BorderLayout.CENTER, conversationHistoryPanel);
 
         // set the frame visibile
         frame.setVisible(true);
@@ -127,11 +173,14 @@ class ChatView extends JFrame implements  ActionListener{
 
 
         if (e.getSource() == addbutton){
-            String input = usernametextfield.getText();
-            frame.setTitle(input);
 
-            //set the  username in our viewmodel
-            viewmodel.setRecipientUsername(input);
+            String input = usernametextfield.getText();
+
+            frame.setTitle(input);
+            //controller:
+
+            // set the  username in our viewmodel
+//            chatInteractor.setRecipientUsername(input);
 
             //todo
             //we should find the user with username "input" from list of user's that have logged in and set the
@@ -148,12 +197,12 @@ class ChatView extends JFrame implements  ActionListener{
 
         //first is to convert textfield input to String  and set the frame title to that input.
 
-        if (e.getSource() == send){
+        if (e.getSource() == sendbutton){
             //when the messge type is STring
             String  input = usernametextfield.getText();
 
-            //setting the txtmessage content in our viewmodel
-            viewmodel.setMessage(input);
+            // getting the txtmessage content in our viewmodel
+//            chatInteractor.setMessage(input);
 
             //todo
             //this is part of the chatHisroy of UI. for now I put a text ( it may needed to change later)
@@ -164,13 +213,15 @@ class ChatView extends JFrame implements  ActionListener{
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ChatView chat = new ChatView();
+                ChatView chat = new ChatView(true);
+//                chat.getframe().setTitle("AMMY")
                 chat.chatdisplay();
 
                 chat.addbutton.addActionListener(chat);
+                chat.sendbutton.addActionListener(chat);
+
                 //todo
-                //after chat history is done next line code can run.
-//                chat.send.addActionListener(chat);
+                //chat history
 
 
             }

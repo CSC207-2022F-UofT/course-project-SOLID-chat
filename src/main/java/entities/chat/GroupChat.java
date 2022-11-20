@@ -1,12 +1,12 @@
-package entities;
+package entities.chat;
 
 import java.util.ArrayList;
 
-public class GroupChat extends Chat{
+public class GroupChat extends Chat {
 
     /*
     From Chat, GroupChat has:
-        String name;
+       String name;
         String chatID;
         String senderUsername;
         Arraylist<Message> convHist;

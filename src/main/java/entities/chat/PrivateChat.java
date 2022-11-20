@@ -1,8 +1,8 @@
-package entities;
+package entities.chat;
 
 import java.util.ArrayList;
 
-public class PrivateChat extends Chat{
+public class PrivateChat extends Chat {
 
     /*
     From Chat, PrivateChat has:
@@ -20,14 +20,16 @@ public class PrivateChat extends Chat{
      * @param chatID The ID of the chat
      * @param senderUsername    The user sending the messages
      * @param recipientUsername The user receiving the messages
+     *
      */
-    public PrivateChat(String name, String chatID, String senderUsername, String recipientUsername){
+    public PrivateChat(String name, String chatID, String senderUsername, String recipientUsername ){
         this.name = name;
         this.chatID = chatID;
         this.senderUsername = senderUsername;
         this.recipientUsername = recipientUsername;
         this.convHist = new ArrayList<Message>();
     }
+
 
     /**
      * Get the recipient's username
@@ -40,4 +42,13 @@ public class PrivateChat extends Chat{
     public void setRecipientUsername(String recipientUsername) {
         this.recipientUsername= recipientUsername;
     }
+
+    public String getSendertUsername(){
+        return this.senderUsername;
+    }
+    public String setSendertUsername(String recipientUsername){
+        this.recipientUsername = recipientUsername;
+    }
+
+
 }
