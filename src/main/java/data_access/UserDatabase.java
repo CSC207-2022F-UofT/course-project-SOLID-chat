@@ -10,8 +10,7 @@ import Interface_adapters.UserRetriever;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway,
-        ConvHistGateway, MsgSenderGateway {
+public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway {
     File accounts;
     List<User> accountList;
     public UserDatabase(){
