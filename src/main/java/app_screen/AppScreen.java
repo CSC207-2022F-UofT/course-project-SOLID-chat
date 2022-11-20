@@ -44,14 +44,15 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
         // adding the action listeners for the +private-chat and +group-chat buttons
         addPrivateChat.addActionListener(e -> {
-            ChatView newChat = new ChatView(currentUsername, true);
+            ChatView newChat = new ChatView(currentUsername, true, "");
             newChat.chatDisplay();
 
         });
-        addGroupChat.addActionListener(e -> {
-            ChatView newChat = new ChatView(currentUsername, true);
-            newChat.chatDisplay();
-        });
+        //TODO: add groupchat action
+//        addGroupChat.addActionListener(e -> {
+//            ChatView newChat = new ChatView(currentUsername, true);
+//            newChat.chatDisplay();
+//        });
 
 
         topPanel.add(addPrivateChat);
@@ -97,7 +98,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
             // defines the action of opening a chat when a chat is clicked on
             b.addActionListener(e -> {
 
-                ChatView newChat = new ChatView(currentUsername, false);
+                ChatView newChat = new ChatView(currentUsername, false, chatName);
                 newChat.chatDisplay();
             });
             jPanel.add(b);
