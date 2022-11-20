@@ -12,7 +12,7 @@ public class UserAppScreenGateway implements Username {
 
     /**
      * Create gateway between user and appscreen
-     * @param userDataBase The user database
+     * @param userDatabase The user database
      */
     public UserAppScreenGateway(UserDatabase userDatabase){
         this.userDatabase = userDatabase;
@@ -24,7 +24,7 @@ public class UserAppScreenGateway implements Username {
      */
     public void login(User user){
         this.username = getUsername(user);
-        this.userChats = userDataBase.getUserChats(this.username);
+        this.userChats = userDatabase.getUserChats(this.username);
         AppScreenLoader appScreenLoader = new AppScreenLoader(this.username, this.userChats);
     }
 
