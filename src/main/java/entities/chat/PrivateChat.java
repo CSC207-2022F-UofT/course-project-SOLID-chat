@@ -1,5 +1,7 @@
 package entities.chat;
 
+import entities.message.Message;
+
 import java.util.ArrayList;
 
 public class PrivateChat extends Chat {
@@ -46,7 +48,7 @@ public class PrivateChat extends Chat {
     public String getSendertUsername(){
         return this.senderUsername;
     }
-    public String setSendertUsername(String recipientUsername){
+    public void setSendertUsername(String recipientUsername){
         this.recipientUsername = recipientUsername;
     }
 
