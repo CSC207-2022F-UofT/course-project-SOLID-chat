@@ -38,7 +38,9 @@ public class UserSearchUI implements UserPresenter {
         frame.setVisible(true);
   }
 
-//  User_search_IA.UserPresenter makes UI implement showProfile to invert the use-case --> UI dependency
+    /**
+     * User_search_IA.UserPresenter makes UI implement showProfile to invert the use-case --> UI dependency
+     */
     @Override
     public String showProfile(String username) {
         //    setting up access to the database of users:

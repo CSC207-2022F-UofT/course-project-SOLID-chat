@@ -41,6 +41,9 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
         return false;
     }
 
+    /**
+     * Checks if a user with given Username exists.
+     */
     @Override
     public boolean UserExists(String username) {
         for(User user: this.accountList){
@@ -71,6 +74,9 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
         }
     }
 
+    /**
+     * getUser retrieves a User object based on passed username.
+     */
     @Override
 //  To be edited to get user from the array format rather than the serialized format.
     public User getUser(String username) {
@@ -107,6 +113,9 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
         }
     }
 
+    /**
+     * modifyUser updates the serialized database with modified user information.
+     */
     @Override
     public void modifyUser(String oldUsername, User modified){
 //        swap in modified user to accountList

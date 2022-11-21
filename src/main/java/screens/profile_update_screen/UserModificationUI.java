@@ -74,8 +74,9 @@ public class UserModificationUI implements ChangeController {
 
         frame.setVisible(true);
     }
-
-//      profile_modification_IA.ChangeController makes UI implement reportChange to invert the use-case --> UI dependency
+    /**
+     * profile_modification_IA.ChangeController makes UI implement reportChange to invert the use-case --> UI dependency
+     */
     @Override
     public boolean reportChange(String username, String password, String feature, String newFeature) {
         UserDatabase db = new UserDatabase();

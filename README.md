@@ -15,24 +15,24 @@ Each of us have created one or more PRs and most of these have been merged into 
 - By Parmis
 - Implemented by UserSearchUI, which allows a user to type in a user's username to view their features (user and username so far).
 - User information is captured using ChangeController interface, which uses UserDatabse interfaces to retrieve the user of interest:
-![img.png](img.png)
+- ![img.png](img.png)
 - Here, Alex123 is not a user of the chat system:
-![img_1.png](img_1.png)
+- ![img_1.png](img_1.png)
 - parmis is a user of the chat system though:
-![img_2.png](img_2.png)
+- ![img_2.png](img_2.png)
 
 ### Profile feature modification
 - By Parmis
 - Implemented by UserMdoificationUI, which allows a user to verify their authority to access their account by confirming their username and password, and then choosing the feature they wish to modify, and enter the new value for it. 
 - User information is captured using UserPresenter interface, which uses UserAuthenticationI to confirm user's authority to make the change, then uses Changeable interface (use case) to make the changes to the User entity, and finally uses UserModificationGateway to relay the changed info to UserDatabase:
-![img_3.png](img_3.png)
+- ![img_3.png](img_3.png)
 - Here: Parmis's password is actually 123, so she doesn't get the chance to change her email:
-![img_4.png](img_4.png)
+- ![img_4.png](img_4.png)
 - as you can see, her email is unchanged.
 - now she enters the right password and tries again:
-![img_5.png](img_5.png)
+- ![img_5.png](img_5.png)
 - This time, change was successful. She could use this tool to similarly change her username or password too:
-![img_6.png](img_6.png)
+- ![img_6.png](img_6.png)
 
 
 ### App Screen UI
