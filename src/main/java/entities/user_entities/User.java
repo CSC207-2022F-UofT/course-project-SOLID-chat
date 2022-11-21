@@ -47,6 +47,10 @@ public abstract class User implements Serializable, Changeable, Login {
         }
     }
 
+    public Boolean PasswordMatch(String attempt){
+        return (this.getPassword().equals(attempt));
+    }
+
     public void login(){
         UserAppScreenGateway appScreenGateway = new UserAppScreenGateway(this.getUsername());
     }
