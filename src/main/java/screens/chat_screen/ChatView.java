@@ -1,6 +1,9 @@
 package screens.chat_screen;
 
 
+import use_cases.chat_initiation_use_case.ChatInteractor;
+import use_cases.chat_initiation_use_case.CheckUsername_Interactor;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -20,25 +23,26 @@ import java.awt.event.ActionListener;
  *
  */
 
-//todo: we should complete the chatHistory in this class.
-
-
 
 
 class ChatView extends JFrame implements  ActionListener{
+    //use two Interactors .
+    private ChatInteractor chatInteractor;
+    private CheckUsername_Interactor checkusername_interactor;
 
-//    private ChatInteractor chatInteractor;
-    private JFrame frame ;
+    //Use Jframes, butttons, labels ,textfileds, Jpannels,JMenuBar for UI.
+    final JFrame frame ;
     private JButton addbutton;
-    private JButton sendbutton;
-    private JLabel l;
-    private JLabel label;
-    private JTextField usernametextfield;
-    private JTextField messagetextfield;
-    private JMenuBar menubar;
-    private JPanel panel;
+    final JButton sendbutton;
+    final JLabel l;
+    final JLabel label;
+    final JTextField usernametextfield;
+    final JTextField messagetextfield;
+    final JMenuBar menubar;
+    final JPanel panel;
 
-    private JPanel conversationHistoryPanel;
+    final JPanel conversationHistoryPanel;
+
     private JPanel messagePanel;
     private JLabel testMessageHeader;
     private JLabel testMessage;
@@ -48,10 +52,12 @@ class ChatView extends JFrame implements  ActionListener{
 
 
 
-    //this is constructor od this class
-    public ChatView(boolean isNewchat){
+
+    //this is constructor
+    public ChatView( boolean isNewchat){
 
         this.isNewchat = isNewchat;
+
 
         frame= new JFrame();
 
@@ -85,7 +91,6 @@ class ChatView extends JFrame implements  ActionListener{
 
 
     }
-
 
 
     // create a setup for display of buttons and other component of the frame.
@@ -151,83 +156,76 @@ class ChatView extends JFrame implements  ActionListener{
             frame.getContentPane().add(BorderLayout.NORTH, menubar);
         }
 
+
         frame.getContentPane().add(BorderLayout.CENTER, conversationHistoryPanel);
 
         // set the frame visibile
         frame.setVisible(true);
 
+        this.addbutton.addActionListener(this);
+        this.sendbutton.addActionListener(this);
+
 
     }
 
 
-// we implement the Actionlistener class so we should implement this method.
-// this method create an action for our buttons
-//we use our viewmodel attribute inn this method.
+
+    //we implement ActionListener class and should override this method for our button's actions.
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
         // STEP1: action for the  "add button" at the top of frame.
-        // goal : we want to write user'sB username  in text filed and click "add buttom" to change our chat frame title
-        // to user'sB username.
-        //  first we convert textfield input to String  and set the frame title to that input.
+        // goal : click on add button will change the chat frame's title to user'sB username(typed in  the textfiled)
 
 
         if (e.getSource() == addbutton){
-
+            //  convert textfield input to String and set the frame title to that input is username exists.
             String input = usernametextfield.getText();
+            if (checkusername_interactor.checkusername(input)){
+                frame.setTitle(input);
+            }
 
-            frame.setTitle(input);
-            //controller:
-
-            // set the  username in our viewmodel
-//            chatInteractor.setRecipientUsername(input);
-
-            //todo
-            //we should find the user with username "input" from list of user's that have logged in and set the
-            // user to have the same chat_ID (I did this in the viewmodel)
-
+            // also set the input -will change the private chat's RecipientUsername .
+            chatInteractor.setRecipientUsername(input);
 
         }
+
 
         // STEP2: action for the "send button".
         // goal : to write a message in txt filed and click "send button"
-        // so the message will come in the "txtArea" in middle of frame
-        //again we convert the txfield input to a String .
-
-
-        //first is to convert textfield input to String  and set the frame title to that input.
+        // so the message will come in the middle  of the frame
 
         if (e.getSource() == sendbutton){
-            //when the messge type is STring
+
+            //convert the text field input to a String
             String  input = usernametextfield.getText();
 
-            // getting the txtmessage content in our viewmodel
-//            chatInteractor.setMessage(input);
+            // setting our messge in the chatInteractor- will add this message to conv history.
+            chatInteractor.setMessage(input);
 
-            //todo
-            //this is part of the chatHisroy of UI. for now I put a text ( it may needed to change later)
+            //TODO:this is chatHisroy action.
+
 
         }
     }
-    public static void main(String args[]) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ChatView chat = new ChatView(true);
-//                chat.getframe().setTitle("AMMY")
-                chat.chatdisplay();
-
-                chat.addbutton.addActionListener(chat);
-                chat.sendbutton.addActionListener(chat);
-
-                //todo
-                //chat history
-
-
-            }
-        });
-
-    }
+//    public static void main(String args[]) {
+//        EventQueue.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                ChatView chat = new ChatView(true);
+////                chat.getframe().setTitle("AMMY")
+//                chat.chatdisplay();
+//
+//
+//                //todo
+//                //chat history
+//
+//
+//            }
+//        });
+//
+//    }
 
 }
 

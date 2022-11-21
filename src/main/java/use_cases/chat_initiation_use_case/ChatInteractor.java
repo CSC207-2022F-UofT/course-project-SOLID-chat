@@ -10,7 +10,7 @@ import entities.chat.PrivateChat;
  * this class contain Privatchat and methods to update the Private chat.
  */
 
-public class ChatInteractor{
+public class ChatInteractor {
 
     PrivateChat privatechat;
 
@@ -32,6 +32,8 @@ public class ChatInteractor{
         MsgFactory msgfactory = new MsgFactory("text");
         privatechat.addtoconvHist(msgfactory.createMsg(privatechat.getSendertUsername(), content));
     }
+
+
 
 
 }
