@@ -1,10 +1,23 @@
-# Project Template
+# SOLID Chat
 
+## Our Progress (Last Updated on Nov 20)
+
+Each of us have created one or more PRs and most of these have been merged into the main branch. Many members have functional UI's (and they are likely happy to demonstrate in tutorial) and others have a basic non-interactive UI and the inner layers of clean architecture. While they may not be able to do an interactive demo, screenshots of these user interfaces are included below.
+
+### Chat UI
+- By Nasim, James, and Amy
+- The UI is rendered by ChatView
+- This view will appear when a user creates a new chat or visits an existing chat
+
+![image](https://user-images.githubusercontent.com/18428059/202935072-ba09587d-c67d-4599-9986-9c652480356f.png)
+
+
+## Template Readme
 This is a template repository for CSC 207 projects. 
 This repository contains starter code for a gradle project.
 It also contains workflow documents that give instructions on how to manage your Github repository and how to use Github Projects for efficient collaboration.
 
-## Checklist For Your Project
+### Checklist For Your Project
 - [ ] Verify the correct settings for your project repository
 - [ ] Set up Github Projects
 - [ ] Create the implementation plan using issues and Github Projects
@@ -14,13 +27,13 @@ It also contains workflow documents that give instructions on how to manage your
 
 **If your team has trouble with any of these steps, please ask on Piazza. For example, with how GitHub Classroom works, your team *may* not have permissions to do some of the first few steps, in which case we'll post alternative instructions as needed.**
 
-## Workflow Documents
+### Workflow Documents
 
 * Github Workflow: Please refer to the workflow that was introduced in the first lab. You should follow this when working on your code. The following document provides additional details too.
 
 * [Project Planning and Development Guide](project_plan_dev.md): This document helps you to understand how to create and maintain a project plan for your class project. **This document helps you to complete the Implementation Plan Milestone.**
 
-## Gradle Project
+### Gradle Project
 Import this project into your Intellij editor. It should automatically recognise this as a gradle repository.
 The starter code was built using SDK version 11.0.1. Ensure that you are using this version for this project. (You can, of course, change the SDK version as per your requirement if your team has all agreed to use a different version)
 
