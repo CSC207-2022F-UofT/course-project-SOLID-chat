@@ -1,5 +1,7 @@
 package interface_adapters.user_registration_interface_adapters;
 
+import interface_adapters.User_search_IA.UserRetriever;
+import screens.login_screen.UserLoginUI;
 import use_cases.user_registration_use_cases.verificationMethodFactory;
 import use_cases.user_registration_use_cases.UserCreator;
 
@@ -90,14 +92,14 @@ public class UserRegistrationController implements UserVerifier, ActionListener,
         accountExistsFrame.setVisible(true);
     }
 
-    public static void verificationSuccessMessage(){
+    public static void verificationSuccessMessage(String message){
         JFrame verificationSuccessFrame = new JFrame();
         verificationSuccessFrame.setSize(400, 100);
         verificationSuccessFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JPanel verificationSuccessPanel = new JPanel();
         verificationSuccessPanel.setLayout(null);
         verificationSuccessFrame.add(verificationSuccessPanel);
-        JLabel errorMessage = new JLabel("Could not verify please try again");
+        JLabel errorMessage = new JLabel(message);
         errorMessage.setBounds(10,20, 350, 20);
         verificationSuccessPanel.add(errorMessage);
         verificationSuccessFrame.setVisible(true);
@@ -108,9 +110,11 @@ public class UserRegistrationController implements UserVerifier, ActionListener,
         int verCode = Integer.parseInt(verificationCodeText.getText());
         if(verCode == this.code){
             database.createUser(this.username, this.password, this.email, "Basic");
-            System.out.println("Verification successful");
+            verificationSuccessMessage("Verification successful");
+            UserLoginUI loginUI = new UserLoginUI((UserRetriever) database);
+            loginUI.getLoginCredentials();
         }else{
-            verificationSuccessMessage();
+            verificationSuccessMessage("Could not verify please try again");
         }
     }
 }
