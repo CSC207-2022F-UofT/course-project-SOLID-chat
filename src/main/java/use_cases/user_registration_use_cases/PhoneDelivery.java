@@ -1,4 +1,6 @@
-package use_cases.user_login_use_case;
+package use_cases.user_registration_use_cases;
+
+import use_cases.user_registration_use_cases.ISendVerificationCode;
 
 public class PhoneDelivery implements ISendVerificationCode {
     public void sendVerificationCode(String phoneNumber, int code){

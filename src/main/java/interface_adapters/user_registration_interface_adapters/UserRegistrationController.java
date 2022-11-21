@@ -1,8 +1,6 @@
 package interface_adapters.user_registration_interface_adapters;
 
-import use_cases.user_login_use_case.UserCreator;
-import interface_adapters.user_registration_interface_adapters.UserVerifier;
-import use_cases.user_login_use_case.verificationMethodFactory;
+import use_cases.user_registration_use_cases.verificationMethodFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

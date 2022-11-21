@@ -1,18 +1,26 @@
 package entities.user_entities;
 
+import interface_adapters.login_interface_adapters.Login;
 import use_cases.user_attribute_modification_use_case.Changeable;
+import interface_adapters.app_screen_interface_adapters.UserAppScreenGateway;
+import entities.chat;
 
 import java.io.Serializable;
-public abstract class User implements Serializable, Changeable {
+import java.util.ArrayList;
+
+public abstract class User implements Serializable, Changeable, Login {
     protected String username;
     protected String password;
     protected String email;
+
+    protected ArrayList<Chat> userChats;
     boolean verified = false;
     boolean online = false;
-    public User(String username, String password, String email){
+    public User(String username, String password, String email, ArrayList<Chat> userChats){
         this.username = username;
         this.password = password;
         this.email = email;
+        this.userChats = userChats;
     }
     public String getEmail(){
         return this.email;
@@ -22,6 +30,9 @@ public abstract class User implements Serializable, Changeable {
     }
     private String getPassword(){
         return this.password;
+    }
+    public ArrayList<Chat> getUserChats(){
+        return  this.userChats;
     }
 
     @Override
@@ -34,6 +45,10 @@ public abstract class User implements Serializable, Changeable {
         } else if (feature == "Email"){
             this.email = newFeature;
         }
+    }
+
+    public void login(){
+        UserAppScreenGateway appScreenGateway = new UserAppScreenGateway(this.getUsername());
     }
 
 }

@@ -1,4 +1,4 @@
-package use_cases.user_login_use_case;
+package use_cases.user_registration_use_cases;
 
 import java.util.Properties;
 import javax.mail.*;

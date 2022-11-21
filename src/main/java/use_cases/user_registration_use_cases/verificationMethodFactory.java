@@ -1,4 +1,8 @@
-package use_cases.user_login_use_case;
+package use_cases.user_registration_use_cases;
+
+import use_cases.user_registration_use_cases.EmailDelivery;
+import use_cases.user_registration_use_cases.ISendVerificationCode;
+import use_cases.user_registration_use_cases.PhoneDelivery;
 
 public class verificationMethodFactory {
     String credential;

@@ -1,7 +1,5 @@
 package interface_adapters.user_registration_interface_adapters;
 
-import use_cases.user_login_use_case.UserCreator;
-
 public class UserRegistrationGateway {
     private String username;
     private String password;
