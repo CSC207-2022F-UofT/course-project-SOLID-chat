@@ -24,8 +24,7 @@ import java.awt.event.ActionListener;
  */
 
 
-
-class ChatView extends JFrame implements  ActionListener{
+public class ChatView extends JFrame implements  ActionListener{
     //use two Interactors .
     private ChatInteractor chatInteractor;
     private CheckUsername_Interactor checkusername_interactor;
@@ -94,7 +93,7 @@ class ChatView extends JFrame implements  ActionListener{
 
 
     // create a setup for display of buttons and other component of the frame.
-    public void chatdisplay(){
+    public void chatDisplay(){
 
         // set frame size and frame title
         frame.setSize(450, 500);

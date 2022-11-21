@@ -35,6 +35,16 @@ Each of us have created one or more PRs and most of these have been merged into 
 ![img_6.png](img_6.png)
 
 
+### App Screen UI
+- By Amy
+- The App Screen UI is the screen that acts as a proxy between the user's login screen and their individual chats
+- Upon logging in, a user will will be rendered with a view of app screen
+- App Screen provides an ordered list of a user's chats, allowing the user to open an individual chat by clicking the chat button
+- ChatView(the window referenced above) will open, displaying the chats's GUI
+- Apart from that, app screen also provides buttons that allow a user to create new chats
+
+
+
 ## Template Readme
 This is a template repository for CSC 207 projects. 
 This repository contains starter code for a gradle project.
