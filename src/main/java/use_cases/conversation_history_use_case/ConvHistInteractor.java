@@ -1,8 +1,7 @@
 package use_cases.conversation_history_use_case;
 
 import entities.message.Message;
-import entities.message.MsgFactory;
-import data_access.UserDatabase;
+//import data_access.UserDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +11,10 @@ import java.util.List;
  */
 //public class ConvHistInteractor implements ConversationHistoryInputBoundary{
 public class ConvHistInteractor{
-    /**
-     * File and in-memory storage of users and their chats (incl. conversation history)
-     */
-    final UserDatabase userDatabase;
-    /**
-     * Factory for creating a new Message
-     */
-    final MsgFactory msgFactory;
+//    /**
+//     * File and in-memory storage of users and their chats (incl. conversation history)
+//     */
+//    final UserDatabase userDatabase;
 //    /**
 //     * Presenter with necessary information to display a chat's conversation history
 //     */
@@ -27,14 +22,12 @@ public class ConvHistInteractor{
 
     /**
      * Construct ConvHistInteractor given storage, message factory, and presenter
-     * @param userDatabase storage
-     * @param msgFactory message factory
+     * //@param userDatabase storage
      * //@param convHistPresenter presenter
      */
 //    public ConvHistInteractor(UserDatabase userDatabase, MsgFactory msgFactory, ConvHistPresenter convHistPresenter) {
-    public ConvHistInteractor(UserDatabase userDatabase, MsgFactory msgFactory) {
-        this.userDatabase = userDatabase;
-        this.msgFactory = msgFactory;  // msgType of MsgFactory specified in Main
+    public ConvHistInteractor() {
+//        this.userDatabase = userDatabase;
 //        this.convHistPresenter = convHistPresenter;
     }
 
