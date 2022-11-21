@@ -1,6 +1,5 @@
 package use_cases.app_screen_use_case;
-
-import tutorial.Chat;
+import entities.chat.Chat;
 
 public interface AppScreenController{
     Chat getChat(String chatID);
