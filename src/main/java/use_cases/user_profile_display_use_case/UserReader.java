@@ -1,8 +1,6 @@
 package use_cases.user_profile_display_use_case;
 
-import entities.userEntities.User;
-
-import java.io.File;
+import entities.user_entities.User;
 
 public class UserReader {
     public String[] UserReader(User user) {

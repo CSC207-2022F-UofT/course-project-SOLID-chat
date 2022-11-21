@@ -2,8 +2,8 @@ package data_access;
 
 import interface_adapters.IRetrieveList;
 import interface_adapters.user_registration_interface_adapters.UserExists;
-import Entities.user_entities.User;
-import Entities.user_entities.UserFactory;
+import entities.user_entities.User;
+import entities.user_entities.UserFactory;
 import use_cases.user_login_use_case.UserCreator;
 import interface_adapters.UserRetriever;
 
@@ -47,12 +47,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
 
     @Override
     public boolean UserExists(String username) {
-        for(User user: this.accountList){
-            if(user.getUsername().equals(username)){
-                return true;
-            }
-        }
-        return false;
+        return UserExists(username, "");
     }
     
     // Creates a new user with a username and password, and an email address
