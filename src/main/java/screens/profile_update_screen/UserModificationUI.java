@@ -62,6 +62,7 @@ public class UserModificationUI implements ChangeController {
 
         label = new JLabel();
 
+        frame.setTitle("Profile Editor Tool");
         frame.add(usernameField);
         frame.add(passwordField);
         frame.add(cb);

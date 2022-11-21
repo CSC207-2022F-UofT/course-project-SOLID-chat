@@ -31,6 +31,7 @@ public class UserSearchUI implements UserPresenter {
             }
 
         });
+        frame.setTitle("User Search Tool");
         frame.add(field);
         label = new JLabel();
         frame.add(label);
