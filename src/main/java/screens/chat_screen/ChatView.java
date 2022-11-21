@@ -24,8 +24,7 @@ import java.awt.event.ActionListener;
  */
 
 
-
-class ChatView extends JFrame implements  ActionListener{
+public class ChatView extends JFrame implements  ActionListener{
     //use two Interactors .
     private ChatInteractor chatInteractor;
     private CheckUsername_Interactor checkusername_interactor;
