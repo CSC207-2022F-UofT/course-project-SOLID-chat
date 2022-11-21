@@ -1,17 +1,17 @@
 package data_access;
 
-import entities.userEntities.User;
-import entities.userEntities.UserFactory;
-import interface_adapters.Chat.ConvHistGateway;
-import interface_adapters.Chat.MsgSenderGateway;
-import interface_adapters.Chat.UserChatGateway;
-import interface_adapters.User.*;
+import interface_adapters.User_search_IA.IRetrieveList;
+import interface_adapters.user_registration_interface_adapters.UserExists;
+import entities.user_entities.User;
+import interface_adapters.profile_modification_IA.UserModificationGateway;
+import use_cases.user_registration_use_cases.UserCreator;
+import entities.user_entities.UserFactory;
+import interface_adapters.User_search_IA.UserRetriever;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway,
-        ConvHistGateway, MsgSenderGateway, UserChatGateway {
+public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway {
     File accounts;
     List<User> accountList;
     public UserDatabase(){
@@ -92,7 +92,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
             /*
             while(true){
                 try{
-                    entities.userEntities.User user = (entities.userEntities.User) in.readObject();
+                    Entities.User_Entities.User user = (Entities.User_Entities.User) in.readObject();
                     users.add(user);}
                 catch(EOFException e){
                     break;
@@ -125,7 +125,6 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
         }
     }
 
-
     // Below two methods are used by conversation history-related interactors
     // (Commented as objects are not found)
 //    /**
@@ -137,7 +136,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
 //        String chatID = dsRequestModel.getChatID();
 //        Message message = dsRequestModel.getMessage();
 //
-//        // Find chat under specified entities.userEntities.User
+//        // Find chat under specified Entities.User_Entities.User
 //        Chat chat = this.getUser(userID).getChat(chatID);
 //
 //        chat.addMessage(message);
@@ -152,25 +151,9 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
 //        String userID = dsRequestModel.getUserID();
 //        String chatID = dsRequestModel.getChatID();
 //
-//        // Find chat under specified entities.userEntities.User
+//        // Find chat under specified Entities.User_Entities.User
 //        Chat chat = this.getUser(userID).getChat(chatID);
 //
 //        return Chat.getConversationHistory();
 //    }
-
-
-
-
-// This method will get a user's chats; this will be used by AppScreenLoader to display chats and could
-// also be used by ChatInteractor  (Chat entity is undefined here and at the moment user doesn't have chats)
-//    @Override
-//    public ArrayList<Chat> getUserChats(String username) {
-//        for (entities.userEntities.User user: accountList){
-//            if (user.getUsername().equals(username)){
-//                return user.getChats();
-//            }
-//        }
-//        throw new RuntimeException("Invalid username: user does not exist");
-//    }
-
 }
