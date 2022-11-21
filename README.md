@@ -14,7 +14,7 @@ Each of us have created one or more PRs and most of these have been merged into 
 ### Profile display
 - By Parmis
 - Implemented by UserSearchUI, which allows a user to type in a user's username to view their features (user and username so far).
-- User information is captured using ChangeController interface, which uses UserDatabse interfaces to retrieve the user of interest:
+- User information is captured using UserPresenter interface, which uses UserDatabse's interface UserRetriever to retrieve the user of interest, then UserReader reads features of the reader that are eventually presented:
 - ![img.png](images/img.png)
 - Here, Alex123 is not a user of the chat system:
 - ![img_1.png](images/img_1.png)
@@ -24,7 +24,7 @@ Each of us have created one or more PRs and most of these have been merged into 
 ### Profile feature modification
 - By Parmis
 - Implemented by UserMdoificationUI, which allows a user to verify their authority to access their account by confirming their username and password, and then choosing the feature they wish to modify, and enter the new value for it. 
-- User information is captured using UserPresenter interface, which uses UserAuthenticationI to confirm user's authority to make the change, then uses Changeable interface (use case) to make the changes to the User entity, and finally uses UserModificationGateway to relay the changed info to UserDatabase:
+- User information is captured using ChangeController interface, which uses UserDatabse's interface UserRetriever to retrieve the user of interest. Then, UserAuthenticationI confirms user's authority to make the change, then we use Changeable interface (use case) to make the changes to the User entity, and finally use UserModificationGateway to relay the changed info to UserDatabase:
 - ![img_3.png](images/img_3.png)
 - Here: Parmis's password is actually 123, so she doesn't get the chance to change her email:
 - ![img_4.png](images/img_4.png)
