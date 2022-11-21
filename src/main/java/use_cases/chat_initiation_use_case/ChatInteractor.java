@@ -3,6 +3,7 @@ package use_cases.chat_initiation_use_case;
 
 
 import entities.chat.PrivateChat;
+import entities.message.MsgFactory;
 
 /**
  * Chatinteractor  connects our ChatView UI to our Entities.

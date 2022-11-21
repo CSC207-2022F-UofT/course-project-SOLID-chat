@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import interface_adapters.*;
 import entities.*;
 import data_access.UserDatabase;
+import tutorial.Chat;
+
 import java.util.ArrayList;
 
 public class UserAppScreenGateway implements Login {

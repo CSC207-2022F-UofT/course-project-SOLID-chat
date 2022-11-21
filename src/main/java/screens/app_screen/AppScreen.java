@@ -1,6 +1,8 @@
 package screens.app_screen;
 
 
+import screens.chat_screen.ChatView;
+import tutorial.Chat;
 import use_cases.app_screen_use_case.AppScreenController;
 import use_cases.app_screen_use_case.AppScreenPresenter;
 import use_cases.app_screen_use_case.ChatName;

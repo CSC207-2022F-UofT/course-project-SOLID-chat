@@ -6,6 +6,7 @@ import interface_adapters.Chat.ConvHistGateway;
 import interface_adapters.Chat.MsgSenderGateway;
 import interface_adapters.Chat.UserChatGateway;
 import interface_adapters.User.*;
+import tutorial.Chat;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -160,17 +161,14 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
 
 
 
-
-// This method will get a user's chats; this will be used by AppScreenLoader to display chats and could
-// also be used by ChatInteractor  (Chat entity is undefined here and at the moment user doesn't have chats)
-//    @Override
-//    public ArrayList<Chat> getUserChats(String username) {
-//        for (entities.userEntities.User user: accountList){
-//            if (user.getUsername().equals(username)){
-//                return user.getChats();
-//            }
-//        }
-//        throw new RuntimeException("Invalid username: user does not exist");
-//    }
+    @Override
+    public ArrayList<Chat> getUserChats(String username) {
+        for (entities.userEntities.User user: accountList){
+            if (user.getUsername().equals(username)){
+                return user.getChats();
+            }
+        }
+        throw new RuntimeException("Invalid username: user does not exist");
+    }
 
 }

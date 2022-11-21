@@ -1,4 +1,6 @@
 package entities.chat;
+import entities.message.Message;
+
 import java.util.ArrayList;
 // Chat is an abstract class
 public class Chat {
