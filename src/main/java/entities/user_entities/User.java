@@ -1,9 +1,7 @@
 package entities.user_entities;
 
-import Interface_adapters.login_interface_adapters.Login;
+import interface_adapters.login_interface_adapters.Login;
 import use_cases.user_attribute_modification_use_case.Changeable;
-
-import UseCases.Changeable;
 import interface_adapters.app_screen_interface_adapters.UserAppScreenGateway;
 import entities.chat;
 
