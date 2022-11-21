@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
+/** This is the screen on which the user enters his credentials in order to login **/
 public class UserLoginUI implements ActionListener {
 
     private JTextField credentialText;
