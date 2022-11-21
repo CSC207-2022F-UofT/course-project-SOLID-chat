@@ -1,4 +1,4 @@
-# Project Template
+# SOLID Chat
 
 ## Our Progress (Last Updated on Nov 20)
 
