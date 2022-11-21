@@ -58,4 +58,9 @@ public abstract class User implements Serializable, Changeable, Login, UserAuthe
         UserAppScreenGateway appScreenGateway = new UserAppScreenGateway(this.getUsername());
     }
 
+    public ArrayList<Chat> getChats() {
+        return this.userChats;
+    }
+
+
 }
