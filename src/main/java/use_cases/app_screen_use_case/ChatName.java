@@ -1,6 +1,6 @@
 package use_cases.app_screen_use_case;
 
-import tutorial.Chat;
+import entities.chat.Chat;
 
 public interface ChatName {
     String getChatName(Chat chat);

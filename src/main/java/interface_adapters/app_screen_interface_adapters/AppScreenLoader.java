@@ -1,7 +1,7 @@
 package interface_adapters.app_screen_interface_adapters;
 
 import screens.app_screen.AppScreen;
-import tutorial.Chat;
+import entities.chat.Chat;
 import use_cases.app_screen_use_case.AppScreenPresenter;
 
 import java.util.ArrayList;
