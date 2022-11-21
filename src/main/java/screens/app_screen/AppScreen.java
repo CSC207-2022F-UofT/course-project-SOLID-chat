@@ -7,7 +7,6 @@ import use_cases.app_screen_use_case.AppScreenController;
 import use_cases.app_screen_use_case.AppScreenPresenter;
 import use_cases.app_screen_use_case.ChatName;
 import use_cases.app_screen_use_case.Refresh;
-import entities.*;
 
 import javax.swing.*;
 import java.awt.*;

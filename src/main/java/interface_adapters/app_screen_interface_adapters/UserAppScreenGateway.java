@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import entities.chat.Chat;
 import interface_adapters.*;
-import entities.*;
 import data_access.UserDatabase;
 import interface_adapters.login_interface_adapters.Login;
 
