@@ -31,7 +31,7 @@ public class ChatInteractor {
     // Update the message history when the type in put in message txtfieled and click send button.
     public void setMessage(String content) {
         MsgFactory msgfactory = new MsgFactory("text");
-        privatechat.addtoconvHist(msgfactory.createMsg(privatechat.getSendertUsername(), content));
+        privatechat.addtoconvHist(msgfactory.createMsg(privatechat.getSenderUsername(), content));
     }
 
 

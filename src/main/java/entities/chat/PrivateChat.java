@@ -45,10 +45,10 @@ public class PrivateChat extends Chat {
         this.recipientUsername= recipientUsername;
     }
 
-    public String getSendertUsername(){
+    public String getSenderUsername(){
         return this.senderUsername;
     }
-    public void setSendertUsername(String recipientUsername){
+    public void setSenderUsername(String recipientUsername){
         this.recipientUsername = recipientUsername;
     }
 
