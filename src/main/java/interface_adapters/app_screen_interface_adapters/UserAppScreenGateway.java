@@ -1,6 +1,8 @@
 package interface_adapters.app_screen_interface_adapters;
 
 import java.util.ArrayList;
+
+import entities.chat.Chat;
 import interface_adapters.*;
 import entities.*;
 import data_access.UserDatabase;
