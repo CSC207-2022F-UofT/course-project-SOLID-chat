@@ -1,6 +1,5 @@
-package entities.user_entities;
-import use_cases.user_attribute_modification_use_case.Changeable;
-
+package Entities.user_entities;
+import UseCase.Changeable;
 import java.io.Serializable;
 public abstract class User implements Serializable, Changeable {
     protected String username;

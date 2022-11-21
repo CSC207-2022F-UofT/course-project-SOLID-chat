@@ -1,4 +1,4 @@
-package entities.user_entities;
+package Entities.user_entities;
 
 public class BasicUser extends User {
     public BasicUser(String Username, String Password, String Email){
