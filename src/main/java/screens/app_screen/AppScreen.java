@@ -3,16 +3,14 @@ package screens.app_screen;
 
 import entities.chat.Chat;
 import screens.chat_screen.ChatView;
-import use_cases.app_screen_use_case.AppScreenController;
-import use_cases.app_screen_use_case.AppScreenPresenter;
-import use_cases.app_screen_use_case.ChatName;
-import use_cases.app_screen_use_case.Refresh;
+import use_cases.app_screen_use_case.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class AppScreen implements AppScreenPresenter, AppScreenController, ChatName, Refresh {
+public class AppScreen implements AppScreenPresenter, AppScreenController, ChatName, Refresh, LastUpdate {
 
     private final JFrame jFrame;
     private JScrollPane jScrollPane;
@@ -45,7 +43,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
         // adding the action listeners for the +private-chat and +group-chat buttons
         addPrivateChat.addActionListener(e -> {
-            ChatView newChat = new ChatView(currentUsername, true, "");
+            ChatView newChat = new ChatView(true);
             newChat.chatDisplay();
 
         });
@@ -89,20 +87,9 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         for (int i = this.chats.size() - 1; i > -1; i--) {
 
             String chatName = getChatName(this.chats.get(i));
-            JButton b = new JButton(chatName);
-            b.setPreferredSize(new Dimension(280, 50));
-            JLabel jLabel = new JLabel("time");
-            jLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-            jLabel.setFont(new Font(null, Font.BOLD, 11));
-            b.add(jLabel);
+            LocalDateTime lastUpdated = getLastUpdatedTime(this.chats.get(i));
 
-            // defines the action of opening a chat when a chat is clicked on
-            b.addActionListener(e -> {
-
-                ChatView newChat = new ChatView(currentUsername, false, chatName);
-                newChat.chatDisplay();
-            });
-            jPanel.add(b);
+            jPanel.add(ChatButton.createButton(chatName, currentUsername, lastUpdated));
         }
 
         jPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -117,6 +104,16 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
         jFrame.setVisible(true);
 
+    }
+
+    /**
+     * Return the date and time of the last message in a chat
+     * @param chat The given chat
+     * @return date and time of last update
+     */
+    @Override
+    public LocalDateTime getLastUpdatedTime(Chat chat) {
+        return chat.getLastUpdated();
     }
 
     /**
@@ -177,6 +174,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
     /**
      * Update the order of chats that appear on screen if there was a change to conversation history
+     * This should not be called if chatID is not an ID of an existing chat that the current user has
      * @param chatID The ID of the given chat
      */
     @Override
@@ -192,20 +190,23 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     }
 
     /**
-     * Return true if the given chat as an update to its conversation history
+     * Return true if the given existing chat has an update to its conversation history
      * @param chatID The ID of the given chat
      * @return true/false
      */
     @Override
     public boolean hasUpdate(String chatID) {
         Chat chat = getChat(chatID);
-        return this.chats.get(this.chats.size() - 1) != chat;
+        if (!(this.chats.isEmpty())) {
+            return !(this.chats.get(this.chats.size() - 1).equals(chat));
+        }
+        return true;
     }
 
     /**
-     * Get the chat object given its chat ID
-     * @param chatID The ID of the chat
-     * @return The chat with the given ID
+     * Get the existing chat object given its chat ID
+     * @param chatID The ID of the existing chat
+     * @return The existing chat with the given ID
      */
     @Override
     public Chat getChat(String chatID) {
@@ -214,7 +215,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
                 return chat;
             }
         }
-        throw new RuntimeException("Current user is not part of this chat");
+        throw new RuntimeException("User does not currently have this chat");
     }
 
 }
