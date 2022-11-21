@@ -1,5 +1,7 @@
 package entities.chat;
 
+import entities.message.Message;
+
 import java.util.ArrayList;
 
 public class PrivateChat extends Chat {
