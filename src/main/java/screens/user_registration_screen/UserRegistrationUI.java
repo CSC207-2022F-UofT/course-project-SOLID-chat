@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Random;
-
+/** This is screen on which the User enters his credentials in order to login**/
 public class UserRegistrationUI implements ActionListener {
     private final UserDatabase database;
     private JLabel registrationSuccess;

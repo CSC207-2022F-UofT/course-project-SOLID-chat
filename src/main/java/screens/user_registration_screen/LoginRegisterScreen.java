@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/** This is the screen in which the user chooses to either register or login. **/
 public class LoginRegisterScreen implements ActionListener {
 
     JButton login = new JButton("login");
