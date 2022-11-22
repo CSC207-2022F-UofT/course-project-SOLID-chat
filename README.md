@@ -1,6 +1,6 @@
 # SOLID Chat
 
-## Our Progress (Last Updated on Nov 20)
+## Our Progress (Last Updated on Nov 21)
 
 Each of us have created one or more PRs and most of these have been merged into the main branch. Many members have functional UI's (and they are likely happy to demonstrate in tutorial) and others have a basic non-interactive UI and the inner layers of clean architecture. While they may not be able to do an interactive demo, screenshots of these user interfaces are included below.
 
@@ -10,6 +10,9 @@ Each of us have created one or more PRs and most of these have been merged into 
 - This view will appear when a user creates a new chat or visits an existing chat
 
 ![image](https://user-images.githubusercontent.com/18428059/202935072-ba09587d-c67d-4599-9986-9c652480356f.png)
+
+- Update on inner layers of the conversation history feature:
+  - The ConvHistInteractor, responsible for displaying a conversation history, was tested (see [here](https://github.com/CSC207-2022F-UofT/course-project-SOLID-chat/pull/32)). To focus testing on the interactor, a mock data access class was used. While the test does not currently pass, the structure of the test is there.
 
 ### Profile display
 - By Parmis
