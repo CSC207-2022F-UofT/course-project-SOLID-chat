@@ -46,6 +46,27 @@ Each of us have created one or more PRs and most of these have been merged into 
 - ChatView(the window referenced above) will open, displaying the chats's GUI
 - Apart from that, app screen also provides buttons that allow a user to create new chats
 
+### User Registration and Login
+- By Madhav
+- The User will be prompted to include the credentials to create a new account. Then he will be asked to choose a method to deliver the verification code: 
+![UserRegistrationScreen1](https://user-images.githubusercontent.com/59711147/203239946-ba8e5650-5403-4dd5-9864-636599b68d60.png)
+![UserRegistrationScreen2](https://user-images.githubusercontent.com/59711147/203240033-fddf931f-cf13-4405-99c7-d770541adb10.png)
+If there is an account with the same username or password, an error message will show up(closing this message will allow the user to go back):
+![UserRegistrationScreen10](https://user-images.githubusercontent.com/59711147/203240205-2e33094e-5578-4782-b3dc-b8dcd524c349.png)
+![UserRegistrationScreen4](https://user-images.githubusercontent.com/59711147/203240317-d75bd4de-e8de-4720-bcb9-4016d3a27267.png)
+Now(after clicking enter and choosing to verify via email), an email with the verification code will show up, and user will be prompted to enter the verification code:
+![UserRegistrationScreen5](https://user-images.githubusercontent.com/59711147/203240493-5ef4c8c9-03e7-43c5-89fe-9dbda7b260fb.png)
+![UserRegistrationScreen6](https://user-images.githubusercontent.com/59711147/203240620-eef94fe0-47b8-43ba-9612-9ed711c365b1.png)
+If the incorrect verification code is entered, the following message shows up. Upon closing the message, the user can re-enter the correct verification code, upon which the login UI - asking for the username and password will show up:
+![UserRegistrationScreen7](https://user-images.githubusercontent.com/59711147/203241081-fc541b31-fb2b-4df5-a2e5-7c481cd980c5.png)
+![UserRegistrationScreen8](https://user-images.githubusercontent.com/59711147/203241122-7fade0d0-d354-4f6d-96ce-c55fafd2cf61.png)
+If the user enters the credentials of an account that does not exist, the following message shows up. A similar message shows up if the user enters an incorrect password for the username:
+![UserRegistrationScreen9](https://user-images.githubusercontent.com/59711147/203241552-b442cc1a-36f0-4bd7-ba69-81f91b2db927.png)
+Finally, if the user enters the correct login credentials, his chats will show up(see # App Screen UI above):
+![UserRegistrationScreenFinal](https://user-images.githubusercontent.com/59711147/203241762-b549a6ca-1d90-4d3b-abde-6889f1219490.png)
+
+
+
 
 
 ## Template Readme
