@@ -1,5 +1,6 @@
 package entities.user_entities;
 
+import data_access.UserDatabase;
 import entities.chat.Chat;
 import interface_adapters.profile_modification_IA.UserAuthenticationI;
 import interface_adapters.login_interface_adapters.Login;
@@ -7,6 +8,7 @@ import use_cases.user_attribute_modification_use_case.Changeable;
 import interface_adapters.app_screen_interface_adapters.UserAppScreenGateway;
 import entities.chat.*;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -55,7 +57,7 @@ public abstract class User implements Serializable, Changeable, Login, UserAuthe
     }
 
     public void login(){
-        UserAppScreenGateway appScreenGateway = new UserAppScreenGateway(this.getUsername());
+        UserAppScreenGateway appScreenGateway = new UserAppScreenGateway(this.getUsername(), new UserDatabase(new File("test9")));
     }
 
     public ArrayList<Chat> getChats() {
