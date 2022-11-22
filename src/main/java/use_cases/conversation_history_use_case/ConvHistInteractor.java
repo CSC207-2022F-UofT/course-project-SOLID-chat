@@ -1,6 +1,8 @@
 package use_cases.conversation_history_use_case;
 
 import entities.message.Message;
+import entities.message.MsgFactory;
+import interface_adapters.conversation_history_interface_adapters.ConvHistPresenter;
 //import data_access.UserDatabase;
 
 import java.util.ArrayList;
@@ -15,20 +17,20 @@ public class ConvHistInteractor{
 //     * File and in-memory storage of users and their chats (incl. conversation history)
 //     */
 //    final UserDatabase userDatabase;
-//    /**
-//     * Presenter with necessary information to display a chat's conversation history
-//     */
-//    final ConvHistPresenter convHistPresenter;
+    /**
+     * Presenter with necessary information to display a chat's conversation history
+     */
+    final ConvHistPresenter convHistPresenter;
 
     /**
      * Construct ConvHistInteractor given storage, message factory, and presenter
      * //@param userDatabase storage
      * //@param convHistPresenter presenter
      */
-//    public ConvHistInteractor(UserDatabase userDatabase, MsgFactory msgFactory, ConvHistPresenter convHistPresenter) {
-    public ConvHistInteractor() {
+//    public ConvHistInteractor(UserDatabase userDatabase, ConvHistPresenter convHistPresenter) {
+    public ConvHistInteractor(ConvHistPresenter convHistPresenter) {
 //        this.userDatabase = userDatabase;
-//        this.convHistPresenter = convHistPresenter;
+        this.convHistPresenter = convHistPresenter;
     }
 
     /**
@@ -46,8 +48,9 @@ public class ConvHistInteractor{
         // Access database (code for database will become functional after PR for issue 15 is merged)
 //        List<Message> conversationHistory = userDatabase.getConversationHistory(dsRequestModel);
 
-        // Presenter show success view (code to be written); below is temporary
+        // Presenter show success view
         List<Message> conversationHistory = new ArrayList<>();
-        return new ConvHistResponseModel(conversationHistory);
+        ConvHistResponseModel responseModel = new ConvHistResponseModel(conversationHistory);
+        return convHistPresenter.prepareSuccessView(responseModel);
     }
 }
