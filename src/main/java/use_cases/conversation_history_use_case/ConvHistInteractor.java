@@ -1,9 +1,7 @@
 package use_cases.conversation_history_use_case;
 
 import entities.message.Message;
-import entities.message.MsgFactory;
 import interface_adapters.conversation_history_interface_adapters.ConvHistPresenter;
-//import data_access.UserDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +9,12 @@ import java.util.List;
 /**
  * Interactor responsible for displaying this history upon opening a chat
  */
-//public class ConvHistInteractor implements ConversationHistoryInputBoundary{
-public class ConvHistInteractor{
-//    /**
-//     * File and in-memory storage of users and their chats (incl. conversation history)
-//     */
-//    final UserDatabase userDatabase;
+public class ConvHistInteractor implements ConvHistInputBoundary{
+//public class ConvHistInteractor{
+    /**
+     * File and in-memory storage of users and their chats (incl. conversation history)
+     */
+    final ConvHistGateway userRepository;
     /**
      * Presenter with necessary information to display a chat's conversation history
      */
@@ -27,9 +25,9 @@ public class ConvHistInteractor{
      * //@param userDatabase storage
      * //@param convHistPresenter presenter
      */
-//    public ConvHistInteractor(UserDatabase userDatabase, ConvHistPresenter convHistPresenter) {
-    public ConvHistInteractor(ConvHistPresenter convHistPresenter) {
-//        this.userDatabase = userDatabase;
+    public ConvHistInteractor(ConvHistGateway userDatabase, ConvHistPresenter convHistPresenter) {
+//    public ConvHistInteractor(ConvHistPresenter convHistPresenter) {
+        this.userRepository = userDatabase;
         this.convHistPresenter = convHistPresenter;
     }
 
@@ -46,10 +44,10 @@ public class ConvHistInteractor{
         ConvHistDsRequestModel dsRequestModel = new ConvHistDsRequestModel(userID, chatID);
 
         // Access database (code for database will become functional after PR for issue 15 is merged)
-//        List<Message> conversationHistory = userDatabase.getConversationHistory(dsRequestModel);
+        List<Message> conversationHistory = userRepository.getConversationHistory(dsRequestModel);
 
         // Presenter show success view
-        List<Message> conversationHistory = new ArrayList<>();
+//        List<Message> conversationHistory = new ArrayList<>();
         ConvHistResponseModel responseModel = new ConvHistResponseModel(conversationHistory);
         return convHistPresenter.prepareSuccessView(responseModel);
     }

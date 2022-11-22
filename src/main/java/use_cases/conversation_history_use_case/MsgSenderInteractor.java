@@ -2,17 +2,22 @@ package use_cases.conversation_history_use_case;
 
 import entities.message.Message;
 import entities.message.MsgFactory;
+import interface_adapters.conversation_history_interface_adapters.ConvHistPresenter;
 //import data_access.UserDatabase;
 
 /**
  * Interactor responsible for adding messages to a chat's conversation history
  */
-//public class ConvHistInteractor implements ConversationHistoryInputBoundary{
+//public class ConvHistInteractor implements ConvHistInputBoundary{
 public class MsgSenderInteractor {
-//    /**
-//     * File and in-memory storage of users and their chats (incl. conversation history)
-//     */
-//    final UserDatabase userDatabase;
+    /**
+     * File and in-memory storage of users and their chats (incl. conversation history)
+     */
+    final ConvHistGateway userRepository;
+    /**
+     * Presenter with necessary information to display a chat's conversation history
+     */
+    final ConvHistPresenter convHistPresenter;
     /**
      * Factory for creating a new Message
      */
@@ -23,9 +28,10 @@ public class MsgSenderInteractor {
      * //@param userDatabase storage
      * @param msgFactory message factory
      */
-//    public ConvHistInteractor(UserDatabase userDatabase, MsgFactory msgFactory, ConvHistPresenter convHistPresenter) {
-    public MsgSenderInteractor(MsgFactory msgFactory) {
-//        this.userDatabase = userDatabase;
+    public MsgSenderInteractor(ConvHistGateway userRepository, MsgFactory msgFactory, ConvHistPresenter convHistPresenter) {
+//    public MsgSenderInteractor(MsgFactory msgFactory) {
+        this.userRepository = userRepository;
+        this.convHistPresenter = convHistPresenter;
         this.msgFactory = msgFactory;  // msgType of MsgFactory specified in Main
     }
 
@@ -50,7 +56,7 @@ public class MsgSenderInteractor {
 
         // Call convHistInteractor to display conversation history
         ConvHistRequestModel convHistRequestModel = new ConvHistRequestModel(userID, chatID);
-        ConvHistInteractor convHistInteractor = new ConvHistInteractor();
+        ConvHistInteractor convHistInteractor = new ConvHistInteractor(userRepository, convHistPresenter);
         return convHistInteractor.create(convHistRequestModel);
     }
 }
