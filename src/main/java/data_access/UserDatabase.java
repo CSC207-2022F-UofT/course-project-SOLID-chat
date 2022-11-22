@@ -139,7 +139,8 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
     @Override
     public ArrayList<Chat> getUserChats(String username) {
         for (User user: accountList){
-            if (getUser(username).equals(user)){
+            //if(getUser(username).equals(user)){
+            if(user.getUsername().equals(username)){
                 return user.getUserChats();
             }
         }

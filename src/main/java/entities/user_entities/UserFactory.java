@@ -1,6 +1,6 @@
 package entities.user_entities;
 import entities.chat.Chat;
-
+import entities.user_entities.*;
 import java.util.ArrayList;
 
 public class UserFactory {
