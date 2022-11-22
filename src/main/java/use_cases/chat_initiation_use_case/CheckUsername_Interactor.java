@@ -1,5 +1,5 @@
 package use_cases.chat_initiation_use_case;
-
+import data_access.UserDatabase;
 
 /**
  * CheckUsernameInteractor responsible checking if a username exist in our userdata base
