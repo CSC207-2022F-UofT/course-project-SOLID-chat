@@ -14,9 +14,9 @@ public class UserAppScreenGateway implements Login {
     /**
      * Create gateway between user and appscreen
      */
-    public UserAppScreenGateway(String username){
+    public UserAppScreenGateway(String username, UserDatabase userDatabase){
         this.username = username;
-        this.userDatabase = new UserDatabase();
+        this.userDatabase = userDatabase;
         login();
     }
 

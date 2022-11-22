@@ -47,7 +47,7 @@ public class UserLoginUI implements ActionListener {
         JButton loginButton = new JButton("login");
         loginButton.setBounds(210, 95, 100, 25);
         loginPanel.add(loginButton);
-        loginButton.addActionListener(this);
+        loginButton.addActionListener(this::actionPerformed);
         loginFrame.setVisible(true);
 
     }

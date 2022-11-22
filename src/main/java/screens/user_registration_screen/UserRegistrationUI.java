@@ -102,6 +102,7 @@ public class UserRegistrationUI implements ActionListener {
         UserDatabase testDB = new UserDatabase(new File("Test9"));
         System.out.println(testDB.UserExists("RandomUser", "abdfeg@gmail.com"));
         System.out.println(testDB.getList().size());
+        System.out.println(testDB.getList().get(0).getUsername());
         UserRegistrationUI testUI = new UserRegistrationUI(testDB);
 
         testUI.GetUserCredentials();
