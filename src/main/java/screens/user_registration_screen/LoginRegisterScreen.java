@@ -1,6 +1,7 @@
 package screens.user_registration_screen;
 
 import data_access.UserDatabase;
+import interface_adapters.login_interface_adapters.Login;
 import screens.login_screen.UserLoginUI;
 import screens.user_registration_screen.UserRegistrationUI;
 
@@ -24,9 +25,17 @@ public class LoginRegisterScreen implements ActionListener {
         message.setBounds(10, 30, 200, 25);
         loginRegPanel.add(message);
         login.setBounds(10, 60, 70, 30);
+        login.addActionListener(this);
         register.setBounds(110, 60, 70, 30);
-    }
+        register.addActionListener(this);
+        loginRegPanel.add(login);
+        loginRegPanel.add(register);
+        loginRegFrame.setVisible(true);
 
+    }
+    public static void main(String[] args){
+        LoginRegisterScreen screen = new LoginRegisterScreen();
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(login)){
