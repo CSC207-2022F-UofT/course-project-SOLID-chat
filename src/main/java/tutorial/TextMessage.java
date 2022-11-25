@@ -1,3 +1,4 @@
+package tutorial;
 import java.time.LocalDateTime;
 
 /**
@@ -36,3 +37,4 @@ public class TextMessage extends Message {
     public void setMsgContent(String msgContent) {
         this.msgContent = msgContent;
     }
+}

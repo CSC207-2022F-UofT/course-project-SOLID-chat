@@ -1,8 +1,9 @@
-package entities.chat;
-import entities.message.Message;
-import java.time.LocalDateTime;
+package tutorial;
 import java.util.ArrayList;
-// Chat is an abstract class
+
+/**
+ * Copied from Branch Chat Initiation
+ **/
 public class Chat {
     protected String name;
     protected String chatID;
@@ -51,3 +52,4 @@ public class Chat {
     public void addtoconvHist(Message message){
         this.convHist.add(message);
     }
+}
