@@ -47,13 +47,13 @@ public class UserLoginUI implements ActionListener {
         JButton loginButton = new JButton("login");
         loginButton.setBounds(210, 95, 100, 25);
         loginPanel.add(loginButton);
-        loginButton.addActionListener(this::actionPerformed);
+        loginButton.addActionListener(this);
         loginFrame.setVisible(true);
 
     }
 
     public static void main(String[] args){
-        UserRetriever testDB = new UserDatabase(new File("Test9"));
+        UserRetriever testDB = new UserDatabase(new File("accounts"));
         UserLoginUI screen = new UserLoginUI(testDB);
         screen.getLoginCredentials();
     }

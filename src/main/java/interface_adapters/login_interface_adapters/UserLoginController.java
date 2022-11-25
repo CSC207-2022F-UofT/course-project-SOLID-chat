@@ -21,7 +21,6 @@ public class UserLoginController {
         try{
             boolean allowLogin = user.PasswordMatch(this.password);
             if(allowLogin){
-                System.out.println("made it here");
                 user.login();
             }else{
                 accessDenied("Wrong Password");
