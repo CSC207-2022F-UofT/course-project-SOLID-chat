@@ -3,38 +3,39 @@ package use_cases.chat_initiation_use_case;
 
 
 import entities.chat.PrivateChat;
+import entities.chat.PrivateChatfactory;
 import entities.message.MsgFactory;
 
-/**
- * Chatinteractor  connects our ChatView UI to our Entities.
- * It provide data to the view, so that view can put that data on the screen.
- * this class contain Privatchat and methods to update the Private chat.
- */
-
-public class ChatInteractor {
-
-    PrivateChat privatechat;
 
 
-    // constructor containing the  private chat
-    public ChatInteractor(PrivateChat privatechat) {
-        this.privatechat = privatechat;
+
+import java.util.UUID;
+
+public class ChatInteractor implements ChatInputBoundry{
+
+
+    PrivateChatfactory chatfactory;
+
+
+    //Add a DaTa base to check if exist or not
+    public ChatInteractor(PrivateChatfactory chatfactory){
+
+        this.chatfactory = chatfactory;
+
     }
 
 
-    //Update the Recipientusername when the user type in the username text field and click add button.
-    public void setRecipientUsername(String recipientUsername) {
-        this.privatechat.setRecipientUsername(recipientUsername) ;
+    //create a private chat with the Recipient username that user typed in the textfield UI of the private chat.
+    @Override
+    public PrivateChat create(ChatModel chatmodel) {
+
+        //check if in data exist later
+
+        PrivateChat p= chatfactory.create(chatmodel.getRecipientusername(), UUID.randomUUID().toString(),chatmodel.getRecipientusername().toString());
+        //
+        return p;
+
     }
-
-
-    // Update the message history when the type in put in message txtfieled and click send button.
-    public void setMessage(String content) {
-        MsgFactory msgfactory = new MsgFactory("text");
-        privatechat.addtoconvHist(msgfactory.createMsg(privatechat.getSenderUsername(), content));
-    }
-
-
 
 
 }

@@ -2,8 +2,13 @@ package screens.app_screen;
 
 
 import entities.chat.Chat;
+import entities.chat.CommonPrivatechat;
+import entities.chat.PrivateChatfactory;
+import screens.chat_screen.ChatController;
 import screens.chat_screen.ChatView;
 import use_cases.app_screen_use_case.*;
+import use_cases.chat_initiation_use_case.ChatInputBoundry;
+import use_cases.chat_initiation_use_case.ChatInteractor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,8 +48,14 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
         // adding the action listeners for the +private-chat and +group-chat buttons
         addPrivateChat.addActionListener(e -> {
-            ChatView newChat = new ChatView(true);
-            newChat.chatDisplay();
+        //TODO AMY please double check this part(Nasim)
+
+        PrivateChatfactory chatfactory = new CommonPrivatechat();
+        ChatInputBoundry Interactor = new ChatInteractor(chatfactory);
+        ChatController controller = new ChatController(Interactor);
+        new ChatView(controller,true);
+        ChatView newChat = new ChatView(controller,true);
+
 
         });
         //TODO: add groupchat action
