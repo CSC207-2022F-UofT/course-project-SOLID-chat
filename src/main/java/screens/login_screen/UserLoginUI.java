@@ -53,7 +53,7 @@ public class UserLoginUI implements ActionListener {
     }
 
     public static void main(String[] args){
-        UserRetriever testDB = new UserDatabase(new File("accounts"));
+        UserRetriever testDB = new UserDatabase(new File("user_accounts"));
         UserLoginUI screen = new UserLoginUI(testDB);
         screen.getLoginCredentials();
     }

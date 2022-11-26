@@ -38,7 +38,7 @@ public class ChatButton {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChatView chatView = new ChatView(false);
+
             }
         });
         return jButton;

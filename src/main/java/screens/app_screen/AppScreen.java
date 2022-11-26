@@ -3,9 +3,14 @@ package screens.app_screen;
 
 import data_access.UserDatabase;
 import entities.chat.Chat;
+import entities.chat.CommonPrivatechat;
+import entities.chat.PrivateChatfactory;
 import interface_adapters.app_screen_interface_adapters.UserAppScreenGateway;
+import screens.chat_screen.ChatController;
 import screens.chat_screen.ChatView;
 import use_cases.app_screen_use_case.*;
+import use_cases.chat_initiation_use_case.ChatInputBoundry;
+import use_cases.chat_initiation_use_case.ChatInteractor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,8 +51,10 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
         // adding the action listeners for the +private-chat and +group-chat buttons
         addPrivateChat.addActionListener(e -> {
-            ChatView newChat = new ChatView(true);
-            newChat.chatDisplay();
+            PrivateChatfactory privateChatfactory = (PrivateChatfactory) new CommonPrivatechat();
+            ChatInputBoundry inputBoundry = new ChatInteractor(privateChatfactory);
+            ChatController controller = new ChatController(inputBoundry);
+            new ChatView(controller, true);
 
         });
         //TODO: add groupchat action
@@ -211,7 +218,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
      */
     public void createGateway(){
         UserAppScreenGateway gateway = new UserAppScreenGateway(currentUsername,
-                new UserDatabase(new File("accounts")));
+                new UserDatabase(new File("user_accounts")));
         try{
             gateway.updateUserChatList(currentUsername, this.chats);
         } catch (NullPointerException e) {

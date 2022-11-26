@@ -17,7 +17,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
     File accounts;
     List<User> accountList;
     public UserDatabase(){
-        this.accounts = new File("accounts");
+        this.accounts = new File("user_accounts");
         if(!accounts.exists()){
             try {
                 accounts.createNewFile();
