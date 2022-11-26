@@ -1,17 +1,15 @@
 package screens.app_screen;
 
 
+import data_access.UserDatabase;
 import entities.chat.Chat;
-import entities.chat.CommonPrivatechat;
-import entities.chat.PrivateChatfactory;
-import screens.chat_screen.ChatController;
+import interface_adapters.app_screen_interface_adapters.UserAppScreenGateway;
 import screens.chat_screen.ChatView;
 import use_cases.app_screen_use_case.*;
-import use_cases.chat_initiation_use_case.ChatInputBoundry;
-import use_cases.chat_initiation_use_case.ChatInteractor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -48,14 +46,8 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
         // adding the action listeners for the +private-chat and +group-chat buttons
         addPrivateChat.addActionListener(e -> {
-        //TODO AMY please double check this part(Nasim)
-
-        PrivateChatfactory chatfactory = new CommonPrivatechat();
-        ChatInputBoundry Interactor = new ChatInteractor(chatfactory);
-        ChatController controller = new ChatController(Interactor);
-        new ChatView(controller,true);
-        ChatView newChat = new ChatView(controller,true);
-
+            ChatView newChat = new ChatView(true);
+            newChat.chatDisplay();
 
         });
         //TODO: add groupchat action
@@ -176,6 +168,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         if (!(this.chats.contains(chat))){
             updateChatOrder(chat);
             jFrame.remove(this.jScrollPane);
+            createGateway();
 
             // refresh the screen
             displayAppScreen();
@@ -190,28 +183,12 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
      */
     @Override
     public void updateScreen(String chatID) {
-        if (hasUpdate(chatID)){
+        updateChatOrder(getChat(chatID));
+        jFrame.remove(this.jScrollPane);
+        createGateway();
 
-            updateChatOrder(getChat(chatID));
-            jFrame.remove(this.jScrollPane);
-
-            // refresh the screen
-            displayAppScreen();
-        }
-    }
-
-    /**
-     * Return true if the given existing chat has an update to its conversation history
-     * @param chatID The ID of the given chat
-     * @return true/false
-     */
-    @Override
-    public boolean hasUpdate(String chatID) {
-        Chat chat = getChat(chatID);
-        if (!(this.chats.isEmpty())) {
-            return !(this.chats.get(this.chats.size() - 1).equals(chat));
-        }
-        return true;
+        // refresh the screen
+        displayAppScreen();
     }
 
     /**
@@ -227,6 +204,22 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
             }
         }
         throw new RuntimeException("User does not currently have this chat");
+    }
+
+    /**
+     * Create the gateway to save a user's chat list order in the user database
+     */
+    public void createGateway(){
+        UserAppScreenGateway gateway = new UserAppScreenGateway(currentUsername,
+                new UserDatabase(new File("accounts")));
+        try{
+            gateway.updateUserChatList(currentUsername, this.chats);
+        } catch (NullPointerException e) {
+            throw new NullPointerException("New chat list is empty");
+        }
+        catch (Exception e){
+            throw new RuntimeException("Unable to update chat order");
+        }
     }
 
 }
