@@ -1,5 +1,6 @@
 package interface_adapters.user_registration_interface_adapters;
 
+import data_access.Database;
 import interface_adapters.User_search_IA.UserRetriever;
 import screens.login_screen.UserLoginUI;
 import use_cases.user_registration_use_cases.verificationMethodFactory;
@@ -15,19 +16,11 @@ public class UserRegistrationController implements UserVerifier, ActionListener,
     private final String email;
     private String preference;
     private boolean userExists = false;
-    private UserCreator database;
+    private Database database;
     Random random;
     private final int code;
     private JTextField verificationCodeText;
     private JLabel success;
-
-    /*public UserRegistrationController(int code, String Username, String Password, String email, UserDatabase database){
-        this.code = code;
-        this.username = Username;
-        this.password = Password;
-        this.email = email;
-        this.database = database;
-    }*/
 
     public UserRegistrationController(UserRegistrationGateway properties){
         this.username = properties.getUsername();
@@ -73,48 +66,20 @@ public class UserRegistrationController implements UserVerifier, ActionListener,
     public void registerUser() {
         if(this.userExists){
             System.out.println("An account with this username or email already exists");
-            accountExistsMessage();
+            UserRegistrationPresenter.accountExistsMessage();
         }else{
             this.verify(email);
         }
     }
-
-    public static void accountExistsMessage(){
-        JFrame accountExistsFrame = new JFrame();
-        accountExistsFrame.setSize(400, 100);
-        accountExistsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JPanel accountExistsPanel = new JPanel();
-        accountExistsPanel.setLayout(null);
-        accountExistsFrame.add(accountExistsPanel);
-        JLabel errorMessage = new JLabel("An account with this username or email already exists");
-        errorMessage.setBounds(10,20, 350, 20);
-        accountExistsPanel.add(errorMessage);
-        accountExistsFrame.setVisible(true);
-    }
-
-    public static void verificationSuccessMessage(String message){
-        JFrame verificationSuccessFrame = new JFrame();
-        verificationSuccessFrame.setSize(400, 100);
-        verificationSuccessFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JPanel verificationSuccessPanel = new JPanel();
-        verificationSuccessPanel.setLayout(null);
-        verificationSuccessFrame.add(verificationSuccessPanel);
-        JLabel errorMessage = new JLabel(message);
-        errorMessage.setBounds(10,20, 350, 20);
-        verificationSuccessPanel.add(errorMessage);
-        verificationSuccessFrame.setVisible(true);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         int verCode = Integer.parseInt(verificationCodeText.getText());
         if(verCode == this.code){
             database.createUser(this.username, this.password, this.email, "Basic");
-            verificationSuccessMessage("Verification successful");
-            UserLoginUI loginUI = new UserLoginUI((UserRetriever) database);
-            loginUI.getLoginCredentials();
+            UserRegistrationPresenter.verificationSuccessMessage("Verification successful");
+            UserRegistrationPresenter.registrationSuccessAction(this.database);
         }else{
-            verificationSuccessMessage("Could not verify please try again");
+            UserRegistrationPresenter.verificationSuccessMessage("verification unsuccessful");
         }
     }
 }

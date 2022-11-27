@@ -13,7 +13,7 @@ import interface_adapters.User_search_IA.UserRetriever;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway, UserChatGateway {
+public class UserDatabase extends Database implements IRetrieveList, UserModificationGateway, UserChatGateway {
     File accounts;
     List<User> accountList;
     public UserDatabase(){

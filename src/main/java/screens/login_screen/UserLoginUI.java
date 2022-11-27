@@ -1,25 +1,28 @@
 package screens.login_screen;
+import data_access.Database;
 import interface_adapters.login_interface_adapters.UserLoginController;
 import interface_adapters.login_interface_adapters.UserLoginGateway;
 import interface_adapters.User_search_IA.UserRetriever;
 import data_access.UserDatabase;
+import use_cases.loginCredentialsRetriever;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 /** This is the screen on which the user enters his credentials in order to login **/
-public class UserLoginUI implements ActionListener {
+public class UserLoginUI implements ActionListener, loginCredentialsRetriever {
 
     private JTextField credentialText;
     private JLabel passwordLabel;
     private JPasswordField passwordText;
 
-    private UserRetriever database;
+    private final Database database;
 
-    public UserLoginUI(UserRetriever database){
+    public UserLoginUI(Database database){
         this.database = database;
     }
+    @Override
     public void getLoginCredentials(){
         JFrame loginFrame = new JFrame();
         loginFrame.setSize(400, 400);
@@ -53,7 +56,7 @@ public class UserLoginUI implements ActionListener {
     }
 
     public static void main(String[] args){
-        UserRetriever testDB = new UserDatabase(new File("user_accounts"));
+        Database testDB = new UserDatabase(new File("user_accounts"));
         UserLoginUI screen = new UserLoginUI(testDB);
         screen.getLoginCredentials();
     }

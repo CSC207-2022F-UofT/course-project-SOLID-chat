@@ -3,6 +3,7 @@ package screens.user_registration_screen;
 import interface_adapters.user_registration_interface_adapters.UserRegistrationController;
 import interface_adapters.user_registration_interface_adapters.UserRegistrationGateway;
 import data_access.UserDatabase;
+import use_cases.user_registration_use_cases.userRegCredentialsRetriever;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Random;
 /** This is screen on which the User enters his credentials in order to login**/
-public class UserRegistrationUI implements ActionListener {
+public class UserRegistrationUI implements ActionListener, userRegCredentialsRetriever {
     private final UserDatabase database;
     private JLabel registrationSuccess;
     private JTextField usernameText;
@@ -28,7 +29,8 @@ public class UserRegistrationUI implements ActionListener {
         */
         code = new Random().nextInt(1244254);
     }
-    void GetUserCredentials(){
+    @Override
+    public void getUserCredentials(){
         //Front end related objects
         JFrame registerFrame = new JFrame();
         registerFrame.setSize(500, 300);
@@ -104,7 +106,7 @@ public class UserRegistrationUI implements ActionListener {
         System.out.println(testDB.getList().size());
         UserRegistrationUI testUI = new UserRegistrationUI(testDB);
 
-        testUI.GetUserCredentials();
+        testUI.getUserCredentials();
     }
 
     @Override
