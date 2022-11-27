@@ -51,7 +51,7 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
         // adding the action listeners for the +private-chat and +group-chat buttons
         addPrivateChat.addActionListener(e -> {
-            PrivateChatfactory privateChatfactory = (PrivateChatfactory) new CommonPrivatechat();
+            PrivateChatfactory privateChatfactory = new CommonPrivatechat();
             ChatInputBoundry inputBoundry = new ChatInteractor(privateChatfactory);
             ChatController controller = new ChatController(inputBoundry);
             new ChatView(controller, true);
@@ -166,31 +166,13 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     }
 
     /**
-     * Add a new chat to the screen, if the chat already exists (i.e. there exists a chat with the
-     * same ID, do nothing)
-     * @param chat The new chat to be added
-     */
-    public void addNewChat(Chat chat){
-
-        if (!(this.chats.contains(chat))){
-            updateChatOrder(chat);
-            jFrame.remove(this.jScrollPane);
-            createGateway();
-
-            // refresh the screen
-            displayAppScreen();
-
-        }
-    }
-
-    /**
      * Update the order of chats that appear on screen if there was a change to conversation history
-     * This should not be called if chatID is not an ID of an existing chat that the current user has
-     * @param chatID The ID of the given chat
+     * This should be called if a new chat was added or if an existing chat has a new message
+     * @param chat The chat with an update
      */
     @Override
-    public void updateScreen(String chatID) {
-        updateChatOrder(getChat(chatID));
+    public void updateScreen(Chat chat) {
+        updateChatOrder(chat);
         jFrame.remove(this.jScrollPane);
         createGateway();
 
