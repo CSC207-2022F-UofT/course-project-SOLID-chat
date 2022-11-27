@@ -1,6 +1,6 @@
 package screens.user_registration_screen;
 
-import interface_adapters.user_registration_interface_adapters.UserRegistrationController;
+import use_cases.user_registration_use_cases.UserRegistrationInteractor;
 import interface_adapters.user_registration_interface_adapters.UserRegistrationGateway;
 import data_access.UserDatabase;
 import use_cases.user_registration_use_cases.userRegCredentialsRetriever;
@@ -126,7 +126,7 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
         //Not an error below, we just have not implemented sending code via phone yet.
         if(e.getSource() == emailVerify || e.getSource() == phoneVerify){
             properties.setPreference("Email");
-            UserRegistrationController verifyUser = new UserRegistrationController(properties);
+            UserRegistrationInteractor verifyUser = new UserRegistrationInteractor(properties);
             verifyUser.registerUser();
         }
     }

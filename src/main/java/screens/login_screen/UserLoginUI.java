@@ -1,10 +1,9 @@
 package screens.login_screen;
 import data_access.Database;
-import interface_adapters.login_interface_adapters.UserLoginController;
+import use_cases.user_login_use_cases.UserLoginInteractor;
 import interface_adapters.login_interface_adapters.UserLoginGateway;
-import interface_adapters.User_search_IA.UserRetriever;
 import data_access.UserDatabase;
-import use_cases.loginCredentialsRetriever;
+import use_cases.user_login_use_cases.loginCredentialsRetriever;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -63,7 +62,7 @@ public class UserLoginUI implements ActionListener, loginCredentialsRetriever {
     @Override
     public void actionPerformed(ActionEvent e) {
         UserLoginGateway properties = new UserLoginGateway(credentialText.getText(), passwordText.getText(), this.database);
-        UserLoginController guard = new UserLoginController(properties);
+        UserLoginInteractor guard = new UserLoginInteractor(properties);
         guard.allowLogin();
 
     }

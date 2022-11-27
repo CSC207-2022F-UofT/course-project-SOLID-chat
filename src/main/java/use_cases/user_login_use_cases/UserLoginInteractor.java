@@ -1,21 +1,24 @@
-package interface_adapters.login_interface_adapters;
+package use_cases.user_login_use_cases;
 
 import entities.user_entities.User;
 import interface_adapters.User_search_IA.UserRetriever;
+import interface_adapters.login_interface_adapters.UserLoginGateway;
+import use_cases.user_login_use_cases.UserLoginInputBoundary;
 
 import javax.swing.*;
 
-public class UserLoginController {
+public class UserLoginInteractor implements UserLoginInputBoundary {
     private final String credential;
     private final String password;
     private final UserRetriever database;
 
-    public UserLoginController(UserLoginGateway properties){
+    public UserLoginInteractor(UserLoginGateway properties){
         this.credential = properties.getCredential();
         this.password = properties.getPassword();
         this.database = properties.getDatabase();
     }
 
+    @Override
     public void allowLogin(){
         User user = database.getUser(this.credential);
         try{

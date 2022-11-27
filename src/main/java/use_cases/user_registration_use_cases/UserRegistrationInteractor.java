@@ -1,16 +1,14 @@
-package interface_adapters.user_registration_interface_adapters;
+package use_cases.user_registration_use_cases;
 
 import data_access.Database;
-import interface_adapters.User_search_IA.UserRetriever;
-import screens.login_screen.UserLoginUI;
-import use_cases.user_registration_use_cases.verificationMethodFactory;
-import use_cases.user_registration_use_cases.UserCreator;
+import interface_adapters.user_registration_interface_adapters.UserRegistrationGateway;
+import interface_adapters.user_registration_interface_adapters.UserRegistrationPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-public class UserRegistrationController implements UserVerifier, ActionListener, UserRegistrator {
+public class UserRegistrationInteractor implements UserVerifier, ActionListener, UserRegistrationInputBoundary {
     private final String username;
     private final String password;
     private final String email;
@@ -22,7 +20,9 @@ public class UserRegistrationController implements UserVerifier, ActionListener,
     private JTextField verificationCodeText;
     private JLabel success;
 
-    public UserRegistrationController(UserRegistrationGateway properties){
+    private final userRegistrationOutputBoundary output = new UserRegistrationPresenter();
+
+    public UserRegistrationInteractor(UserRegistrationGateway properties){
         this.username = properties.getUsername();
         this.password = properties.getPassword();
         this.email = properties.getEmail();
@@ -62,11 +62,11 @@ public class UserRegistrationController implements UserVerifier, ActionListener,
         verificationMethodFactory mailMan = new verificationMethodFactory(email, "Email", code);
         mailMan.deliverCode();
     }
-
+    @Override
     public void registerUser() {
         if(this.userExists){
             System.out.println("An account with this username or email already exists");
-            UserRegistrationPresenter.accountExistsMessage();
+            output.accountExistsMessage();
         }else{
             this.verify(email);
         }
@@ -76,10 +76,10 @@ public class UserRegistrationController implements UserVerifier, ActionListener,
         int verCode = Integer.parseInt(verificationCodeText.getText());
         if(verCode == this.code){
             database.createUser(this.username, this.password, this.email, "Basic");
-            UserRegistrationPresenter.verificationSuccessMessage("Verification successful");
-            UserRegistrationPresenter.registrationSuccessAction(this.database);
+            output.verificationSuccessMessage("Verification successful");
+            output.registrationSuccessAction(this.database);
         }else{
-            UserRegistrationPresenter.verificationSuccessMessage("verification unsuccessful");
+            output.verificationSuccessMessage("verification unsuccessful");
         }
     }
 }

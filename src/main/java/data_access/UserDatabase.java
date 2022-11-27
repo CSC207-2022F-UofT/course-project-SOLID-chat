@@ -2,13 +2,10 @@ package data_access;
 
 import entities.chat.Chat;
 import interface_adapters.User_search_IA.IRetrieveList;
-import interface_adapters.user_registration_interface_adapters.UserExists;
 import entities.user_entities.User;
 import interface_adapters.profile_modification_IA.UserModificationGateway;
-import use_cases.user_registration_use_cases.UserCreator;
 import entities.user_entities.UserFactory;
 import interface_adapters.Chat.UserChatGateway;
-import interface_adapters.User_search_IA.UserRetriever;
 
 import java.io.*;
 import java.util.ArrayList;
