@@ -14,11 +14,9 @@ public class UserRegistrationInteractor implements UserVerifier, ActionListener,
     private final String email;
     private String preference;
     private boolean userExists = false;
-    private Database database;
-    Random random;
+    private final Database database;
     private final int code;
     private JTextField verificationCodeText;
-    private JLabel success;
 
     private final userRegistrationOutputBoundary output = new UserRegistrationPresenter();
 
@@ -49,7 +47,7 @@ public class UserRegistrationInteractor implements UserVerifier, ActionListener,
         verificationPanel.add(verificationCodeText);
 
         //Success/Failure Labels
-        success = new JLabel("");
+        JLabel success = new JLabel("");
         success.setBounds(10, 50, 100, 25);
         verificationPanel.add(success);
 

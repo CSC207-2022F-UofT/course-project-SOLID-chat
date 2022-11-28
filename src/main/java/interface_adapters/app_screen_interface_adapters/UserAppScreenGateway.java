@@ -3,11 +3,11 @@ package interface_adapters.app_screen_interface_adapters;
 import data_access.UserDatabase;
 import entities.chat.Chat;
 import entities.user_entities.User;
-import interface_adapters.login_interface_adapters.Login;
+import use_cases.user_login_use_cases.Loginable;
 
 import java.util.ArrayList;
 
-public class UserAppScreenGateway implements Login {
+public class UserAppScreenGateway implements Loginable {
 
     private final UserDatabase userDatabase;
     private final String username;
