@@ -5,8 +5,10 @@ import entities.chat.CommonPrivatechat;
 import entities.chat.PrivateChatfactory;
 import interface_adapters.appscreen.AppScreenPresenter;
 import interface_adapters.appscreen.Refresh;
+import screens.Profile_screen.UserSearchUI;
 import screens.chat_screen.ChatController;
 import screens.chat_screen.ChatView;
+import screens.profile_update_screen.UserModificationUI;
 import use_cases.appscreen.*;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatInteractor;
@@ -26,8 +28,8 @@ public class AppScreen implements AppScreenPresenter, Refresh {
 
     /**
      Create an AppScreen object
-     @param chats This is a list of chats given by the user (the list will always come as sorted with the
-     most recent chats at the end of the list)
+     @param chats This is a list o     most recent chats at the end of the list)
+     f chats given by the user (the list will always come as sorted with the
      */
     public AppScreen(String currentUsername, ArrayList<Chat> chats) {
         this.currentUsername = currentUsername;
@@ -47,6 +49,24 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         addPrivateChat.setPreferredSize(new Dimension(40, 30));
         addGroupChat.setPreferredSize(new Dimension(40, 30));
 
+        // menu panel containing the buttons for searching for users or accessing profile settings
+        JPanel menuPanel = new JPanel();
+        menuPanel.setLayout(new GridLayout(1,2));
+
+        JButton searchUsers = new JButton("Search Users");
+        JButton profileSettings = new JButton("Profile Settings");
+
+        searchUsers.setPreferredSize(new Dimension(40, 30));
+        profileSettings.setPreferredSize(new Dimension(30, 30));
+
+
+        // adding the action listeners for the Search Users button
+        searchUsers.addActionListener(e -> new UserSearchUI());
+
+        // adding the action listeners for the Profile Settings button
+        profileSettings.addActionListener(e -> new UserModificationUI());
+
+
         // adding the action listeners for the +private-chat and +group-chat buttons
         addPrivateChat.addActionListener(e -> {
             PrivateChatfactory privateChatfactory = new CommonPrivatechat();
@@ -64,7 +84,10 @@ public class AppScreen implements AppScreenPresenter, Refresh {
 
         topPanel.add(addPrivateChat);
         topPanel.add(addGroupChat);
+        menuPanel.add(searchUsers);
+        menuPanel.add(profileSettings);
         jFrame.add(topPanel, BorderLayout.NORTH);
+        jFrame.add(menuPanel, BorderLayout.SOUTH);
 
         this.chats = chats;
         openScreen();

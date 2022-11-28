@@ -15,7 +15,7 @@ public class UserSearchUI {
     public UserSearchUI() {
         final JFrame frame = new JFrame();
         frame.setSize(300, 100);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setLayout(new FlowLayout());
 
         final JTextField field = new JTextField("Enter a username");

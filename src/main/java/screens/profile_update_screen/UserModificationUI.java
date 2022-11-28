@@ -17,7 +17,7 @@ public class UserModificationUI {
         final JFrame frame = new JFrame();
         frame.setSize(500, 300);
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setLayout(new FlowLayout());
 
 //      Field for username
