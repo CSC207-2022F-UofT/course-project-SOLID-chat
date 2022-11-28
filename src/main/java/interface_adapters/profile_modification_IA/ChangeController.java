@@ -1,8 +1,8 @@
 package interface_adapters.profile_modification_IA;
 
 /**
- * To make a change to User entity.
+ * To make a change to User entity, report if successful.
  */
 public interface ChangeController {
-    public boolean reportChange(String username, String password, String feature, String newFeature);
+    boolean reportChange(String username, String password, String feature, String newFeature);
     }

@@ -1,20 +1,16 @@
-package screens.Profile_screen; /**
- * Provides the UI elements
- */
-import data_access.UserDatabase;
-import entities.user_entities.User;
-import interface_adapters.User_search_IA.UserPresenter;
-import use_cases.user_profile_display_use_case.UserReader;
-
+package screens.Profile_screen;
+import interface_adapters.User_search_IA.UserPresenterClass;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
-
-public class UserSearchUI implements UserPresenter {
-    private JLabel label;
+/**
+ * Provides the UI elements
+ */
+public class UserSearchUI {
+    private final JLabel label;
+    private final UserPresenterClass p = new UserPresenterClass();
 
     public UserSearchUI() {
         final JFrame frame = new JFrame();
@@ -27,7 +23,7 @@ public class UserSearchUI implements UserPresenter {
         field.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                label.setText(showProfile(field.getText()));
+                label.setText(p.showProfile(field.getText()));
             }
 
         });
@@ -37,31 +33,6 @@ public class UserSearchUI implements UserPresenter {
         frame.add(label);
         frame.setVisible(true);
   }
-
-    /**
-     * User_search_IA.UserPresenter makes UI implement showProfile to invert the use-case --> UI dependency
-     */
-    @Override
-    public String showProfile(String username) {
-        //    setting up access to the database of users:
-        UserDatabase db = new UserDatabase();
-        if (db.UserExists(username)){
-            User user = db.getUser(username);
-            UserReader reader = new UserReader();
-            String[] features = reader.UserReader(user);
-            String email = features[1];
-            return("<html>Username: " + username + "<br>Email: " + email + "</html>");
-        }
-        else{
-            return("User with given username does not exist.");
-        }
-    }
-
-// for trying out the code:
-//    public static void main(String[] args) {
-//        new Profile_screen.UserSearchUI();
-//
-//    }
 
 }
 

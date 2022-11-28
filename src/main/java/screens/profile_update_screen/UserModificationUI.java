@@ -1,6 +1,5 @@
 package screens.profile_update_screen;
 import interface_adapters.profile_modification_IA.ChangeControllerClass;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,7 +8,7 @@ import java.util.Objects;
 
 
 /**
- * Provides the UI elements
+ * Provides the UI elements.
  */
 public class UserModificationUI {
     ChangeControllerClass c = new ChangeControllerClass();

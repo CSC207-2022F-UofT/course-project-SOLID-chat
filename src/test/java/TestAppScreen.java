@@ -4,7 +4,7 @@ import entities.chat.GroupChat;
 import entities.chat.PrivateChat;
 import entities.message.TextMessage;
 import entities.user_entities.BasicUser;
-import screens.app_screen.AppScreen;
+import screens.appscreen.AppScreen;
 
 import java.io.File;
 import java.time.LocalDateTime;
