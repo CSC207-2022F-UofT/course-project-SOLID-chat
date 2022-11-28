@@ -8,8 +8,8 @@ import interface_adapters.conversation_history_interface_adapters.ConvHistPresen
 /**
  * Interactor responsible for adding messages to a chat's conversation history
  */
-//public class ConvHistInteractor implements ConvHistInputBoundary{
-public class MsgSenderInteractor {
+public class MsgSenderInteractor implements MsgSenderInputBoundary{
+//public class MsgSenderInteractor {
     /**
      * File and in-memory storage of users and their chats (incl. conversation history)
      */

@@ -36,7 +36,7 @@ public class ConvHistInteractor implements ConvHistInputBoundary{
      * @param requestModel input data
      * @return a response model for presenter
      */
-//    @Override
+    @Override
     public ConvHistResponseModel create(ConvHistRequestModel requestModel) {
         String userID = requestModel.getUserID();
         String chatID = requestModel.getChatID();
