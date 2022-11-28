@@ -1,4 +1,4 @@
-package interface_adapters.app_screen_interface_adapters;
+package interface_adapters.appscreen;
 
 public interface AppScreenPresenter {
     void openScreen();

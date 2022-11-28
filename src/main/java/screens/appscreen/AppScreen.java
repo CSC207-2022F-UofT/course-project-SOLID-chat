@@ -1,13 +1,13 @@
-package screens.app_screen;
+package screens.appscreen;
 
 import entities.chat.Chat;
 import entities.chat.CommonPrivatechat;
 import entities.chat.PrivateChatfactory;
-import interface_adapters.app_screen_interface_adapters.AppScreenController;
-import interface_adapters.app_screen_interface_adapters.AppScreenPresenter;
+import interface_adapters.appscreen.AppScreenPresenter;
+import interface_adapters.appscreen.Refresh;
 import screens.chat_screen.ChatController;
 import screens.chat_screen.ChatView;
-import use_cases.app_screen_use_case.*;
+import use_cases.appscreen.*;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatInteractor;
 
@@ -16,7 +16,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class AppScreen implements AppScreenPresenter, ChatName, LastUpdate {
+public class AppScreen implements AppScreenPresenter, Refresh {
 
     private final JFrame jFrame;
     private JScrollPane jScrollPane;
@@ -94,8 +94,10 @@ public class AppScreen implements AppScreenPresenter, ChatName, LastUpdate {
         // getting the names of each chat to display and creating buttons for each chat
         for (int i = this.chats.size() - 1; i > -1; i--) {
 
-            String chatName = getChatName(this.chats.get(i));
-            LocalDateTime lastUpdated = getLastUpdatedTime(this.chats.get(i));
+            ChatInfo chatInfo = new ChatInfo(currentUsername, this.chats.get(i).getChatID());
+
+            String chatName = chatInfo.getChatName();
+            LocalDateTime lastUpdated = chatInfo.getLastMessageTime();
 
             jPanel.add(ChatButton.createButton(chatName, currentUsername, lastUpdated));
         }
@@ -115,16 +117,6 @@ public class AppScreen implements AppScreenPresenter, ChatName, LastUpdate {
     }
 
     /**
-     * Return the date and time of the last message in a chat
-     * @param chat The given chat
-     * @return date and time of last update
-     */
-    @Override
-    public LocalDateTime getLastUpdatedTime(Chat chat) {
-        return chat.getLastUpdated();
-    }
-
-    /**
      Make the chat list scrollable
      @param jPanel The panel containing the chats
      */
@@ -138,25 +130,11 @@ public class AppScreen implements AppScreenPresenter, ChatName, LastUpdate {
 
 
     /**
-     * Get the name of the chat
-     * @param chat The chat in context
-     * @return name
-     */
-    @Override
-    public String getChatName(Chat chat) {
-        return chat.getName();
-    }
-
-
-    /**
      * Update the order of chats that appear on screen if there was a change to conversation history
      * This should be called if a new chat was added or if an existing chat has a new message
      * @param chatID The ID of the chat with an update
      */
     public void refreshScreen(String chatID) {
-        AppScreenController appScreenController = new AppScreenController(currentUsername, chatID);
-        appScreenController.updateScreen();
-
         ChatOrder chatOrder = new ChatOrder(currentUsername);
         this.chats = chatOrder.getUserChats();
 

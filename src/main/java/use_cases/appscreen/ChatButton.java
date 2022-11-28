@@ -1,11 +1,7 @@
-package use_cases.app_screen_use_case;
-
-import screens.chat_screen.ChatView;
+package use_cases.appscreen;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 
 public class ChatButton {
@@ -34,12 +30,8 @@ public class ChatButton {
         jButton.add(jLabel);
 
         // defines the action of opening a chat when a chat is clicked on
-        jButton.addActionListener(new ActionListener() {
+        jButton.addActionListener(e -> {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
         });
         return jButton;
     }

@@ -1,7 +1,7 @@
-package interface_adapters.app_screen_interface_adapters;
+package interface_adapters.appscreen;
 
 import entities.chat.Chat;
-import screens.app_screen.AppScreen;
+import screens.appscreen.AppScreen;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,9 @@
-package interface_adapters.app_screen_interface_adapters;
+package interface_adapters.appscreen;
 
 import data_access.UserDatabase;
 import entities.chat.Chat;
-import use_cases.app_screen_use_case.ChatOrder;
+import use_cases.appscreen.ChatInfo;
+import use_cases.appscreen.ChatOrder;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ public class AppScreenController{
 
     private final String username;
     private final String chatID;
-    private final UserDatabase userDatabase;
 
 
     /**
@@ -22,7 +22,6 @@ public class AppScreenController{
     public AppScreenController(String username, String chatID){
         this.username = username;
         this.chatID = chatID;
-        this.userDatabase = new UserDatabase(new File("user_accounts"));
 
     }
 
@@ -31,13 +30,8 @@ public class AppScreenController{
      * @return Chat with given ID
      */
     public Chat getChat(){
-        ArrayList<Chat> userChats = this.userDatabase.getUser(this.username).getUserChats();
-        for (Chat chat: userChats){
-            if (chat.getChatID().equals(this.chatID)){
-                return chat;
-            }
-        }
-        throw new RuntimeException("User is not part of this chat");
+        ChatInfo chatInfo = new ChatInfo(this.username, this.chatID);
+        return chatInfo.getChat();
 
     }
 
@@ -46,7 +40,7 @@ public class AppScreenController{
      */
     public void updateScreen(){
         ChatOrder chatOrder = new ChatOrder(this.username);
-        ArrayList<Chat> newOrder = chatOrder.changeOrder(this.chatID);
+        ArrayList<Chat> newOrder = chatOrder.changeOrder(getChat());
         createGateway(newOrder);
 
     }

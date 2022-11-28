@@ -1,15 +1,13 @@
-package use_cases.app_screen_use_case;
+package use_cases.appscreen;
 
 import data_access.UserDatabase;
 import entities.chat.Chat;
-import interface_adapters.app_screen_interface_adapters.AppScreenController;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class ChatOrder {
 
-    private final String username;
     private final ArrayList<Chat> userChats;
 
     /**
@@ -17,7 +15,6 @@ public class ChatOrder {
      * @param username Username of the current user
      */
     public ChatOrder(String username){
-        this.username = username;
         UserDatabase userDatabase = new UserDatabase(new File("user_accounts"));
         this.userChats = userDatabase.getUserChats(username);
     }
@@ -32,12 +29,10 @@ public class ChatOrder {
 
     /**
      * Update the order of the chats
-     * @param chatID The ID of the chat that has an update
+     * @param updatedChat The chat that has an update
      */
-    public ArrayList<Chat> changeOrder(String chatID){
+    public ArrayList<Chat> changeOrder(Chat updatedChat){
 
-        AppScreenController appScreenController = new AppScreenController(this.username, chatID);
-        Chat updatedChat = appScreenController.getChat();
         if (this.userChats.contains(updatedChat)) {
             this.userChats.remove(updatedChat);
             this.userChats.add(updatedChat);

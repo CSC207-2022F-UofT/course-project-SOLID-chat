@@ -1,4 +1,4 @@
-package interface_adapters.app_screen_interface_adapters;
+package interface_adapters.appscreen;
 
 import data_access.UserDatabase;
 import entities.chat.Chat;
