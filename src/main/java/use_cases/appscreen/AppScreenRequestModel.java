@@ -1,17 +1,13 @@
 package use_cases.appscreen;
 
 import interface_adapters.appscreen.AppScreenController;
-import interface_adapters.appscreen.Refresh;
 
-public class AppScreenRequestModel implements Refresh {
-    private final AppScreenController appScreenController;
+public class AppScreenRequestModel {
 
     public AppScreenRequestModel(String username, String chatID){
-        this.appScreenController = new AppScreenController(username, chatID);
+        AppScreenController appScreenController = new AppScreenController(username, chatID);
+        appScreenController.updateScreen();
+        AppScreenResponseModel.refreshScreen(chatID);
     }
 
-    @Override
-    public void refreshScreen(String chatID) {
-        this.appScreenController.updateScreen();
-    }
 }

@@ -2,6 +2,7 @@ package interface_adapters.appscreen;
 
 import entities.chat.Chat;
 import screens.appscreen.AppScreen;
+import use_cases.appscreen.AppScreenStatus;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,10 @@ public class AppScreenLoader implements AppScreenPresenter {
     public void openScreen() {
         try {
             this.appScreen = new AppScreen(this.username, this.chats);
+
+            // set and save the current app screen
+            AppScreenStatus.setAppScreen(this.appScreen);
+
         } catch (Exception e) {
             throw new RuntimeException("Unexpected Interruption: cannot load screen");
         }
