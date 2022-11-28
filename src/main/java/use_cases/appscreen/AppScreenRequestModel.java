@@ -1,13 +1,22 @@
 package use_cases.appscreen;
 
+import entities.chat.Chat;
 import interface_adapters.appscreen.AppScreenController;
+
+import java.util.ArrayList;
 
 public class AppScreenRequestModel {
 
-    public AppScreenRequestModel(String username, String chatID){
-        AppScreenController appScreenController = new AppScreenController(username, chatID);
-        appScreenController.updateScreen();
-        AppScreenResponseModel.refreshScreen(chatID);
+    private String username;
+    private Chat chat;
+    public AppScreenRequestModel(String username, Chat chat){
+        this.username = username;
+        this.chat = chat;
+    }
+
+    public ArrayList<Chat> orderChats(){
+        ChatOrder chatOrder  = new ChatOrder(username, chat);
+        return chatOrder.changeOrder();
     }
 
 }

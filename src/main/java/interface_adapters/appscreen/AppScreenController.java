@@ -36,21 +36,10 @@ public class AppScreenController{
     }
 
     /**
-     * Controller to update the screen and change the order chats of in user database
-     */
-    public void updateScreen(){
-        ChatOrder chatOrder = new ChatOrder(this.username);
-        ArrayList<Chat> newOrder = chatOrder.changeOrder(getChat());
-        createGateway(newOrder);
-
-    }
-
-    /**
      * Create the gateway to save a user's chat list order in the user database
      */
     public void createGateway(ArrayList<Chat> newOrder){
-        UserAppScreenGateway gateway = new UserAppScreenGateway(this.username,
-                new UserDatabase(new File("user_accounts")));
+        UserAppScreenGateway gateway = new UserAppScreenGateway(this.username);
         try{
             gateway.updateUserChatList(this.username, newOrder);
         } catch (NullPointerException e) {
