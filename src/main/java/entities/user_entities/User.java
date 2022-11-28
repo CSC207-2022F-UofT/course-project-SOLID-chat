@@ -60,7 +60,8 @@ public abstract class User implements Serializable, Changeable, Login, UserAuthe
     }
 
     public void login(){
-        UserAppScreenGateway appScreenGateway = new UserAppScreenGateway(this.getUsername(), new UserDatabase(new File("test9")));
+        UserAppScreenGateway appScreenGateway = new UserAppScreenGateway(this.getUsername(), new UserDatabase(new File("user_accounts")));
+        appScreenGateway.login();
     }
 
     public ArrayList<Chat> getChats() {

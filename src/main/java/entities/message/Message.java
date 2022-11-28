@@ -1,5 +1,6 @@
 package entities.message;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
  * The type of the message content is dependent on which child(ren) of Message the message is
  * The metadata is universal for all message types and includes the ID of the sender, timestamp, ID of message
  */
-public abstract class Message {
+public abstract class Message implements Serializable{
     /**
      * ID of message sender (UUID)
      */

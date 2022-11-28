@@ -1,16 +1,22 @@
-package screens.app_screen;
-
+package screens.appscreen;
 
 import entities.chat.Chat;
+import entities.chat.CommonPrivatechat;
+import entities.chat.PrivateChatfactory;
+import interface_adapters.appscreen.AppScreenPresenter;
+import interface_adapters.appscreen.Refresh;
+import screens.chat_screen.ChatController;
 import screens.chat_screen.ChatView;
-import use_cases.app_screen_use_case.*;
+import use_cases.appscreen.*;
+import use_cases.chat_initiation_use_case.ChatInputBoundry;
+import use_cases.chat_initiation_use_case.ChatInteractor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class AppScreen implements AppScreenPresenter, AppScreenController, ChatName, Refresh, LastUpdate {
+public class AppScreen implements AppScreenPresenter, Refresh {
 
     private final JFrame jFrame;
     private JScrollPane jScrollPane;
@@ -43,8 +49,10 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
         // adding the action listeners for the +private-chat and +group-chat buttons
         addPrivateChat.addActionListener(e -> {
-            ChatView newChat = new ChatView(true);
-            newChat.chatDisplay();
+            PrivateChatfactory privateChatfactory = new CommonPrivatechat();
+            ChatInputBoundry inputBoundry = new ChatInteractor(privateChatfactory);
+            ChatController controller = new ChatController(inputBoundry);
+            new ChatView(controller, true);
 
         });
         //TODO: add groupchat action
@@ -86,8 +94,10 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
         // getting the names of each chat to display and creating buttons for each chat
         for (int i = this.chats.size() - 1; i > -1; i--) {
 
-            String chatName = getChatName(this.chats.get(i));
-            LocalDateTime lastUpdated = getLastUpdatedTime(this.chats.get(i));
+            ChatInfo chatInfo = new ChatInfo(currentUsername, this.chats.get(i).getChatID());
+
+            String chatName = chatInfo.getChatName();
+            LocalDateTime lastUpdated = chatInfo.getLastMessageTime();
 
             jPanel.add(ChatButton.createButton(chatName, currentUsername, lastUpdated));
         }
@@ -107,16 +117,6 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
     }
 
     /**
-     * Return the date and time of the last message in a chat
-     * @param chat The given chat
-     * @return date and time of last update
-     */
-    @Override
-    public LocalDateTime getLastUpdatedTime(Chat chat) {
-        return chat.getLastUpdated();
-    }
-
-    /**
      Make the chat list scrollable
      @param jPanel The panel containing the chats
      */
@@ -130,92 +130,18 @@ public class AppScreen implements AppScreenPresenter, AppScreenController, ChatN
 
 
     /**
-     * Get the name of the chat
-     * @param chat The chat in context
-     * @return name
-     */
-    @Override
-    public String getChatName(Chat chat) {
-        return chat.getName();
-    }
-
-    /**
-     * Update the order of the chats
-     * @param chat The chat that has an update
-     */
-    public void updateChatOrder(Chat chat){
-
-        if (this.chats.contains(chat)) {
-            this.chats.remove(chat);
-            this.chats.add(chat);
-        }
-        else {
-            this.chats.add(chat);
-        }
-
-    }
-
-    /**
-     * Add a new chat to the screen, if the chat already exists (i.e. there exists a chat with the
-     * same ID, do nothing)
-     * @param chat The new chat to be added
-     */
-    public void addNewChat(Chat chat){
-
-        if (!(this.chats.contains(chat))){
-            updateChatOrder(chat);
-            jFrame.remove(this.jScrollPane);
-
-            // refresh the screen
-            displayAppScreen();
-
-        }
-    }
-
-    /**
      * Update the order of chats that appear on screen if there was a change to conversation history
-     * This should not be called if chatID is not an ID of an existing chat that the current user has
-     * @param chatID The ID of the given chat
+     * This should be called if a new chat was added or if an existing chat has a new message
+     * @param chatID The ID of the chat with an update
      */
-    @Override
-    public void updateScreen(String chatID) {
-        if (hasUpdate(chatID)){
+    public void refreshScreen(String chatID) {
+        ChatOrder chatOrder = new ChatOrder(currentUsername);
+        this.chats = chatOrder.getUserChats();
 
-            updateChatOrder(getChat(chatID));
-            jFrame.remove(this.jScrollPane);
+        jFrame.remove(this.jScrollPane);
 
-            // refresh the screen
-            displayAppScreen();
-        }
-    }
-
-    /**
-     * Return true if the given existing chat has an update to its conversation history
-     * @param chatID The ID of the given chat
-     * @return true/false
-     */
-    @Override
-    public boolean hasUpdate(String chatID) {
-        Chat chat = getChat(chatID);
-        if (!(this.chats.isEmpty())) {
-            return !(this.chats.get(this.chats.size() - 1).equals(chat));
-        }
-        return true;
-    }
-
-    /**
-     * Get the existing chat object given its chat ID
-     * @param chatID The ID of the existing chat
-     * @return The existing chat with the given ID
-     */
-    @Override
-    public Chat getChat(String chatID) {
-        for (Chat chat: this.chats){
-            if (chat.getChatID().equals(chatID)){
-                return chat;
-            }
-        }
-        throw new RuntimeException("User does not currently have this chat");
+        // refresh the screen
+        displayAppScreen();
     }
 
 }

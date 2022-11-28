@@ -1,4 +1,4 @@
-package use_cases.app_screen_use_case;
+package interface_adapters.appscreen;
 
 public interface AppScreenPresenter {
     void openScreen();

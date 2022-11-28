@@ -1,9 +1,7 @@
 package screens.user_registration_screen;
 
 import data_access.UserDatabase;
-import interface_adapters.login_interface_adapters.Login;
 import screens.login_screen.UserLoginUI;
-import screens.user_registration_screen.UserRegistrationUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -43,7 +41,7 @@ public class LoginRegisterScreen implements ActionListener {
             loginUI.getLoginCredentials();
         }else{
             UserRegistrationUI registrationUI = new UserRegistrationUI(new UserDatabase());
-            registrationUI.GetUserCredentials();
+            registrationUI.getUserCredentials();
         }
     }
 }

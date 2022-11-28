@@ -1,35 +1,28 @@
-package interface_adapters.user_registration_interface_adapters;
+package use_cases.user_registration_use_cases;
 
-import interface_adapters.User_search_IA.UserRetriever;
-import screens.login_screen.UserLoginUI;
-import use_cases.user_registration_use_cases.verificationMethodFactory;
-import use_cases.user_registration_use_cases.UserCreator;
+import data_access.Database;
+import interface_adapters.user_registration_interface_adapters.UserRegistrationGateway;
+import interface_adapters.user_registration_interface_adapters.UserRegistrationPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-public class UserRegistrationController implements UserVerifier, ActionListener, UserRegistrator {
+public class UserRegistrationInteractor implements UserVerifier, ActionListener, UserRegistrationInputBoundary {
     private final String username;
     private final String password;
     private final String email;
     private String preference;
     private boolean userExists = false;
-    private UserCreator database;
+    private Database database;
     Random random;
     private final int code;
     private JTextField verificationCodeText;
     private JLabel success;
 
-    /*public UserRegistrationController(int code, String Username, String Password, String email, UserDatabase database){
-        this.code = code;
-        this.username = Username;
-        this.password = Password;
-        this.email = email;
-        this.database = database;
-    }*/
+    private final userRegistrationOutputBoundary output = new UserRegistrationPresenter();
 
-    public UserRegistrationController(UserRegistrationGateway properties){
+    public UserRegistrationInteractor(UserRegistrationGateway properties){
         this.username = properties.getUsername();
         this.password = properties.getPassword();
         this.email = properties.getEmail();
@@ -69,52 +62,24 @@ public class UserRegistrationController implements UserVerifier, ActionListener,
         verificationMethodFactory mailMan = new verificationMethodFactory(email, "Email", code);
         mailMan.deliverCode();
     }
-
+    @Override
     public void registerUser() {
         if(this.userExists){
             System.out.println("An account with this username or email already exists");
-            accountExistsMessage();
+            output.accountExistsMessage();
         }else{
             this.verify(email);
         }
     }
-
-    public static void accountExistsMessage(){
-        JFrame accountExistsFrame = new JFrame();
-        accountExistsFrame.setSize(400, 100);
-        accountExistsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JPanel accountExistsPanel = new JPanel();
-        accountExistsPanel.setLayout(null);
-        accountExistsFrame.add(accountExistsPanel);
-        JLabel errorMessage = new JLabel("An account with this username or email already exists");
-        errorMessage.setBounds(10,20, 350, 20);
-        accountExistsPanel.add(errorMessage);
-        accountExistsFrame.setVisible(true);
-    }
-
-    public static void verificationSuccessMessage(String message){
-        JFrame verificationSuccessFrame = new JFrame();
-        verificationSuccessFrame.setSize(400, 100);
-        verificationSuccessFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JPanel verificationSuccessPanel = new JPanel();
-        verificationSuccessPanel.setLayout(null);
-        verificationSuccessFrame.add(verificationSuccessPanel);
-        JLabel errorMessage = new JLabel(message);
-        errorMessage.setBounds(10,20, 350, 20);
-        verificationSuccessPanel.add(errorMessage);
-        verificationSuccessFrame.setVisible(true);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         int verCode = Integer.parseInt(verificationCodeText.getText());
         if(verCode == this.code){
             database.createUser(this.username, this.password, this.email, "Basic");
-            verificationSuccessMessage("Verification successful");
-            UserLoginUI loginUI = new UserLoginUI((UserRetriever) database);
-            loginUI.getLoginCredentials();
+            output.verificationSuccessMessage("Verification successful");
+            output.registrationSuccessAction(this.database);
         }else{
-            verificationSuccessMessage("Could not verify please try again");
+            output.verificationSuccessMessage("verification unsuccessful");
         }
     }
 }

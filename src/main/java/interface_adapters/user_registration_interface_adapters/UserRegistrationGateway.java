@@ -1,4 +1,5 @@
 package interface_adapters.user_registration_interface_adapters;
+import data_access.Database;
 import use_cases.user_registration_use_cases.UserCreator;
 public class UserRegistrationGateway {
     private String username;
@@ -6,7 +7,7 @@ public class UserRegistrationGateway {
     private String email;
     private boolean userExists = false;
     private int code;
-    private UserCreator database;
+    private Database database;
 
     private String preference;
 
@@ -46,11 +47,11 @@ public class UserRegistrationGateway {
         this.code = code;
     }
 
-    public void setDatabase(UserCreator database) {
+    public void setDatabase(Database database) {
         this.database = database;
     }
 
-    public UserCreator getDatabase(){
+    public Database getDatabase(){
         return this.database;
     }
 
