@@ -1,7 +1,6 @@
 package interface_adapters.app_screen_interface_adapters;
 
 import entities.chat.Chat;
-import use_cases.app_screen_use_case.AppScreenPresenter;
 import screens.app_screen.AppScreen;
 
 import java.util.ArrayList;
@@ -19,11 +18,6 @@ public class AppScreenLoader implements AppScreenPresenter {
     public AppScreenLoader(String username, ArrayList<Chat> chats){
         this.username = username;
         this.chats = chats;
-        try {
-            openScreen();
-        } catch (Exception e) {
-            throw new RuntimeException("Unexpected Interruption: cannot load screen");
-        }
 
     }
 
@@ -32,7 +26,11 @@ public class AppScreenLoader implements AppScreenPresenter {
      */
     @Override
     public void openScreen() {
-        this.appScreen = new AppScreen(this.username, this.chats);
+        try {
+            this.appScreen = new AppScreen(this.username, this.chats);
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected Interruption: cannot load screen");
+        }
     }
 
 }

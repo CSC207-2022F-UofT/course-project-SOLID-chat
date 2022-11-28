@@ -26,8 +26,14 @@ public class UserAppScreenGateway implements Login {
     public void login(){
         ArrayList<Chat> userChats = this.userDatabase.getUserChats(this.username);
         AppScreenLoader appScreenLoader = new AppScreenLoader(this.username, userChats);
+        appScreenLoader.openScreen();
     }
 
+    /**
+     * Update and save the order of chats for a user in UserDatabase
+     * @param username Username of the current user
+     * @param userChats Updated list of chats in order
+     */
     public void updateUserChatList(String username, ArrayList<Chat> userChats){
         User currentUser = this.userDatabase.getUser(username);
         currentUser.getUserChats().clear();
