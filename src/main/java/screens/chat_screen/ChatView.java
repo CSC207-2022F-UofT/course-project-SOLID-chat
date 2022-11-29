@@ -42,6 +42,7 @@ import java.awt.event.ActionListener;
 public class ChatView extends JFrame implements  ActionListener{
     //use Contrroller
 
+
     private ChatController controller;
 
     //Use Jframes, butttons, labels ,textfileds, Jpannels,JMenuBar for UI.
@@ -54,6 +55,11 @@ public class ChatView extends JFrame implements  ActionListener{
     final JTextField messagetextfield;
     final JMenuBar menubar;
     final JPanel panel;
+
+
+
+
+
 
     final JPanel conversationHistoryPanel;
 

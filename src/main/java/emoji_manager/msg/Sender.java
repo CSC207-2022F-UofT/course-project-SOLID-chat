@@ -41,7 +41,7 @@ public class Sender {
 			dSocket.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			err_msg = "System error！";
+			err_msg = "system error";
 			return false;
 		}
 		return true;

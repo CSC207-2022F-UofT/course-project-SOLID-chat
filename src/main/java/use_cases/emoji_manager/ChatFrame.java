@@ -1,4 +1,4 @@
-package main.java.use_cases.emoji_manager;
+package use_cases.emoji_manager;
 
 import main.java.emoji_manager.msg.MsgType;
 import main.java.emoji_manager.msg.Sender;
@@ -45,7 +45,7 @@ public class ChatFrame extends JFrame implements MouseListener, Runnable {
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     FontAndText dateFont = new FontAndText("", "Song", 20, Color.BLACK);
     /**
-     * 插入图片
+     * insert emoji
      *
      */
     int pos1;
@@ -268,7 +268,7 @@ public class ChatFrame extends JFrame implements MouseListener, Runnable {
     public void sendShake() {
         String uname = Sender.localIP + ":" + Sender.SendPort;
         if (!Sender.sendUDPMsg(MsgType.SHAKE, uname, Sender.localIP, Sender.SendPort, "shake")) {
-            error_tip.setText("Send Fail！");
+            error_tip.setText("");
             error_tip.setVisible(true);
         }
         insert("You " + uname + " Send a Shake");
@@ -281,7 +281,7 @@ public class ChatFrame extends JFrame implements MouseListener, Runnable {
     public void shake(String uname) {
         setExtendedState(Frame.NORMAL);
         setVisible(true);
-        insert(uname + " Send a Shake！");
+        insert(uname + " ");
         new Thread() {
             final long begin = System.currentTimeMillis();
             long end = System.currentTimeMillis();
@@ -312,7 +312,7 @@ public class ChatFrame extends JFrame implements MouseListener, Runnable {
             return;
         }
         if (message.length() > 100) {
-            error_tip.setText("Message Maximum" + message.length() + "Words！");
+            error_tip.setText("Message Maximum" + message.length() + "");
             error_tip.setVisible(true);
             return;
         }
@@ -324,7 +324,7 @@ public class ChatFrame extends JFrame implements MouseListener, Runnable {
             addMeg(uname);
             this.jpMsg.setText("");
         } else {
-            error_tip.setText("Send Fail！");
+            error_tip.setText("");
             error_tip.setVisible(true);
         }
     }
@@ -348,7 +348,6 @@ public class ChatFrame extends JFrame implements MouseListener, Runnable {
         int index = message.lastIndexOf("*");
 
         System.out.println("index=" + index);
-        /*It is very important to record the starting position of the chat area to insert the chat message，*/
         pos1 = jpChat.getCaretPosition();
         if (index > 0 && index < message.length() - 1) { /*There is expression information*/
             FontAndText attr = getReceiveFont(message.substring(0, index));
@@ -387,7 +386,6 @@ public class ChatFrame extends JFrame implements MouseListener, Runnable {
     /**
      * Reorganize sent emoticons
      *
-     * @return The format of the reorganized information string is position|code+position|code+…
      */
     private String buildEmoInfo() {
         StringBuilder sb = new StringBuilder();
@@ -545,7 +543,7 @@ public class ChatFrame extends JFrame implements MouseListener, Runnable {
             chatSoc = new DatagramSocket(Sender.chatPort);
         } catch (SocketException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "SYSTEM RUN ERROR！");
+            JOptionPane.showMessageDialog(this, "");
             System.exit(1);
         }
         while (true) {
@@ -561,7 +559,7 @@ public class ChatFrame extends JFrame implements MouseListener, Runnable {
                     }
                 });
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "SYSTEM RUN ERROR！");
+                JOptionPane.showMessageDialog(this, "");
                 e.printStackTrace();
             }
         }

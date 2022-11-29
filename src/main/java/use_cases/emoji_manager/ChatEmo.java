@@ -1,4 +1,4 @@
-package main.java.use_cases.emoji_manager;
+package use_cases.emoji_manager;
 
 import javax.swing.*;
 import java.net.URL;
