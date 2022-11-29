@@ -1,49 +1,36 @@
 package use_cases.user_login_use_cases;
 
+import data_access.Database;
 import entities.user_entities.User;
-import interface_adapters.User_search_IA.UserRetriever;
-import interface_adapters.login_interface_adapters.UserLoginGateway;
-import use_cases.user_login_use_cases.UserLoginInputBoundary;
-
-import javax.swing.*;
 
 public class UserLoginInteractor implements UserLoginInputBoundary {
-    private final String credential;
-    private final String password;
-    private final UserRetriever database;
-
-    public UserLoginInteractor(UserLoginGateway properties){
-        this.credential = properties.getCredential();
-        this.password = properties.getPassword();
-        this.database = properties.getDatabase();
+    private String username;
+    private String password;
+    private User user;
+    Database database;
+    public UserLoginInteractor(Database database){
+        this.database = database;
     }
 
     @Override
-    public void allowLogin(){
-        User user = database.getUser(this.credential);
+    public void tryLogin() {
+        //TODO: complete this method and UserLoginOutputBoundary
         try{
-            boolean allowLogin = user.PasswordMatch(this.password);
-            if(allowLogin){
+            user = database.getUser(username);
+            if(user.PasswordMatch(this.password)){
                 user.login();
             }else{
-                accessDenied("Wrong Password");
+                System.out.println("the password or username is incorrect");
             }
         }catch(NullPointerException e){
-            accessDenied("An account with this credential does not exist");
+            System.out.println("An account with these credentials do not exist");
         }
+
     }
 
-    public void accessDenied(String message){
-        JFrame accessDenied = new JFrame();
-        accessDenied.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        accessDenied.setSize(200, 400);
-        JPanel accessDeniedPanel = new JPanel();
-        accessDenied.add(accessDeniedPanel);
-        JLabel messageLabel = new JLabel(message);
-        messageLabel.setBounds(50, 200, 300, 25);
-        accessDeniedPanel.add(messageLabel);
-        accessDenied.setVisible(true);
+    @Override
+    public void setLoginCredentials(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
-
-
 }

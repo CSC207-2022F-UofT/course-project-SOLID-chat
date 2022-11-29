@@ -1,33 +1,26 @@
 package screens.user_registration_screen;
-
-import use_cases.user_registration_use_cases.UserRegistrationInteractor;
-import interface_adapters.user_registration_interface_adapters.UserRegistrationGateway;
+import data_access.Database;
 import data_access.UserDatabase;
+import use_cases.user_registration_use_cases.UserExistsInputBoundary;
+import use_cases.user_registration_use_cases.UserExistsInteractor;
 import use_cases.user_registration_use_cases.userRegCredentialsRetriever;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Random;
+
 /** This is screen on which the User enters his credentials in order to login**/
 public class UserRegistrationUI implements ActionListener, userRegCredentialsRetriever {
-    private final UserDatabase database;
-    private JLabel registrationSuccess;
+    private final UserExistsInputBoundary verifyUser;
     private JTextField usernameText;
     private JTextField passwordText;
     private JTextField emailText;
-    private JButton register;
-    private static JButton phoneVerify = new JButton("Phone");
-    private static JButton emailVerify = new JButton("Email");
-    private final int code;
 
-    public UserRegistrationUI(UserDatabase database) {
-        this.database = database;
-        /*TODO: For now the code is 389 for testing purposes, but once UI.UserVerificationUI.sendVerificationCode() is
-            implemented this will be a random integer.
-        */
-        code = new Random().nextInt(1244254);
+    private JTextField deliveryText;
+
+    public UserRegistrationUI(UserExistsInputBoundary verifyUser) {
+        this.verifyUser = verifyUser;
     }
     @Override
     public void getUserCredentials(){
@@ -66,68 +59,37 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
         emailText.setBounds(100, 80, 165, 25);
         registerPanel.add(emailText);
 
+        //The textbox for entering verification path
+        JLabel deliveryLabel = new JLabel("Choose verification Path(0 for email, 1 for phone)");
+        deliveryLabel.setBounds(10, 115, 200, 25);
+
+        deliveryText = new JTextField(20);
+        deliveryText.setBounds(100, 110, 50, 25);
+        registerPanel.add(deliveryLabel);
+        registerPanel.add(deliveryText);
+
         //The Button
-        register = new JButton("Register");
-        register.setBounds(100, 110, 165, 25);
-        register.addActionListener(this);
-        registerPanel.add(register);
-
-        //Success/Failure Label
-        registrationSuccess = new JLabel("");
-        registrationSuccess.setBounds(10, 140, 350, 25);
-        registerPanel.add(registrationSuccess);
-
+        JButton registerButton = new JButton("Register");
+        registerButton.setBounds(100, 140, 165, 25);
+        registerButton.addActionListener(this);
+        registerPanel.add(registerButton);
         registerFrame.setVisible(true);
     }
 
-    public void getPreferredDeliveryMethod(){
-        JFrame preference = new JFrame();
-        preference.setSize(400, 200);
-        JPanel preferancePanel = new JPanel();
-        preference.add(preferancePanel);
-
-        JLabel message = new JLabel("Send verification code via:");
-        message.setBounds(30, 120, 300, 20);
-        preferancePanel.add(message);
-
-        emailVerify.setBounds(30, 150, 140, 25);
-        emailVerify.addActionListener(this);
-        phoneVerify.setBounds(150, 150, 140, 25);
-        phoneVerify.addActionListener(this);
-        preferancePanel.add(emailVerify);
-        preferancePanel.add(phoneVerify);
-        preference.setVisible(true);
-
-    }
-
     public static void main(String[] args){
-        UserDatabase testDB = new UserDatabase(new File("user_accounts"));
-        System.out.println(testDB.UserExists("RandomUser", "abdfeg@gmail.com"));
-        System.out.println(testDB.getList().size());
-        UserRegistrationUI testUI = new UserRegistrationUI(testDB);
-
-        testUI.getUserCredentials();
+        Database testDB = new UserDatabase(new File("test20123"));
+        UserExistsInputBoundary interactor = new UserExistsInteractor(testDB);
+        new UserRegistrationUI(interactor).getUserCredentials();
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
+        //Need if statements for cases
         String username = usernameText.getText();
         String password = passwordText.getText();
         String email = emailText.getText();
+        String type = deliveryText.getText();
 
-        UserRegistrationGateway properties = new UserRegistrationGateway();
-        properties.setUsername(username);
-        properties.setPassword(password);
-        properties.setEmail(email);
-        properties.setUserExists(database.UserExists(username, email));
-        properties.setCode(code);
-        properties.setDatabase(this.database);
-        getPreferredDeliveryMethod();
-        //Not an error below, we just have not implemented sending code via phone yet.
-        if(e.getSource() == emailVerify || e.getSource() == phoneVerify){
-            properties.setPreference("Email");
-            UserRegistrationInteractor verifyUser = new UserRegistrationInteractor(properties);
-            verifyUser.registerUser();
-        }
+        verifyUser.setCodeDeliveryMethod(type);
+        verifyUser.register(username, password, email);
     }
 }

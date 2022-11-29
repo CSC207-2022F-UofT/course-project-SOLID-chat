@@ -1,5 +1,5 @@
 package use_cases.user_login_use_cases;
 
-public interface loginCredentialsRetriever {
+public interface UserVerificationOutputBoundary {
     void getLoginCredentials();
 }

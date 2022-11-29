@@ -1,25 +1,20 @@
 package screens.login_screen;
-import data_access.Database;
-import use_cases.user_login_use_cases.UserLoginInteractor;
-import interface_adapters.login_interface_adapters.UserLoginGateway;
-import data_access.UserDatabase;
-import use_cases.user_login_use_cases.loginCredentialsRetriever;
+import use_cases.user_login_use_cases.UserLoginInputBoundary;
+import use_cases.user_registration_use_cases.UserVerificationOutputBoundary;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+
 /** This is the screen on which the user enters his credentials in order to login **/
-public class UserLoginUI implements ActionListener, loginCredentialsRetriever {
+public class UserLoginUI implements ActionListener, UserVerificationOutputBoundary {
 
-    private JTextField credentialText;
-    private JLabel passwordLabel;
-    private JPasswordField passwordText;
+    private final UserLoginInputBoundary loginInteractor;
+    JTextField credentialText;
+    JPasswordField passwordText;
 
-    private final Database database;
-
-    public UserLoginUI(Database database){
-        this.database = database;
+    public UserLoginUI(UserLoginInputBoundary loginInteractor){
+        this.loginInteractor = loginInteractor;
     }
     @Override
     public void getLoginCredentials(){
@@ -38,7 +33,7 @@ public class UserLoginUI implements ActionListener, loginCredentialsRetriever {
         loginPanel.add(credentialLabel);
         loginPanel.add(credentialText);
 
-        passwordLabel = new JLabel("Enter Password:");
+        JLabel passwordLabel = new JLabel("Enter Password:");
         passwordLabel.setBounds(10,55, 200, 25);
         passwordText = new JPasswordField();
         passwordText.setBounds(210, 55, 100, 25);
@@ -54,16 +49,27 @@ public class UserLoginUI implements ActionListener, loginCredentialsRetriever {
 
     }
 
-    public static void main(String[] args){
-        Database testDB = new UserDatabase(new File("user_accounts"));
-        UserLoginUI screen = new UserLoginUI(testDB);
-        screen.getLoginCredentials();
+    @Override
+    public void cannotVerify() {
+        JFrame cannotVerifyFrame = new JFrame();
+        cannotVerifyFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        cannotVerifyFrame.setSize(300, 200);
+        JPanel cannotVerifyPanel = new JPanel();
+        cannotVerifyPanel.setLayout(null);
+        cannotVerifyFrame.add(cannotVerifyPanel);
+
+        JLabel accountExists = new JLabel("The verification code you have entered is incorrect, please try again");
+        accountExists.setBounds(10, 150, 200, 30);
+
+        cannotVerifyFrame.setVisible(true);
+        
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        UserLoginGateway properties = new UserLoginGateway(credentialText.getText(), passwordText.getText(), this.database);
-        UserLoginInteractor guard = new UserLoginInteractor(properties);
-        guard.allowLogin();
-
+        String username = credentialText.getText();
+        String password = passwordText.getText();
+        loginInteractor.setLoginCredentials(username, password);
+        loginInteractor.tryLogin();
     }
 }

@@ -10,10 +10,14 @@ import java.awt.event.ActionListener;
 /** This is the screen in which the user chooses to either register or login. **/
 public class LoginRegisterScreen implements ActionListener {
 
+    private final UserRegistrationUI registrationUI;
+    private final UserLoginUI loginUI;
     JButton login = new JButton("login");
     JButton register = new JButton("register");
 
-    public LoginRegisterScreen(){
+    public LoginRegisterScreen(UserRegistrationUI registrationUI, UserLoginUI loginUI){
+        this.registrationUI = registrationUI;
+        this.loginUI = loginUI;
         JFrame loginRegFrame = new JFrame();
         loginRegFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         loginRegFrame.setSize(400, 200);
@@ -31,16 +35,14 @@ public class LoginRegisterScreen implements ActionListener {
         loginRegFrame.setVisible(true);
 
     }
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         LoginRegisterScreen screen = new LoginRegisterScreen();
-    }
+    }*/
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(login)){
-            UserLoginUI loginUI = new UserLoginUI(new UserDatabase());
             loginUI.getLoginCredentials();
         }else{
-            UserRegistrationUI registrationUI = new UserRegistrationUI(new UserDatabase());
             registrationUI.getUserCredentials();
         }
     }

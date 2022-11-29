@@ -10,7 +10,7 @@ import interface_adapters.Chat.UserChatGateway;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-public class UserDatabase extends Database implements IRetrieveList, UserModificationGateway, UserChatGateway {
+public class UserDatabase implements Database, IRetrieveList, UserModificationGateway, UserChatGateway {
     File accounts;
     List<User> accountList;
     public UserDatabase(){
