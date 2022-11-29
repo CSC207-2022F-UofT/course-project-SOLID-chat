@@ -1,7 +1,5 @@
 package entities.chat;
 
-import entities.message.Message;
-
 import java.util.ArrayList;
 
 public class PrivateChat extends Chat {
@@ -29,7 +27,7 @@ public class PrivateChat extends Chat {
         this.name = name;
         this.chatID = chatID;
         this.recipientUsername = recipientUsername;
-        this.convHist = new ArrayList<Message>();
+        this.convHist = new ArrayList<>();
 
     }
 

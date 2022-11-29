@@ -1,37 +1,17 @@
 package interface_adapters.appscreen;
 
-import data_access.UserDatabase;
 import entities.chat.Chat;
-import use_cases.appscreen.ChatInfo;
-import use_cases.appscreen.ChatOrder;
-
-import java.io.File;
 import java.util.ArrayList;
 
 public class AppScreenController{
-
     private final String username;
-    private final String chatID;
-
 
     /**
      * Create an app screen controller
      * @param username Username of the user
-     * @param chatID ID the chat with an update
      */
-    public AppScreenController(String username, String chatID){
+    public AppScreenController(String username){
         this.username = username;
-        this.chatID = chatID;
-
-    }
-
-    /**
-     * Return the chat with the given ID
-     * @return Chat with given ID
-     */
-    public Chat getChat(){
-        ChatInfo chatInfo = new ChatInfo(this.username, this.chatID);
-        return chatInfo.getChat();
 
     }
 

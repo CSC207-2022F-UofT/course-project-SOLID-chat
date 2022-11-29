@@ -3,8 +3,6 @@ package use_cases.chat_initiation_use_case;
 
 import entities.chat.PrivateChat;
 import entities.chat.PrivateChatfactory;
-import use_cases.appscreen.AppScreenStatus;
-
 import java.util.UUID;
 
 public class ChatInteractor implements ChatInputBoundry{

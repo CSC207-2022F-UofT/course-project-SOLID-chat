@@ -1,6 +1,5 @@
 package interface_adapters.appscreen;
 
-import entities.chat.Chat;
 import screens.appscreen.AppScreen;
 import use_cases.appscreen.AppScreenStatus;
 
@@ -9,14 +8,15 @@ import java.util.ArrayList;
 public class AppScreenLoader implements AppScreenPresenter {
 
     private final String username;
-    private final ArrayList<Chat> chats;
+    private final ArrayList<String> chats;
     public AppScreen appScreen;
 
     /**
-     * Create the app screen loader (and store its user and chat information)
+     * Create the app screen loader
      * @param username The username of the current user
+     * @param chats A list of chatIDs of all the chats the given user has
      */
-    public AppScreenLoader(String username, ArrayList<Chat> chats){
+    public AppScreenLoader(String username, ArrayList<String> chats){
         this.username = username;
         this.chats = chats;
 

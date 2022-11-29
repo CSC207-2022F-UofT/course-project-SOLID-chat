@@ -1,5 +1,12 @@
 package use_cases.appscreen;
 
+import entities.chat.CommonPrivatechat;
+import entities.chat.PrivateChatfactory;
+import screens.chat_screen.ChatController;
+import screens.chat_screen.ChatView;
+import use_cases.chat_initiation_use_case.ChatInputBoundry;
+import use_cases.chat_initiation_use_case.ChatInteractor;
+
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
@@ -31,7 +38,10 @@ public class ChatButton {
 
         // defines the action of opening a chat when a chat is clicked on
         jButton.addActionListener(e -> {
-
+            PrivateChatfactory privateChatfactory = new CommonPrivatechat();
+            ChatInputBoundry inputBoundary = new ChatInteractor(privateChatfactory);
+            ChatController controller = new ChatController(inputBoundary, currentUsername);
+            new ChatView(controller, false);
         });
         return jButton;
     }

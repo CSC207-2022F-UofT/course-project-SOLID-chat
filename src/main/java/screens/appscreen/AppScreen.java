@@ -1,9 +1,9 @@
 package screens.appscreen;
 
-import entities.chat.Chat;
 import entities.chat.CommonPrivatechat;
 import entities.chat.PrivateChatfactory;
 import interface_adapters.appscreen.AppScreenPresenter;
+import interface_adapters.appscreen.Refresh;
 import screens.Profile_screen.UserSearchUI;
 import screens.chat_screen.ChatController;
 import screens.chat_screen.ChatView;
@@ -17,12 +17,12 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class AppScreen implements AppScreenPresenter {
+public class AppScreen implements AppScreenPresenter, Refresh {
 
     private final JFrame jFrame;
     private JScrollPane jScrollPane;
     private final String currentUsername;
-    private ArrayList<Chat> chats;
+    private ArrayList<String> chats;
 
 
     /**
@@ -30,12 +30,13 @@ public class AppScreen implements AppScreenPresenter {
      @param chats This is a list of chats given by the user (the list will always come as sorted with the
      most recent chats at the end of the list)
      */
-    public AppScreen(String currentUsername, ArrayList<Chat> chats) {
+    public AppScreen(String currentUsername, ArrayList<String> chats) {
         this.currentUsername = currentUsername;
         this.chats = chats;
         jFrame = new JFrame();
         jFrame.setSize(300, 500);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jFrame.setLocation(300, 100);
 
 
         // top panel containing the buttons for creating a new chat
@@ -118,7 +119,7 @@ public class AppScreen implements AppScreenPresenter {
         // getting the names of each chat to display and creating buttons for each chat
         for (int i = this.chats.size() - 1; i > -1; i--) {
 
-            ChatInfo chatInfo = new ChatInfo(currentUsername, this.chats.get(i).getChatID());
+            ChatInfo chatInfo = new ChatInfo(currentUsername, this.chats.get(i));
 
             String chatName = chatInfo.getChatName();
             LocalDateTime lastUpdated = chatInfo.getLastMessageTime();

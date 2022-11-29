@@ -12,20 +12,26 @@ public class UserAppScreenGateway implements Login {
 
     private final UserDatabase userDatabase = new UserDatabase(new File("user_accounts"));
     private final String username;
+    private final ArrayList<Chat> userChats;
 
     /**
-     * Create gateway between user and appscreen
+     * Create gateway between user and app screen
      */
     public UserAppScreenGateway(String username){
         this.username = username;
+        this.userChats = userDatabase.getUserChats(this.username);
     }
 
     /**
      * Log the user into the system
      */
     public void login(){
-        ArrayList<Chat> userChats = userDatabase.getUserChats(this.username);
-        AppScreenLoader appScreenLoader = new AppScreenLoader(this.username, userChats);
+        ArrayList<String> chatIDs = new ArrayList<>();
+
+        for (Chat chat: userChats){
+            chatIDs.add(chat.getChatID());
+        }
+        AppScreenLoader appScreenLoader = new AppScreenLoader(this.username, chatIDs);
         appScreenLoader.openScreen();
     }
 
