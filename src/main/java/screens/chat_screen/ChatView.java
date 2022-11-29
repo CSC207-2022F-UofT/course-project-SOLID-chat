@@ -42,7 +42,7 @@ import java.awt.event.ActionListener;
 public class ChatView extends JFrame implements  ActionListener{
     //use Contrroller
 
-    private final ChatController controller;
+    private ChatController controller;
 
     //Use Jframes, butttons, labels ,textfileds, Jpannels,JMenuBar for UI.
     final JFrame frame ;
@@ -69,7 +69,7 @@ public class ChatView extends JFrame implements  ActionListener{
 
 
     //this is constructor
-    public ChatView(ChatController controller , boolean isNewchat){
+    public ChatView( ChatController controller , boolean isNewchat){
         this.controller = controller;
         this.isNewchat = isNewchat;
 
@@ -110,6 +110,7 @@ public class ChatView extends JFrame implements  ActionListener{
         // set frame size and frame title
         frame.setSize(450, 500);
         frame.setTitle("Chat box");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
         // adding "addbutton" and "groupchatbutton"  to the menu bar
@@ -164,7 +165,6 @@ public class ChatView extends JFrame implements  ActionListener{
 
 
         frame.getContentPane().add(BorderLayout.CENTER, conversationHistoryPanel);
-        frame.setLocation(587, 100);
 
         // set the frame visibile
         frame.setVisible(true);
