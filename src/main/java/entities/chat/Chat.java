@@ -1,7 +1,11 @@
 package entities.chat;
+import entities.message.Message;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 // Chat is an abstract class
-public class Chat {
+public class Chat implements Serializable {
 
     protected String name;
     protected String chatID;
@@ -40,15 +44,27 @@ public class Chat {
      * @return convHist
      */
     public ArrayList<Message> getConvHist(){
-        return new ArrayList<Message>(this.convHist);
+        return new ArrayList<>(this.convHist);
     }
 
     /**
      * Add a message to the chat's conversation history when a message is sent or received
      * @param message Message that is sent or received
      */
-    public void addtoconvHist(Message message){
+    public void addToConvHist(Message message){
         this.convHist.add(message);
+    }
+
+    /**
+     * Return of the timestamp of a chat's last updated to conversation history. If conversation
+     * history is empty, return null
+     * @return timestamp of last update (or null if empty)
+     */
+    public LocalDateTime getLastUpdated(){
+        if (this.convHist.size() != 0) {
+            return this.convHist.get(this.convHist.size() - 1).getTimestamp();
+        }
+        return null;
     }
 
 

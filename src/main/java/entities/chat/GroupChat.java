@@ -23,7 +23,7 @@ public class GroupChat extends Chat {
         this.name = name;
         this.chatID = chatID;
         this.senderUsername = senderUsername;
-        this.convHist = new ArrayList<Message>();
+        this.convHist = new ArrayList<>();
         this.groupMembers = new ArrayList<>();
     }
 
@@ -33,7 +33,7 @@ public class GroupChat extends Chat {
      * @return groupMembers
      */
     public ArrayList<String> getGroupMembers(){
-        return new ArrayList<String>(this.groupMembers);
+        return new ArrayList<>(this.groupMembers);
     }
 
     /**

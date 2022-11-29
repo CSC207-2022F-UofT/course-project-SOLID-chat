@@ -1,22 +1,23 @@
-package screens.profile_update_screen; /**
- * Provides the UI elements
- */
-import data_access.UserDatabase;
-import entities.user_entities.User;
-import interface_adapters.profile_modification_IA.ChangeController;
-
+package screens.profile_update_screen;
+import interface_adapters.profile_modification_IA.ChangeControllerClass;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
-public class UserModificationUI implements ChangeController {
-    private JLabel label;
+
+/**
+ * Provides the UI elements.
+ */
+public class UserModificationUI {
+    ChangeControllerClass c = new ChangeControllerClass();
+    private final JLabel label;
     public UserModificationUI() {
         final JFrame frame = new JFrame();
         frame.setSize(500, 300);
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setLayout(new FlowLayout());
 
 //      Field for username
@@ -47,9 +48,9 @@ public class UserModificationUI implements ChangeController {
             public void actionPerformed(ActionEvent e) {
                 String username = (usernameField.getText());
                 String password = (passwordField.getText());
-                String item = cb.getSelectedItem().toString();
+                String item = Objects.requireNonNull(cb.getSelectedItem()).toString();
                 String newFeature = (newFeatureField.getText());
-                boolean success = reportChange(username, password, item, newFeature);
+                boolean success = c.reportChange(username, password, item, newFeature);
                 if (success){
                     label.setText("Your " + item + " was successfully changed.");
                 }
@@ -62,6 +63,7 @@ public class UserModificationUI implements ChangeController {
 
         label = new JLabel();
 
+        frame.setTitle("Profile Editor Tool");
         frame.add(usernameField);
         frame.add(passwordField);
         frame.add(cb);
@@ -73,27 +75,5 @@ public class UserModificationUI implements ChangeController {
 
         frame.setVisible(true);
     }
-
-//      profile_modification_IA.ChangeController makes UI implement reportChange to invert the use-case --> UI dependency
-    @Override
-    public boolean reportChange(String username, String password, String feature, String newFeature) {
-        UserDatabase db = new UserDatabase();
-        if (db.UserExists(username)){
-            User user = db.getUser(username);
-            if (user.PasswordMatch(password) & user.getUsername().equals(username)){
-                user.changeFeature(feature, newFeature);
-                // this serializes the change
-                db.modifyUser(username, user);
-                return true;
-            }
-        }
-        return false;
-    }
-
-// for trying out the code:
-//    public static void main(String[] args) {
-//        new profile_update_screen.UserModificationUI();
-//
-//    }
 
 }

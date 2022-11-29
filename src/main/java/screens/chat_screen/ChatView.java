@@ -1,8 +1,23 @@
 package screens.chat_screen;
 
 
+
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
+import entities.chat.CommonPrivatechat;
+import entities.chat.PrivateChatfactory;
+import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatInteractor;
-import use_cases.chat_initiation_use_case.CheckUsername_Interactor;
+import use_cases.chat_initiation_use_case.ChatModel;
+
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -24,11 +39,10 @@ import java.awt.event.ActionListener;
  */
 
 
+public class ChatView extends JFrame implements  ActionListener{
+    //use Contrroller
 
-class ChatView extends JFrame implements  ActionListener{
-    //use two Interactors .
-    private ChatInteractor chatInteractor;
-    private CheckUsername_Interactor checkusername_interactor;
+    private final ChatController controller;
 
     //Use Jframes, butttons, labels ,textfileds, Jpannels,JMenuBar for UI.
     final JFrame frame ;
@@ -53,9 +67,10 @@ class ChatView extends JFrame implements  ActionListener{
 
 
 
-    //this is constructor
-    public ChatView( boolean isNewchat){
 
+    //this is constructor
+    public ChatView(ChatController controller , boolean isNewchat){
+        this.controller = controller;
         this.isNewchat = isNewchat;
 
 
@@ -90,16 +105,11 @@ class ChatView extends JFrame implements  ActionListener{
         sendbutton.setFocusable(false);
 
 
-    }
-
-
-    // create a setup for display of buttons and other component of the frame.
-    public void chatdisplay(){
+        // create a setup for display of buttons and other component of the frame.
 
         // set frame size and frame title
         frame.setSize(450, 500);
         frame.setTitle("Chat box");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
         // adding "addbutton" and "groupchatbutton"  to the menu bar
@@ -108,12 +118,10 @@ class ChatView extends JFrame implements  ActionListener{
         menubar.add(addbutton);
 
 
-
         // adding label and textfiled1 to our panel .
         panel.add(label);
         panel.add(messagetextfield);
         panel.add(sendbutton);
-
 
 
         // add content to conversationHistoryPanel
@@ -148,16 +156,15 @@ class ChatView extends JFrame implements  ActionListener{
         conversationHistoryPanel.add(messagePanel2);
 
 
-
-
         //Locating the Components to the frame.
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        if (isNewchat){
+        if (isNewchat) {
             frame.getContentPane().add(BorderLayout.NORTH, menubar);
         }
 
 
         frame.getContentPane().add(BorderLayout.CENTER, conversationHistoryPanel);
+        frame.setLocation(587, 100);
 
         // set the frame visibile
         frame.setVisible(true);
@@ -169,63 +176,55 @@ class ChatView extends JFrame implements  ActionListener{
     }
 
 
-
     //we implement ActionListener class and should override this method for our button's actions.
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         // STEP1: action for the  "add button" at the top of frame.
-        // goal : click on add button will change the chat frame's title to user'sB username(typed in  the textfiled)
-
 
         if (e.getSource() == addbutton){
             //  convert textfield input to String and set the frame title to that input is username exists.
-            String input = usernametextfield.getText();
-            if (checkusername_interactor.checkusername(input)){
-                frame.setTitle(input);
-            }
 
-            // also set the input -will change the private chat's RecipientUsername .
-            chatInteractor.setRecipientUsername(input);
+            String input = usernametextfield.getText();
+            controller.create(input);
+
+
+            frame.setTitle(input);
 
         }
 
 
         // STEP2: action for the "send button".
-        // goal : to write a message in txt filed and click "send button"
-        // so the message will come in the middle  of the frame
 
         if (e.getSource() == sendbutton){
-
-            //convert the text field input to a String
-            String  input = usernametextfield.getText();
-
-            // setting our messge in the chatInteractor- will add this message to conv history.
-            chatInteractor.setMessage(input);
 
             //TODO:this is chatHisroy action.
 
 
         }
+
     }
+
+
+
 //    public static void main(String args[]) {
-//        EventQueue.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                ChatView chat = new ChatView(true);
-////                chat.getframe().setTitle("AMMY")
-//                chat.chatdisplay();
 //
+//        PrivateChatfactory chatfactory = new CommonPrivatechat();
+//        ChatInputBoundry Interactor = new ChatInteractor(chatfactory);
+//        ChatController controller = new ChatController(Interactor);
+//        new ChatView(controller,true);
 //
-//                //todo
-//                //chat history
+//        controller.create(new ChatModel("Hi").getRecipientusername());
 //
+//        new ChatView(controller,true);
+////        // find the created privatechat and the username
+////        System.out.println(controller.getNewprivatechat().getRecipientUsername());
 //
-//            }
-//        });
 //
 //    }
 
+
 }
+
 

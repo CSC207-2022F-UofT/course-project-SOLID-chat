@@ -1,27 +1,27 @@
 package data_access;
 
-import interface_adapters.IRetrieveList;
-import interface_adapters.user_registration_interface_adapters.UserExists;
+import entities.chat.Chat;
+import interface_adapters.User_search_IA.IRetrieveList;
 import entities.user_entities.User;
+import interface_adapters.profile_modification_IA.UserModificationGateway;
 import entities.user_entities.UserFactory;
-import use_cases.user_login_use_case.UserCreator;
-import interface_adapters.UserRetriever;
-
-import interface_adapters.Chat.ConvHistGateway;
-import interface_adapters.Chat.MsgSenderGateway;
 import interface_adapters.Chat.UserChatGateway;
-import interface_adapters.User.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
-public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway,
-        ConvHistGateway, MsgSenderGateway, UserChatGateway {
+public class UserDatabase implements Database, IRetrieveList, UserModificationGateway, UserChatGateway {
     File accounts;
     List<User> accountList;
     public UserDatabase(){
-        this.accounts = new File("TestUserDatabase3.csv");
+        this.accounts = new File("user_accounts");
+        if(!accounts.exists()){
+            try {
+                accounts.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         this.accountList = this.getList();
     }
     public UserDatabase(File accounts){
@@ -45,11 +45,19 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
         return false;
     }
 
+    /**
+     * Checks if a user with given Username exists.
+     */
     @Override
     public boolean UserExists(String username) {
-        return UserExists(username, "");
+        for(User user: this.accountList){
+            if(user.getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
     }
-    
+
     // Creates a new user with a username and password, and an email address
     // The order is username, password, email address, verification status, status
     //
@@ -70,6 +78,9 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
         }
     }
 
+    /**
+     * getUser retrieves a User object based on passed username.
+     */
     @Override
 //  To be edited to get user from the array format rather than the serialized format.
     public User getUser(String username) {
@@ -90,6 +101,14 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
             ObjectInputStream in = new ObjectInputStream(fileIn)) {
 
             users = (ArrayList<User>) in.readObject();
+            /*
+            while(true){
+                try{
+                    Entities.User_Entities.User user = (Entities.User_Entities.User) in.readObject();
+                    users.add(user);}
+                catch(EOFException e){
+                    break;
+                }*/
             return users;
         }catch(EOFException e){
             return users;
@@ -98,6 +117,9 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
         }
     }
 
+    /**
+     * modifyUser updates the serialized database with modified user information.
+     */
     @Override
     public void modifyUser(String oldUsername, User modified){
 //        swap in modified user to accountList
@@ -118,6 +140,15 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
         }
     }
 
+    @Override
+    public ArrayList<Chat> getUserChats(String username) {
+        for (User user: accountList){
+            if(user.getUsername().equals(username)){
+                return user.getChats();
+            }
+        }
+        throw new RuntimeException("Invalid username");
+    }
 
     // Below two methods are used by conversation history-related interactors
     // (Commented as objects are not found)
@@ -130,7 +161,7 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
 //        String chatID = dsRequestModel.getChatID();
 //        Message message = dsRequestModel.getMessage();
 //
-//        // Find chat under specified entities.userEntities.User
+//        // Find chat under specified Entities.User_Entities.User
 //        Chat chat = this.getUser(userID).getChat(chatID);
 //
 //        chat.addMessage(message);
@@ -145,24 +176,9 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
 //        String userID = dsRequestModel.getUserID();
 //        String chatID = dsRequestModel.getChatID();
 //
-//        // Find chat under specified entities.userEntities.User
+//        // Find chat under specified Entities.User_Entities.User
 //        Chat chat = this.getUser(userID).getChat(chatID);
 //
 //        return Chat.getConversationHistory();
-//    }
-
-
-
-
-// This method will get a user's chats; this will be used by AppScreenLoader to display chats and could
-// also be used by ChatInteractor  (Chat entity is undefined here and at the moment user doesn't have chats)
-//    @Override
-//    public ArrayList<Chat> getUserChats(String username) {
-//        for (entities.userEntities.User user: accountList){
-//            if (user.getUsername().equals(username)){
-//                return user.getChats();
-//            }
-//        }
-//        throw new RuntimeException("Invalid username: user does not exist");
 //    }
 }

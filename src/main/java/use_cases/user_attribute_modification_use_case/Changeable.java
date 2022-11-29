@@ -1,5 +1,7 @@
 package use_cases.user_attribute_modification_use_case;
-
+/**
+ * User entity must implement this to change a feature.
+ */
 public interface Changeable {
-    public void changeFeature(String feature, String newFeature);
+    void changeFeature(String feature, String newFeature);
 }
