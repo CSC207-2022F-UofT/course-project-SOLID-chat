@@ -4,7 +4,7 @@ package use_cases.chat_initiation_use_case;
 
 public class ChatModel {
 
-    private String recipientusername;
+    private final String recipientusername;
     //TODO: maybe messge.
 
     public ChatModel (String recipientusername){

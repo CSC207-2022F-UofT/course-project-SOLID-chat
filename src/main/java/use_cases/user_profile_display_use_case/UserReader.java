@@ -1,16 +1,14 @@
 package use_cases.user_profile_display_use_case;
-
-
 import entities.user_entities.User;
 
-import java.io.File;
-
+/**
+ * Collects user information from user entity.
+ */
 public class UserReader {
-    public String[] UserReader(User user) {
+    public String[] ProfileReader(User user) {
         String email = user.getEmail();
         String username = user.getUsername();
-        String[] out = new String[] {username, email};
-        return out;
+        return new String[] {username, email};
     }
 
 }

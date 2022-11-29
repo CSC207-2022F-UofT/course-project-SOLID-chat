@@ -7,9 +7,11 @@ import use_cases.chat_initiation_use_case.ChatModel;
 public class ChatController {
 
     ChatInputBoundry chatinputboundry;
+    String username;
     PrivateChat newprivatechat;
-    public ChatController(ChatInputBoundry chatinputboundry) {
+    public ChatController(ChatInputBoundry chatinputboundry, String username) {
         this.chatinputboundry = chatinputboundry;
+        this.username = username;
     }
 
     // this method is used in UI to set the recipient username
