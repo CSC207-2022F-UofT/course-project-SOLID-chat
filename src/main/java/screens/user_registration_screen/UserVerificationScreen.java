@@ -8,8 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UserVerificationScreen implements UserExistsOutputBoundary, ActionListener {
-    private String verificationCode;
-    private JTextField verText = new JTextField(20);
+    private final JTextField verText = new JTextField(20);
     private final UserVerificationInputBoundary verificationInputBoundary;
 
     public UserVerificationScreen(UserVerificationInputBoundary verificationInputBoundary) {
