@@ -5,7 +5,7 @@ import entities.chat.Chat;
 import interface_adapters.profile_modification_IA.UserAuthenticationI;
 import interface_adapters.login_interface_adapters.Login;
 import use_cases.user_attribute_modification_use_case.Changeable;
-import interface_adapters.app_screen_interface_adapters.UserAppScreenGateway;
+import interface_adapters.appscreen.UserAppScreenGateway;
 
 import java.io.File;
 import java.io.Serializable;
@@ -41,16 +41,12 @@ public abstract class User implements Serializable, Changeable, Login, UserAuthe
     @Override
 //    from Changeable
     public void changeFeature(String feature, String newFeature){
-        switch (feature) {
-            case "Username":
-                this.username = newFeature;
-                break;
-            case "Password":
-                this.password = newFeature;
-                break;
-            case "Email":
-                this.email = newFeature;
-                break;
+        if (feature == "Username"){
+            this.username = newFeature;
+        } else if (feature == "Password"){
+            this.password = newFeature;
+        } else if (feature == "Email"){
+            this.email = newFeature;
         }
     }
 
@@ -60,7 +56,7 @@ public abstract class User implements Serializable, Changeable, Login, UserAuthe
     }
 
     public void login(){
-        UserAppScreenGateway appScreenGateway = new UserAppScreenGateway(this.getUsername(), new UserDatabase(new File("user_accounts")));
+        UserAppScreenGateway appScreenGateway = new UserAppScreenGateway(this.getUsername());
         appScreenGateway.login();
     }
 

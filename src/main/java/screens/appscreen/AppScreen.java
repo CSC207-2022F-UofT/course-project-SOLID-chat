@@ -3,6 +3,7 @@ package screens.appscreen;
 import entities.chat.Chat;
 import entities.chat.CommonPrivatechat;
 import entities.chat.PrivateChatfactory;
+import interface_adapters.appscreen.AppScreenController;
 import interface_adapters.appscreen.AppScreenPresenter;
 import interface_adapters.appscreen.Refresh;
 import screens.chat_screen.ChatController;
@@ -16,7 +17,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class AppScreen implements AppScreenPresenter, Refresh {
+public class AppScreen implements AppScreenPresenter {
 
     private final JFrame jFrame;
     private JScrollPane jScrollPane;
@@ -51,7 +52,7 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         addPrivateChat.addActionListener(e -> {
             PrivateChatfactory privateChatfactory = new CommonPrivatechat();
             ChatInputBoundry inputBoundry = new ChatInteractor(privateChatfactory);
-            ChatController controller = new ChatController(inputBoundry);
+            ChatController controller = new ChatController(inputBoundry, currentUsername);
             new ChatView(controller, true);
 
         });
@@ -132,11 +133,8 @@ public class AppScreen implements AppScreenPresenter, Refresh {
     /**
      * Update the order of chats that appear on screen if there was a change to conversation history
      * This should be called if a new chat was added or if an existing chat has a new message
-     * @param chatID The ID of the chat with an update
      */
-    public void refreshScreen(String chatID) {
-        ChatOrder chatOrder = new ChatOrder(currentUsername);
-        this.chats = chatOrder.getUserChats();
+    public void refreshScreen() {
 
         jFrame.remove(this.jScrollPane);
 

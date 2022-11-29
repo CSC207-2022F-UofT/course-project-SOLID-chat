@@ -5,26 +5,26 @@ import entities.chat.Chat;
 import entities.user_entities.User;
 import interface_adapters.login_interface_adapters.Login;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class UserAppScreenGateway implements Login {
 
-    private final UserDatabase userDatabase;
+    private final UserDatabase userDatabase = new UserDatabase(new File("user_accounts"));
     private final String username;
 
     /**
      * Create gateway between user and appscreen
      */
-    public UserAppScreenGateway(String username, UserDatabase userDatabase){
+    public UserAppScreenGateway(String username){
         this.username = username;
-        this.userDatabase = userDatabase;
     }
 
     /**
      * Log the user into the system
      */
     public void login(){
-        ArrayList<Chat> userChats = this.userDatabase.getUserChats(this.username);
+        ArrayList<Chat> userChats = userDatabase.getUserChats(this.username);
         AppScreenLoader appScreenLoader = new AppScreenLoader(this.username, userChats);
         appScreenLoader.openScreen();
     }
@@ -41,4 +41,5 @@ public class UserAppScreenGateway implements Login {
         this.userDatabase.modifyUser(username, currentUser);
 
     }
+
 }
