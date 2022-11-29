@@ -53,14 +53,14 @@ public class UserLoginUI implements ActionListener, UserVerificationOutputBounda
     public void cannotVerify() {
         JFrame cannotVerifyFrame = new JFrame();
         cannotVerifyFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        cannotVerifyFrame.setSize(300, 200);
+        cannotVerifyFrame.setSize(400, 100);
         JPanel cannotVerifyPanel = new JPanel();
         cannotVerifyPanel.setLayout(null);
         cannotVerifyFrame.add(cannotVerifyPanel);
 
-        JLabel accountExists = new JLabel("The verification code you have entered is incorrect, please try again");
-        accountExists.setBounds(10, 150, 200, 30);
-
+        JLabel cannotVerifyLabel = new JLabel("Incorrect verification code, please try again");
+        cannotVerifyLabel.setBounds(10, 25, 350, 30);
+        cannotVerifyPanel.add(cannotVerifyLabel);
         cannotVerifyFrame.setVisible(true);
         
     }

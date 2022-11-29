@@ -14,8 +14,8 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
 
     @Override
     public void tryLogin() {
-        //TODO: complete this method and UserLoginOutputBoundary
         try{
+            //TODO: issues here with serialization
             user = database.getUser(username);
             if(user.PasswordMatch(this.password)){
                 user.login();
@@ -23,6 +23,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
                 System.out.println("the password or username is incorrect");
             }
         }catch(NullPointerException e){
+            //TODO: implement login output boundary
             System.out.println("An account with these credentials do not exist");
         }
 

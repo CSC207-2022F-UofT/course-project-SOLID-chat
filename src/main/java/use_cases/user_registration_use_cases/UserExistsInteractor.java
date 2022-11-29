@@ -19,13 +19,12 @@ public class UserExistsInteractor implements UserExistsInputBoundary{
         this.verificationInputBoundary = new UserVerificationInteractor(database);
         this.code = new Random().nextInt(1321512);
         verificationInputBoundary.setCode(code);
-
+        this.existsOutputBoundary = new UserVerificationScreen(verificationInputBoundary);
     }
     @Override
     public void register(String username, String password, String email) {
         if(!database.UserExists(username, email)){
             verificationInputBoundary.setCredentials(username, password, email);
-            this.existsOutputBoundary = new UserVerificationScreen(verificationInputBoundary);
             existsOutputBoundary.getVerificationCredentials();
             codeMailMan.sendVerificationCode(email, code);
         }else{

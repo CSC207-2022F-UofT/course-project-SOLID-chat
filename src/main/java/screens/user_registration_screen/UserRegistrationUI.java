@@ -16,7 +16,10 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
     private JTextField usernameText;
     private JTextField passwordText;
     private JTextField emailText;
-
+    /*
+    currently the below variable is not used, because only email verification is implemented, but it may be used in
+    the future.
+    */
     private JTextField deliveryText;
 
     public UserRegistrationUI(UserExistsInputBoundary verifyUser) {
@@ -26,7 +29,7 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
     public void getUserCredentials(){
         //Front end related objects
         JFrame registerFrame = new JFrame();
-        registerFrame.setSize(500, 300);
+        registerFrame.setSize(400, 200);
         registerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel registerPanel = new JPanel();
         registerFrame.add(registerPanel);
@@ -60,11 +63,11 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
         registerPanel.add(emailText);
 
         //The textbox for entering verification path
-        JLabel deliveryLabel = new JLabel("Choose verification Path(0 for email, 1 for phone)");
-        deliveryLabel.setBounds(10, 115, 200, 25);
+        JLabel deliveryLabel = new JLabel("Choose verification Path(0 for email, 1 for phone):");
+        deliveryLabel.setBounds(10, 115, 400, 25);
 
         deliveryText = new JTextField(20);
-        deliveryText.setBounds(100, 110, 50, 25);
+        deliveryText.setBounds(320, 115, 50, 25);
         registerPanel.add(deliveryLabel);
         registerPanel.add(deliveryText);
 
@@ -77,19 +80,37 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
     }
 
     public static void main(String[] args){
-        Database testDB = new UserDatabase(new File("test20123"));
+        //Testing purposes
+        Database testDB = new UserDatabase(new File("test301"));
         UserExistsInputBoundary interactor = new UserExistsInteractor(testDB);
         new UserRegistrationUI(interactor).getUserCredentials();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Need if statements for cases
         String username = usernameText.getText();
         String password = passwordText.getText();
         String email = emailText.getText();
-        String type = deliveryText.getText();
 
-        verifyUser.setCodeDeliveryMethod(type);
-        verifyUser.register(username, password, email);
+        if(username.equals("")|| password.equals("")|| email.equals("")){
+            missingCredentials();
+        }else{
+            //currently only email verification is enabled.
+            verifyUser.setCodeDeliveryMethod("Email");
+            verifyUser.register(username, password, email);
+        }
+    }
+
+    public void missingCredentials(){
+        JFrame credentialsMissing = new JFrame();
+        credentialsMissing.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        credentialsMissing.setSize(210, 100);
+        JPanel CredentialsMissingPanel = new JPanel();
+        CredentialsMissingPanel.setLayout(null);
+        credentialsMissing.add(CredentialsMissingPanel);
+
+        JLabel accountExists = new JLabel("Missing required information");
+        accountExists.setBounds(10, 20, 350, 30);
+        CredentialsMissingPanel.add(accountExists);
+        credentialsMissing.setVisible(true);
     }
 }

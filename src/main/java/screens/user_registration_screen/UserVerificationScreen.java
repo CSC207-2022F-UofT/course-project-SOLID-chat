@@ -19,22 +19,22 @@ public class UserVerificationScreen implements UserExistsOutputBoundary, ActionL
     @Override
     public void getVerificationCredentials() {
         JFrame verificationFrame = new JFrame();
-        verificationFrame.setSize(400, 300);
+        verificationFrame.setSize(250, 200);
         verificationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JPanel verificationPanel = new JPanel();
         verificationPanel.setLayout(null);
         verificationFrame.add(verificationPanel);
 
-        JLabel verificationLabel = new JLabel("Enter the verification code");
-        verificationLabel.setBounds(10, 100, 200, 25);
+        JLabel verificationLabel = new JLabel("Enter the verification code:");
+        verificationLabel.setBounds(20, 30, 200, 25);
         verificationPanel.add(verificationLabel);
 
-        verText.setBounds(10, 150, 200, 25);
+        verText.setBounds(10, 60, 200, 25);
         verificationPanel.add(verText);
 
         JButton verifyButton = new JButton("verify");
         verifyButton.addActionListener(this);
-        verifyButton.setBounds(50, 180, 150, 30);
+        verifyButton.setBounds(50, 90, 150, 30);
         verificationPanel.add(verifyButton);
         verificationFrame.setVisible(true);
     }
@@ -43,13 +43,13 @@ public class UserVerificationScreen implements UserExistsOutputBoundary, ActionL
     public void presentUserExistsMessage() {
         JFrame userExistsFrame = new JFrame();
         userExistsFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        userExistsFrame.setSize(300, 200);
+        userExistsFrame.setSize(400, 100);
         JPanel userExistsPanel = new JPanel();
         userExistsPanel.setLayout(null);
         userExistsFrame.add(userExistsPanel);
 
         JLabel accountExists = new JLabel("A user with this email or username already exists");
-        accountExists.setBounds(10, 150, 200, 30);
+        accountExists.setBounds(10, 25, 350, 30);
         userExistsPanel.add(accountExists);
         userExistsFrame.setVisible(true);
     }
