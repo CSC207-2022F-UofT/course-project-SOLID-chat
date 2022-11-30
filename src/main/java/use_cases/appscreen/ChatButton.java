@@ -45,4 +45,13 @@ public class ChatButton {
         });
         return jButton;
     }
+
+    public static void main(String[] args) {
+        JButton jButton = ChatButton.createButton("sender username", "amy", LocalDateTime.now());
+        JFrame jFrame = new JFrame();
+        jFrame.setSize(300,500);
+        jFrame.add(jButton);
+        jFrame.setVisible(true);
+        jFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    }
 }

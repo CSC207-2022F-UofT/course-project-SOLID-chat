@@ -30,7 +30,7 @@ public class ChatController {
             // create a private chat obj
             this.newprivatechat = chatinputboundry.create(chatmodel);
 
-            //Adding the chat to dashboard Apscreen and then update it in database
+            //Adding the chat to dashboard Appscreen and then update it in database
             new AppScreenChatProxy(currentusername, this.newprivatechat).proxyChat();
             return chatmodel;
 
