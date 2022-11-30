@@ -85,7 +85,7 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
         UserLoginInputBoundary userLoginInteractor = new UserLoginInteractor(testDB);
         UserVerificationOutputBoundary loginUI = new UserLoginUI(userLoginInteractor);
         UserVerificationInputBoundary verificationInteractor = new UserVerificationInteractor(testDB, loginUI);
-        UserExistsOutputBoundary verificationScreen = new UserVerificationScreen(verificationInteractor, new verificationMethodFactory());
+        UserExistsOutputBoundary verificationScreen = new UserVerificationScreen(verificationInteractor);
         UserExistsInputBoundary existsInteractor = new UserExistsInteractor(testDB, verificationScreen);
         UserRegistrationUI testUI = new UserRegistrationUI(existsInteractor);
         testUI.getUserCredentials();

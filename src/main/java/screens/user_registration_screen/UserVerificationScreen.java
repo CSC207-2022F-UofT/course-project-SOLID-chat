@@ -10,16 +10,14 @@ import java.awt.event.ActionListener;
 
 public class UserVerificationScreen implements UserExistsOutputBoundary, ActionListener {
     private final JTextField verText = new JTextField(20);
-    private final verificationMethodFactory deliveryMethod;
-    private UserVerificationInputBoundary verificationInputBoundary;
+    private final UserVerificationInputBoundary verificationInputBoundary;
     private int code;
     private String username;
     private String password;
     private String email;
 
-    public UserVerificationScreen(UserVerificationInputBoundary verificationInputBoundary, verificationMethodFactory deliveryMethod){
+    public UserVerificationScreen(UserVerificationInputBoundary verificationInputBoundary){
         this.verificationInputBoundary = verificationInputBoundary;
-        this.deliveryMethod = deliveryMethod;
     };
 
     @Override
