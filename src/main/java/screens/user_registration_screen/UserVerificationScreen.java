@@ -1,7 +1,8 @@
 package screens.user_registration_screen;
 
-import use_cases.user_registration_use_cases.UserExistsOutputBoundary;
-import use_cases.user_registration_use_cases.UserVerificationInputBoundary;
+import screens.login_screen.UserLoginUI;
+import use_cases.user_login_use_cases.UserLoginInputBoundary;
+import use_cases.user_registration_use_cases.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -9,11 +10,17 @@ import java.awt.event.ActionListener;
 
 public class UserVerificationScreen implements UserExistsOutputBoundary, ActionListener {
     private final JTextField verText = new JTextField(20);
-    private final UserVerificationInputBoundary verificationInputBoundary;
+    private final verificationMethodFactory deliveryMethod;
+    private UserVerificationInputBoundary verificationInputBoundary;
+    private int code;
+    private String username;
+    private String password;
+    private String email;
 
-    public UserVerificationScreen(UserVerificationInputBoundary verificationInputBoundary) {
+    public UserVerificationScreen(UserVerificationInputBoundary verificationInputBoundary, verificationMethodFactory deliveryMethod){
         this.verificationInputBoundary = verificationInputBoundary;
-    }
+        this.deliveryMethod = deliveryMethod;
+    };
 
     @Override
     public void getVerificationCredentials() {
@@ -54,9 +61,23 @@ public class UserVerificationScreen implements UserExistsOutputBoundary, ActionL
     }
 
     @Override
+    public void getCode(int code) {
+        this.code = code;
+    }
+
+    @Override
+    public void getUserCredentials(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         // Need if statements to check if code is an integer
         int code = Integer.parseInt(verText.getText());
+        verificationInputBoundary.setCode(this.code);
+        verificationInputBoundary.setCredentials(username, password, email);
         verificationInputBoundary.verify("Email", code);
     }
 

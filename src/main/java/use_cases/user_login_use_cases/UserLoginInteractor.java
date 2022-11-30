@@ -2,8 +2,9 @@ package use_cases.user_login_use_cases;
 
 import data_access.Database;
 import entities.user_entities.User;
+import use_cases.user_registration_use_cases.UserVerificationOutputBoundary;
 
-public class UserLoginInteractor implements UserLoginInputBoundary {
+public class UserLoginInteractor implements UserLoginInputBoundary{
     private String username;
     private String password;
     private User user;
@@ -34,4 +35,5 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
         this.username = username;
         this.password = password;
     }
+
 }

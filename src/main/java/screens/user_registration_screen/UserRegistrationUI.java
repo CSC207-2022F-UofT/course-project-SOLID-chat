@@ -1,9 +1,10 @@
 package screens.user_registration_screen;
 import data_access.Database;
 import data_access.UserDatabase;
-import use_cases.user_registration_use_cases.UserExistsInputBoundary;
-import use_cases.user_registration_use_cases.UserExistsInteractor;
-import use_cases.user_registration_use_cases.userRegCredentialsRetriever;
+import screens.login_screen.UserLoginUI;
+import use_cases.user_login_use_cases.UserLoginInputBoundary;
+import use_cases.user_login_use_cases.UserLoginInteractor;
+import use_cases.user_registration_use_cases.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,8 +23,8 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
     */
     private JTextField deliveryText;
 
-    public UserRegistrationUI(UserExistsInputBoundary verifyUser) {
-        this.verifyUser = verifyUser;
+    public UserRegistrationUI(UserExistsInputBoundary existsInputBoundary) {
+        this.verifyUser = existsInputBoundary;
     }
     @Override
     public void getUserCredentials(){
@@ -80,10 +81,15 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
     }
 
     public static void main(String[] args){
-        //Testing purposes
-        Database testDB = new UserDatabase(new File("test301"));
-        UserExistsInputBoundary interactor = new UserExistsInteractor(testDB);
-        new UserRegistrationUI(interactor).getUserCredentials();
+        Database testDB = new UserDatabase(new File("newAccounts"));
+        UserLoginInputBoundary userLoginInteractor = new UserLoginInteractor(testDB);
+        UserVerificationOutputBoundary loginUI = new UserLoginUI(userLoginInteractor);
+        UserVerificationInputBoundary verificationInteractor = new UserVerificationInteractor(testDB, loginUI);
+        UserExistsOutputBoundary verificationScreen = new UserVerificationScreen(verificationInteractor, new verificationMethodFactory());
+        UserExistsInputBoundary existsInteractor = new UserExistsInteractor(testDB, verificationScreen);
+        UserRegistrationUI testUI = new UserRegistrationUI(existsInteractor);
+        testUI.getUserCredentials();
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {

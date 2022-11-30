@@ -4,4 +4,6 @@ public interface UserExistsInputBoundary {
 
     void register(String username, String password, String email);
     void setCodeDeliveryMethod(String type);
+
+    void setOutputBoundary(UserExistsOutputBoundary existsOutputBoundary);
 }

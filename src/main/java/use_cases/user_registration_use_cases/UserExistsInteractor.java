@@ -6,25 +6,22 @@ import screens.user_registration_screen.UserVerificationScreen;
 import java.util.Random;
 
 public class UserExistsInteractor implements UserExistsInputBoundary{
-    private final int code;
     //May need to refactor this using facade design pattern since this class has too many responsibilities.
     Database database;
-    UserVerificationInputBoundary verificationInputBoundary;
     UserExistsOutputBoundary existsOutputBoundary;
 
     private ISendVerificationCode codeMailMan;
 
-    public UserExistsInteractor(Database database){
+    public UserExistsInteractor(Database database, UserExistsOutputBoundary existsOutputBoundary){
         this.database = database;
-        this.verificationInputBoundary = new UserVerificationInteractor(database);
-        this.code = new Random().nextInt(1321512);
-        verificationInputBoundary.setCode(code);
-        this.existsOutputBoundary = new UserVerificationScreen(verificationInputBoundary);
+        this.existsOutputBoundary = existsOutputBoundary;
     }
     @Override
     public void register(String username, String password, String email) {
         if(!database.UserExists(username, email)){
-            verificationInputBoundary.setCredentials(username, password, email);
+            int code = new Random().nextInt(12312341);
+            existsOutputBoundary.getCode(code);
+            existsOutputBoundary.getUserCredentials(username, password, email);
             existsOutputBoundary.getVerificationCredentials();
             codeMailMan.sendVerificationCode(email, code);
         }else{
@@ -35,5 +32,10 @@ public class UserExistsInteractor implements UserExistsInputBoundary{
     @Override
     public void setCodeDeliveryMethod(String type) {
         this.codeMailMan = new verificationMethodFactory().getVerificationMethod(type);
+    }
+
+    @Override
+    public void setOutputBoundary(UserExistsOutputBoundary existsOutputBoundary) {
+        this.existsOutputBoundary = existsOutputBoundary;
     }
 }

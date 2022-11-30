@@ -15,13 +15,13 @@ public class UserVerificationInteractor implements UserVerificationInputBoundary
 
     private final UserVerificationOutputBoundary verificationOutputBoundary;
 
-    private int code ;
+    private int code;
 
-    public UserVerificationInteractor(Database database){
+    public UserVerificationInteractor(Database database, UserVerificationOutputBoundary verificationOutputBoundary){
         this.database = database;
-        UserLoginInputBoundary loginInteractor = new UserLoginInteractor(this.database);
-        verificationOutputBoundary = new UserLoginUI(loginInteractor);
+        this.verificationOutputBoundary = verificationOutputBoundary;
     }
+
     @Override
     public void verify(String type, int code) {
         System.out.println(this.code);
