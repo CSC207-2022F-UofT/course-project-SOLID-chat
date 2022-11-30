@@ -29,4 +29,11 @@ public class AppScreenStatus {
     public static AppScreen getAppScreen(){
         return appScreen;
     }
+
+    /**
+     * Refresh app screen to display any changes
+     */
+    public static void refreshAppScreen(){
+        appScreen.refreshScreen();
+    }
 }

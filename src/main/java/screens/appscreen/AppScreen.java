@@ -4,6 +4,7 @@ import entities.chat.CommonPrivatechat;
 import entities.chat.PrivateChatfactory;
 import interface_adapters.appscreen.AppScreenPresenter;
 import interface_adapters.appscreen.Refresh;
+import interface_adapters.Chat.UserChats;
 import screens.Profile_screen.UserSearchUI;
 import screens.chat_screen.ChatController;
 import screens.chat_screen.ChatView;
@@ -119,7 +120,8 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         // getting the names of each chat to display and creating buttons for each chat
         for (int i = this.chats.size() - 1; i > -1; i--) {
 
-            ChatInfo chatInfo = new ChatInfo(currentUsername, this.chats.get(i));
+            UserChats gateway = new UserChats(currentUsername);
+            ChatInfo chatInfo = new ChatInfo(gateway.getUserChats(currentUsername), chats.get(i));
 
             String chatName = chatInfo.getChatName();
             LocalDateTime lastUpdated = chatInfo.getLastMessageTime();
