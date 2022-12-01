@@ -5,26 +5,24 @@ import data_access.Database;
 import java.util.Random;
 
 public class UserExistsInteractor implements UserExistsInputBoundary{
-    private final createMailMan mailManFactory;
-    //May need to refactor this using facade design pattern since this class has too many responsibilities.
+    private final VerificationCodeDeliveryManager verCodeDeliveryManager;
     Database database;
     UserExistsOutputBoundary existsOutputBoundary;
-
-    private ISendVerificationCode codeMailMan;
 
     public UserExistsInteractor(Database database, UserExistsOutputBoundary existsOutputBoundary, createMailMan mailMan){
         this.database = database;
         this.existsOutputBoundary = existsOutputBoundary;
-        this.mailManFactory = mailMan;
+        //The responsibility of dealing with verification is passed onto this class
+        this.verCodeDeliveryManager = new VerificationCodeDeliveryManager(mailMan);
     }
     @Override
     public void register(String username, String password, String email) {
         if(!database.UserExists(username, email)){
-            int code = new Random().nextInt(12312341);
+            int code = this.verCodeDeliveryManager.getVerCode();
             existsOutputBoundary.getCode(code);
             existsOutputBoundary.getUserCredentials(username, password, email);
             existsOutputBoundary.getVerificationCredentials();
-            codeMailMan.sendVerificationCode(email, code);
+            this.verCodeDeliveryManager.deliverCode(email);
         }else{
             existsOutputBoundary.presentUserExistsMessage();
         }
@@ -32,7 +30,7 @@ public class UserExistsInteractor implements UserExistsInputBoundary{
 
     @Override
     public void setCodeDeliveryMethod(String type) {
-        this.codeMailMan = mailManFactory.getVerificationMethod(type);
+        this.verCodeDeliveryManager.setMailMan(type);
     }
 
     @Override
