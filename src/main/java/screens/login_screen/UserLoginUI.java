@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 /** This is the screen on which the user enters his credentials in order to login **/
 public class UserLoginUI implements ActionListener, UserVerificationOutputBoundary {
 
-    private UserLoginInputBoundary loginInteractor;
+    private final UserLoginInputBoundary loginInteractor;
     JTextField credentialText;
     JPasswordField passwordText;
 
@@ -63,11 +63,6 @@ public class UserLoginUI implements ActionListener, UserVerificationOutputBounda
         cannotVerifyPanel.add(cannotVerifyLabel);
         cannotVerifyFrame.setVisible(true);
         
-    }
-
-    @Override
-    public void setInputBoundary(UserLoginInputBoundary loginInteractor) {
-        this.loginInteractor = loginInteractor;
     }
 
     @Override

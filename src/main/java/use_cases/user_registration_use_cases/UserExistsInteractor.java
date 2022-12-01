@@ -1,20 +1,21 @@
 package use_cases.user_registration_use_cases;
 
 import data_access.Database;
-import screens.user_registration_screen.UserVerificationScreen;
 
 import java.util.Random;
 
 public class UserExistsInteractor implements UserExistsInputBoundary{
+    private final createMailMan mailManFactory;
     //May need to refactor this using facade design pattern since this class has too many responsibilities.
     Database database;
     UserExistsOutputBoundary existsOutputBoundary;
 
     private ISendVerificationCode codeMailMan;
 
-    public UserExistsInteractor(Database database, UserExistsOutputBoundary existsOutputBoundary){
+    public UserExistsInteractor(Database database, UserExistsOutputBoundary existsOutputBoundary, createMailMan mailMan){
         this.database = database;
         this.existsOutputBoundary = existsOutputBoundary;
+        this.mailManFactory = mailMan;
     }
     @Override
     public void register(String username, String password, String email) {
@@ -31,7 +32,7 @@ public class UserExistsInteractor implements UserExistsInputBoundary{
 
     @Override
     public void setCodeDeliveryMethod(String type) {
-        this.codeMailMan = new verificationMethodFactory().getVerificationMethod(type);
+        this.codeMailMan = mailManFactory.getVerificationMethod(type);
     }
 
     @Override

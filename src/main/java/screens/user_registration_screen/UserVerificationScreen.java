@@ -1,7 +1,4 @@
 package screens.user_registration_screen;
-
-import screens.login_screen.UserLoginUI;
-import use_cases.user_login_use_cases.UserLoginInputBoundary;
 import use_cases.user_registration_use_cases.*;
 
 import javax.swing.*;
@@ -18,7 +15,7 @@ public class UserVerificationScreen implements UserExistsOutputBoundary, ActionL
 
     public UserVerificationScreen(UserVerificationInputBoundary verificationInputBoundary){
         this.verificationInputBoundary = verificationInputBoundary;
-    };
+    }
 
     @Override
     public void getVerificationCredentials() {
@@ -76,7 +73,7 @@ public class UserVerificationScreen implements UserExistsOutputBoundary, ActionL
         int code = Integer.parseInt(verText.getText());
         verificationInputBoundary.setCode(this.code);
         verificationInputBoundary.setCredentials(username, password, email);
-        verificationInputBoundary.verify("Email", code);
+        verificationInputBoundary.verify(code);
     }
 
 }
