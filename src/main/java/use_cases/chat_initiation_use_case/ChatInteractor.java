@@ -2,21 +2,20 @@ package use_cases.chat_initiation_use_case;
 
 
 import entities.chat.PrivateChat;
-import entities.chat.PrivateChatfactory;
-import use_cases.appscreen.AppScreenStatus;
+import entities.chat.PrivateChatFactory;
 
 import java.util.UUID;
 
 public class ChatInteractor implements ChatInputBoundry{
 
 
-    PrivateChatfactory chatfactory;
+    PrivateChatFactory chatFactory;
 
 
     //Add a DaTa base to check if exist or not
-    public ChatInteractor(PrivateChatfactory chatfactory){
+    public ChatInteractor(PrivateChatFactory chatFactory){
 
-        this.chatfactory = chatfactory;
+        this.chatFactory = chatFactory;
 
     }
 
@@ -27,7 +26,7 @@ public class ChatInteractor implements ChatInputBoundry{
 
         //check if in data exist later
 
-        PrivateChat p= chatfactory.create(chatmodel.getRecipientusername(), UUID.randomUUID().toString(),chatmodel.getRecipientusername().toString());
+        PrivateChat p= chatFactory.create(chatmodel.getRecipientusername(), UUID.randomUUID().toString(),chatmodel.getRecipientusername().toString());
         //
         return p;
 

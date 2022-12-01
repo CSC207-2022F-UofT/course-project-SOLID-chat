@@ -1,6 +1,6 @@
 package entities.chat;
 
-public class CommonPrivatechat implements PrivateChatfactory{
+public class CommonPrivatechat implements PrivateChatFactory{
 
     @Override
     public PrivateChat create(String name, String chatID, String recipientUsername) {

@@ -1,4 +1,4 @@
-package use_cases.appscreen;
+package use_cases.appscreen_use_case;
 
 import entities.chat.Chat;
 import java.time.LocalDateTime;
@@ -19,7 +19,7 @@ public class ChatInfo {
     }
     /**
      * Get the name of the chat
-     * @return chat name
+     * @return chat name (or null if a chat with chatID does not exist in the user's list of chats)
      */
     public String getChatName(){
         try{
@@ -36,7 +36,7 @@ public class ChatInfo {
 
     /**
      * Return the date and time of the last message the chat
-     * @return date and time of last update
+     * @return date and time of last update (or null if a chat with chatID does not exist in the user's list of chats)
      */
     public LocalDateTime getLastMessageTime(){
         try{

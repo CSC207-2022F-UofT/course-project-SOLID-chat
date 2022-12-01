@@ -1,4 +1,4 @@
-package interface_adapters.User_search_IA;
+package interface_adapters.user_search_IA;
 import data_access.UserDatabase;
 import entities.user_entities.User;
 import use_cases.user_profile_display_use_case.UserReader;

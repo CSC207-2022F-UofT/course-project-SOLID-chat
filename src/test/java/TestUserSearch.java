@@ -1,5 +1,5 @@
 import data_access.UserDatabase;
-import interface_adapters.User_search_IA.UserPresenterClass;
+import interface_adapters.user_search_IA.UserPresenterClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

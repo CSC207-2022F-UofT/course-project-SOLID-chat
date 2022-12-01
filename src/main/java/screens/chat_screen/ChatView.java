@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 
 import entities.chat.CommonPrivatechat;
-import entities.chat.PrivateChatfactory;
+import entities.chat.PrivateChatFactory;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatInteractor;
 import use_cases.chat_initiation_use_case.ChatModel;
@@ -116,7 +116,7 @@ public class ChatView extends JFrame implements  ActionListener{
         // set frame size and frame title
         frame.setSize(450, 500);
         frame.setTitle("Chat box");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocation(587, 100);
 
 
         // adding "addbutton" and "groupchatbutton"  to the menu bar

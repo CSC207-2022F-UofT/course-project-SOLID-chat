@@ -1,7 +1,6 @@
 package interface_adapters.appscreen;
 
 import screens.appscreen.AppScreen;
-import use_cases.appscreen.AppScreenStatus;
 
 import java.util.ArrayList;
 

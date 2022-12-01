@@ -1,15 +1,15 @@
 package screens.appscreen;
 
 import entities.chat.CommonPrivatechat;
-import entities.chat.PrivateChatfactory;
+import entities.chat.PrivateChatFactory;
 import interface_adapters.appscreen.AppScreenPresenter;
 import interface_adapters.appscreen.Refresh;
-import interface_adapters.Chat.UserChats;
-import screens.Profile_screen.UserSearchUI;
+import interface_adapters.chat.UserChats;
+import screens.profile_screen.UserSearchUI;
 import screens.chat_screen.ChatController;
 import screens.chat_screen.ChatView;
 import screens.profile_update_screen.UserModificationUI;
-import use_cases.appscreen.*;
+import use_cases.appscreen_use_case.*;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatInteractor;
 
@@ -70,8 +70,8 @@ public class AppScreen implements AppScreenPresenter, Refresh {
 
         // adding the action listeners for the +private-chat and +group-chat buttons
         addPrivateChat.addActionListener(e -> {
-            PrivateChatfactory privateChatfactory = new CommonPrivatechat();
-            ChatInputBoundry inputBoundary = new ChatInteractor(privateChatfactory);
+            PrivateChatFactory privateChatFactory = new CommonPrivatechat();
+            ChatInputBoundry inputBoundary = new ChatInteractor(privateChatFactory);
             ChatController controller = new ChatController(inputBoundary, currentUsername);
             new ChatView(controller, true);
 

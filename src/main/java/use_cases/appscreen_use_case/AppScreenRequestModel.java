@@ -1,28 +1,26 @@
-package use_cases.appscreen;
+package use_cases.appscreen_use_case;
 
 import entities.chat.Chat;
 import java.util.ArrayList;
 
 public class AppScreenRequestModel {
-    private final String username;
     private final Chat chat;
 
     /**
      * Create a request model to update AppScreen
-     * @param username Username of the current user
      * @param chat The new/updated chat
      */
-    public AppScreenRequestModel(String username, Chat chat){
-        this.username = username;
+    public AppScreenRequestModel(Chat chat){
         this.chat = chat;
     }
 
     /**
      * Return an order list of chats
+     * @param chats All the existing chats a user has
      * @return Ordered list of chats
      */
-    public ArrayList<Chat> orderChats(){
-        ChatOrder chatOrder  = new ChatOrder(username, chat);
+    public ArrayList<Chat> orderChats(ArrayList<Chat> chats){
+        ChatOrder chatOrder  = new ChatOrder(chats, chat);
         return chatOrder.changeOrder();
     }
 

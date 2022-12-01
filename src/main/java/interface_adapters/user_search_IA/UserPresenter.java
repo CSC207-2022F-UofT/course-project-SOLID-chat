@@ -1,4 +1,4 @@
-package interface_adapters.User_search_IA;
+package interface_adapters.user_search_IA;
 
 /**
  * Implemented interface to invert the dependency of UI on the inner layers

@@ -1,4 +1,4 @@
-package use_cases.appscreen;
+package interface_adapters.appscreen;
 
 import screens.appscreen.AppScreen;
 
@@ -20,14 +20,6 @@ public class AppScreenStatus {
      */
     public static void setAppScreen(AppScreen thisAppScreen){
         appScreen = thisAppScreen;
-    }
-
-    /**
-     * Return the current app screen
-     * @return current app screen
-     */
-    public static AppScreen getAppScreen(){
-        return appScreen;
     }
 
     /**
