@@ -16,7 +16,11 @@ public class UserVerificationInteractor implements UserVerificationInputBoundary
         this.database = database;
         this.verificationOutputBoundary = verificationOutputBoundary;
     }
-
+    /**
+     * Compares code with this.code, if they match, the program will proceed to ask for login credentials
+     * Else, it will present a message that verification is not possible
+     * @param code code inputted by the user
+     * */
     @Override
     public void verify(int code) {
         System.out.println(this.code);
@@ -28,12 +32,16 @@ public class UserVerificationInteractor implements UserVerificationInputBoundary
         }
 
     }
-
+    /**
+     * Sets the code to compare for verification
+     * @param code verification code*/
     @Override
     public void setCode(int code) {
         this.code = code;
     }
-
+    /**
+     * Sets the user credentials for this object
+     * */
     public void setCredentials(String username, String password, String email){
         this.username = username;
         this.password = password;
