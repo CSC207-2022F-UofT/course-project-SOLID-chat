@@ -26,6 +26,9 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
     public UserRegistrationUI(UserExistsInputBoundary existsInputBoundary) {
         this.verifyUser = existsInputBoundary;
     }
+    /**
+     * Creates the frame on which the user inputs account registration credentials
+     * **/
     @Override
     public void getUserCredentials(){
         //Front end related objects
@@ -97,6 +100,7 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
         String password = passwordText.getText();
         String email = emailText.getText();
 
+        // Makes sure that the credentials entered are of the correct format, may use regex to correct this
         if(username.equals("")|| password.equals("")|| email.equals("")){
             missingCredentials();
         }else{
@@ -105,7 +109,9 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
             verifyUser.register(username, password, email);
         }
     }
-
+    /**
+     * The frame that shows up when the credentials entered are not of the right format
+     * **/
     public void missingCredentials(){
         JFrame credentialsMissing = new JFrame();
         credentialsMissing.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
