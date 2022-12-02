@@ -1,8 +1,8 @@
-package use_cases.user_registration_use_cases;
+package interface_adapters.user_registration_interface_adapters;
 /**
  * Presenter interface that presents information, or gets input from user
  * */
-public interface UserExistsOutputBoundary {
+public interface UserExistsOutputView {
     /**
      * Gets the verification code from the user
      * */

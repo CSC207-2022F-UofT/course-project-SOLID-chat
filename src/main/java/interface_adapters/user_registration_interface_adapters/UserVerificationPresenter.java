@@ -1,4 +1,4 @@
-package use_cases.user_registration_use_cases;
+package interface_adapters.user_registration_interface_adapters;
 
 import data_access.Database;
 
@@ -8,11 +8,11 @@ public class UserVerificationPresenter {
     private String password;
     private String email;
 
-    private final UserVerificationOutputBoundary verificationOutputBoundary;
+    private final UserVerificationOutputView verificationOutputBoundary;
 
     private int code;
 
-    public UserVerificationPresenter(Database database, UserVerificationOutputBoundary verificationOutputBoundary){
+    public UserVerificationPresenter(Database database, UserVerificationOutputView verificationOutputBoundary){
         this.database = database;
         this.verificationOutputBoundary = verificationOutputBoundary;
     }

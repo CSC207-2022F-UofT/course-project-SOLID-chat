@@ -5,8 +5,8 @@ import entities.user_entities.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import use_cases.user_registration_use_cases.ISendVerificationCode;
-import use_cases.user_registration_use_cases.UserExistsPresenter;
-import use_cases.user_registration_use_cases.UserExistsOutputBoundary;
+import interface_adapters.user_registration_interface_adapters.UserExistsPresenter;
+import interface_adapters.user_registration_interface_adapters.UserExistsOutputView;
 import use_cases.user_registration_use_cases.createMailMan;
 
 public class TestUserExistsInteractor {
@@ -55,7 +55,7 @@ public class TestUserExistsInteractor {
         }
     };
     //This output boundary used in test cases
-    private class TestOutputBoundary implements UserExistsOutputBoundary{
+    private class TestOutputBoundary implements UserExistsOutputView {
         public int x = 0;
         @Override
         public void getVerificationCredentials() {

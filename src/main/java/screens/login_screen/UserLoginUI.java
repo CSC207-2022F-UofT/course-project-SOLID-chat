@@ -1,20 +1,37 @@
 package screens.login_screen;
-import use_cases.user_login_use_cases.UserLoginPresenter;
-import use_cases.user_registration_use_cases.UserVerificationOutputBoundary;
+import data_access.Database;
+import data_access.UserDatabase;
+import interface_adapters.login_interface_adapters.UserChatsPresenter;
+import interface_adapters.login_interface_adapters.UserLoginViewI;
+import use_cases.user_login_use_cases.UserLoginInputBoundary;
+import interface_adapters.login_interface_adapters.UserLoginPresenter;
+import use_cases.user_login_use_cases.UserLoginInteractor2;
+import interface_adapters.user_registration_interface_adapters.UserVerificationOutputView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /** This is the screen on which the user enters his credentials in order to login **/
-public class UserLoginUI implements ActionListener, UserVerificationOutputBoundary {
+public class UserLoginUI implements ActionListener, UserVerificationOutputView {
 
-    private final UserLoginPresenter loginInteractor;
+    private final UserLoginPresenter loginPresenter;
     JTextField credentialText;
     JPasswordField passwordText;
 
-    public UserLoginUI(UserLoginPresenter loginInteractor){
-        this.loginInteractor = loginInteractor;
+    public UserLoginUI(UserLoginPresenter loginPresenter){
+        UserLoginViewI loginViewI = new AppScreenCreator();
+        this.loginPresenter = loginPresenter;
+        this.loginPresenter.setLoginView(loginViewI);
+    }
+    //For Testing Purposes
+    public static void main(String[] args){
+        Database userDB = new UserDatabase(new File("new"));
+        UserLoginInputBoundary inputBoundary = new UserLoginInteractor2(userDB, new UserChatsPresenter());
+        UserLoginPresenter loginPresenter1 = new UserLoginPresenter(userDB, inputBoundary);
+        UserLoginUI loginUI = new UserLoginUI(loginPresenter1);
+        loginUI.getLoginCredentials();
     }
     @Override
     public void getLoginCredentials(){
@@ -69,7 +86,7 @@ public class UserLoginUI implements ActionListener, UserVerificationOutputBounda
     public void actionPerformed(ActionEvent e) {
         String username = credentialText.getText();
         String password = passwordText.getText();
-        loginInteractor.setLoginCredentials(username, password);
-        loginInteractor.tryLogin();
+        loginPresenter.setLoginCredentials(username, password);
+        loginPresenter.tryLogin();
     }
 }

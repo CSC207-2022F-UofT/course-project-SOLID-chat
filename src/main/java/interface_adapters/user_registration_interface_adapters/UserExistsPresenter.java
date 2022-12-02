@@ -1,6 +1,8 @@
-package use_cases.user_registration_use_cases;
+package interface_adapters.user_registration_interface_adapters;
 
 import data_access.Database;
+import use_cases.user_registration_use_cases.VerificationCodeDeliveryManager;
+import use_cases.user_registration_use_cases.createMailMan;
 
 /**
  * This is the class responsible for getting processing the input given by user, and either allowing verification,
@@ -9,9 +11,9 @@ import data_access.Database;
 public class UserExistsPresenter {
     private final VerificationCodeDeliveryManager verCodeDeliveryManager;
     Database database;
-    UserExistsOutputBoundary existsOutputBoundary;
+    UserExistsOutputView existsOutputBoundary;
 
-    public UserExistsPresenter(Database database, UserExistsOutputBoundary existsOutputBoundary, createMailMan mailMan){
+    public UserExistsPresenter(Database database, UserExistsOutputView existsOutputBoundary, createMailMan mailMan){
         this.database = database;
         this.existsOutputBoundary = existsOutputBoundary;
         //The responsibility of dealing with verification is passed onto this class

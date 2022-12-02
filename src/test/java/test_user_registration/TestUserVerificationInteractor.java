@@ -4,8 +4,8 @@ import data_access.Database;
 import entities.user_entities.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import use_cases.user_registration_use_cases.UserVerificationPresenter;
-import use_cases.user_registration_use_cases.UserVerificationOutputBoundary;
+import interface_adapters.user_registration_interface_adapters.UserVerificationPresenter;
+import interface_adapters.user_registration_interface_adapters.UserVerificationOutputView;
 
 public class TestUserVerificationInteractor {
     private class testDatabase implements Database{
@@ -30,7 +30,7 @@ public class TestUserVerificationInteractor {
             return false;
         }
     }
-    private class testUserVerificationOutputBdy implements UserVerificationOutputBoundary{
+    private class testUserVerificationOutputBdy implements UserVerificationOutputView {
         public int x;
         @Override
         public void getLoginCredentials() {

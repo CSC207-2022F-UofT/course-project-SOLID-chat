@@ -1,5 +1,6 @@
 package screens.user_registration_screen;
-import use_cases.user_registration_use_cases.*;
+import interface_adapters.user_registration_interface_adapters.UserExistsOutputView;
+import interface_adapters.user_registration_interface_adapters.UserVerificationPresenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -8,7 +9,7 @@ import java.awt.event.ActionListener;
  * This is the class that is responsible for retrieving the verification code form the user, or presenting if
  * verification is not possible
  * */
-public class UserVerificationScreen implements UserExistsOutputBoundary, ActionListener {
+public class UserVerificationScreen implements UserExistsOutputView, ActionListener {
     private final JTextField verText = new JTextField(20);
     private final UserVerificationPresenter verificationInputBoundary;
     private int code;

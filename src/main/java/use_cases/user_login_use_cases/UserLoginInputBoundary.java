@@ -1,7 +1,8 @@
 package use_cases.user_login_use_cases;
 
 public interface UserLoginInputBoundary {
-    void tryLogin();
+    void login(String username, String password);
 
-    void setLoginCredentials(String username, String password);
+    UserLoginOutputBoundary getChatsPresenter();
+
 }

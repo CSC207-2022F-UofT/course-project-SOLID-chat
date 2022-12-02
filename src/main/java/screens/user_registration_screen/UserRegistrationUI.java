@@ -1,8 +1,11 @@
 package screens.user_registration_screen;
 import data_access.Database;
 import data_access.UserDatabase;
+import interface_adapters.login_interface_adapters.UserChatsPresenter;
+import interface_adapters.user_registration_interface_adapters.*;
 import screens.login_screen.UserLoginUI;
-import use_cases.user_login_use_cases.UserLoginPresenter;
+import use_cases.user_login_use_cases.UserLoginInteractor2;
+import interface_adapters.login_interface_adapters.UserLoginPresenter;
 import use_cases.user_registration_use_cases.*;
 
 import javax.swing.*;
@@ -84,10 +87,11 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
 
     public static void main(String[] args){
         Database testDB = new UserDatabase(new File("newAccounts2"));
-        UserLoginPresenter userLoginInteractor = new UserLoginPresenter(testDB);
-        UserVerificationOutputBoundary loginUI = new UserLoginUI(userLoginInteractor);
+        UserLoginInteractor2 userLoginInteractor2 = new UserLoginInteractor2(testDB, new UserChatsPresenter());
+        UserLoginPresenter userLoginPresenter = new UserLoginPresenter(testDB, userLoginInteractor2);
+        UserVerificationOutputView loginUI = new UserLoginUI(userLoginPresenter);
         UserVerificationPresenter verificationInteractor = new UserVerificationPresenter(testDB, loginUI);
-        UserExistsOutputBoundary verificationScreen = new UserVerificationScreen(verificationInteractor);
+        UserExistsOutputView verificationScreen = new UserVerificationScreen(verificationInteractor);
         UserExistsPresenter existsInteractor = new UserExistsPresenter(testDB, verificationScreen, new verificationMethodFactory());
         UserRegistrationUI testUI = new UserRegistrationUI(existsInteractor);
         testUI.getUserCredentials();
