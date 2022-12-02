@@ -43,7 +43,7 @@ public class ChatView extends JFrame implements  ActionListener{
     //use Contrroller
 
 
-    private ChatController controller;
+    private final ChatController controller;
 
     //Use Jframes, butttons, labels ,textfileds, Jpannels,JMenuBar for UI.
     final JFrame frame ;
@@ -68,14 +68,14 @@ public class ChatView extends JFrame implements  ActionListener{
     private JLabel testMessage;
 
     //isNewchat check we already have a chat with a user
-    private boolean isNewchat;
+    private final boolean isNewchat;
 
 
 
 
 
     //this is constructor
-    public ChatView( ChatController controller , boolean isNewchat){
+    public ChatView(ChatController controller , boolean isNewchat){
         this.controller = controller;
         this.isNewchat = isNewchat;
 
@@ -117,6 +117,7 @@ public class ChatView extends JFrame implements  ActionListener{
         frame.setSize(450, 500);
         frame.setTitle("Chat box");
         frame.setLocation(587, 100);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 
         // adding "addbutton" and "groupchatbutton"  to the menu bar
@@ -172,7 +173,7 @@ public class ChatView extends JFrame implements  ActionListener{
 
         frame.getContentPane().add(BorderLayout.CENTER, conversationHistoryPanel);
 
-        // set the frame visibile
+        // set the frame visible
         frame.setVisible(true);
 
         this.addbutton.addActionListener(this);
@@ -205,7 +206,7 @@ public class ChatView extends JFrame implements  ActionListener{
 
         if (e.getSource() == sendbutton){
 
-            //TODO:this is chatHisroy action.
+            //TODO:this is chatHistory action.
 
 
         }
@@ -214,21 +215,21 @@ public class ChatView extends JFrame implements  ActionListener{
 
 
 
-//    public static void main(String args[]) {
-//
-//        PrivateChatfactory chatfactory = new CommonPrivatechat();
-//        ChatInputBoundry Interactor = new ChatInteractor(chatfactory);
-//        ChatController controller = new ChatController(Interactor);
-//        new ChatView(controller,true);
-//
-//        controller.create(new ChatModel("Hi").getRecipientusername());
-//
-//        new ChatView(controller,true);
-////        // find the created privatechat and the username
-////        System.out.println(controller.getNewprivatechat().getRecipientUsername());
-//
-//
-//    }
+    public static void main(String[] args) {
+
+        PrivateChatFactory chatFactory = new CommonPrivatechat();
+        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
+        ChatController controller = new ChatController(Interactor, "current username");
+        new ChatView(controller,true);
+
+        controller.create(new ChatModel("Hi").getRecipientusername());
+
+        //new ChatView(controller,true);
+//        // find the created privatechat and the username
+//        System.out.println(controller.getNewprivatechat().getRecipientUsername());
+
+
+    }
 
 
 }

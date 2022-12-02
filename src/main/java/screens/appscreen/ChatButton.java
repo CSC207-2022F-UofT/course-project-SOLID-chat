@@ -18,12 +18,14 @@ public class ChatButton {
      * @param chatName The name of the chat
      * @param currentUsername The username of the current user
      * @param lastUpdated The time of the last update to a chat's conversation history
+     *                    (this is null if there are no messages in its conversation history)
      * @return The button created
      */
     public static JButton createButton(String chatName, String currentUsername, LocalDateTime lastUpdated){
         JButton jButton = new JButton(chatName);
         jButton.setPreferredSize(new Dimension(280, 50));
 
+        // Get the time of the last message or null if there are no messages
         JLabel jLabel;
         if (lastUpdated != null){
             jLabel = new JLabel(String.valueOf(lastUpdated.toLocalDate()));

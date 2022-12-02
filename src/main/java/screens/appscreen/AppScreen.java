@@ -45,7 +45,6 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         topPanel.setLayout(new GridLayout(1,2));
 
         JButton addPrivateChat = new JButton("+ Private Chat");
-
         addPrivateChat.setPreferredSize(new Dimension(40, 30));
 
 

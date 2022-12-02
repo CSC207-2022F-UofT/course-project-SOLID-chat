@@ -28,6 +28,7 @@ public class UserAppScreenGateway implements Loginable {
     public void login(){
         ArrayList<String> chatIDs = new ArrayList<>();
 
+        // Get the chat IDs for each chat
         for (Chat chat: userChats){
             chatIDs.add(chat.getChatID());
         }

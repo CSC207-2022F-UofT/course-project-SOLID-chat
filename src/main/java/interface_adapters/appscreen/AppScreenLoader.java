@@ -22,14 +22,14 @@ public class AppScreenLoader implements AppScreenPresenter {
     }
 
     /**
-     * Create the screen to show to the user
+     * Create and save the screen to show to the user
      */
     @Override
     public void openScreen() {
         try {
             this.appScreen = new AppScreen(this.username, this.chats);
 
-            // set and save the current app screen
+            // set and save the current app screen to use later for refreshing
             AppScreenStatus.setAppScreen(this.appScreen);
 
         } catch (Exception e) {
