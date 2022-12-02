@@ -23,7 +23,7 @@ public class AppScreenChatProxy {
     }
 
     /**
-     * Main source for managing chat order and updating it in user database (for a single user)
+     * Main source for managing chat order and updating it in user database (for the current user)
      */
     public void proxyChat() {
         // get the new chat order

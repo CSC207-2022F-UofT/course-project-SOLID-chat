@@ -19,7 +19,12 @@ public class UserAppScreenGateway implements Loginable {
      */
     public UserAppScreenGateway(String username){
         this.username = username;
-        this.userChats = userDatabase.getUserChats(this.username);
+        try{
+            this.userChats = userDatabase.getUserChats(this.username);
+        } catch (Exception e) {
+            throw new RuntimeException("User with this username does not exist");
+        }
+
     }
 
     /**
@@ -28,7 +33,7 @@ public class UserAppScreenGateway implements Loginable {
     public void login(){
         ArrayList<String> chatIDs = new ArrayList<>();
 
-        // Get the chat IDs for each chat
+        // Get the chat ID for each chat
         for (Chat chat: userChats){
             chatIDs.add(chat.getChatID());
         }
