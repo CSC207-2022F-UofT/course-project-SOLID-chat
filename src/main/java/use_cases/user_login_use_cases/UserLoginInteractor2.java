@@ -20,10 +20,8 @@ public class UserLoginInteractor2 implements UserLoginInputBoundary {
     public void login(String username, String password) {
         //will update this.chatPresenter
         //TODO: change below, as its just temporary
-        chatPresenter.setChats(new ArrayList<>());
-        chatPresenter.setUsername(username);
-        chatPresenter.setUserNotExists(false);
-        chatPresenter.setPasswordNotMatched(false);
+        user = database.getUser(username);
+
 
     }
 

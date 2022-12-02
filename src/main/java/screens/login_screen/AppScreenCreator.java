@@ -1,4 +1,6 @@
 package screens.login_screen;
+import interface_adapters.appscreen.AppScreenLoader;
+import interface_adapters.login_interface_adapters.UserChatsPresenter;
 import interface_adapters.login_interface_adapters.UserLoginViewI;
 import screens.appscreen.AppScreen;
 import use_cases.user_login_use_cases.UserLoginOutputBoundary;
@@ -6,11 +8,9 @@ import use_cases.user_login_use_cases.UserLoginOutputBoundary;
 import java.util.ArrayList;
 
 public class AppScreenCreator implements UserLoginViewI {
-    private String username ;
-    private ArrayList<String> chats;
     private boolean userNotExists;
     private boolean passNotMatched;
-    AppScreen appScreen;
+    AppScreenLoader appScreenLoader;
     public AppScreenCreator(){
     }
     @Override
@@ -19,7 +19,8 @@ public class AppScreenCreator implements UserLoginViewI {
             showUnableToLogin();
         }else{
             /*this.appScreen = new AppScreen(username, chats);*/
-            System.out.println(username);
+            //Could be null pointer exception if setChatsPresenter is not called before the below
+            appScreenLoader.openScreen();
         }
     }
 
@@ -28,10 +29,11 @@ public class AppScreenCreator implements UserLoginViewI {
     }
     @Override
     public void setChatsPresenter(UserLoginOutputBoundary chatsPresenter){
-        this.username = chatsPresenter.getUsername();
-        this.chats = (ArrayList<String>) chatsPresenter.getChats();
+        String username = chatsPresenter.getUsername();
+        ArrayList<String> chats = (ArrayList<String>) chatsPresenter.getChats();
         this.userNotExists = chatsPresenter.isNotExists();
         this.passNotMatched = chatsPresenter.isNotMatched();
+        appScreenLoader = new AppScreenLoader(username, chats);
     }
 
 }
