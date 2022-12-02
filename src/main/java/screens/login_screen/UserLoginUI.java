@@ -1,5 +1,5 @@
 package screens.login_screen;
-import use_cases.user_login_use_cases.UserLoginInputBoundary;
+import use_cases.user_login_use_cases.UserLoginPresenter;
 import use_cases.user_registration_use_cases.UserVerificationOutputBoundary;
 
 import javax.swing.*;
@@ -9,11 +9,11 @@ import java.awt.event.ActionListener;
 /** This is the screen on which the user enters his credentials in order to login **/
 public class UserLoginUI implements ActionListener, UserVerificationOutputBoundary {
 
-    private final UserLoginInputBoundary loginInteractor;
+    private final UserLoginPresenter loginInteractor;
     JTextField credentialText;
     JPasswordField passwordText;
 
-    public UserLoginUI(UserLoginInputBoundary loginInteractor){
+    public UserLoginUI(UserLoginPresenter loginInteractor){
         this.loginInteractor = loginInteractor;
     }
     @Override

@@ -10,13 +10,13 @@ import java.awt.event.ActionListener;
  * */
 public class UserVerificationScreen implements UserExistsOutputBoundary, ActionListener {
     private final JTextField verText = new JTextField(20);
-    private final UserVerificationInputBoundary verificationInputBoundary;
+    private final UserVerificationPresenter verificationInputBoundary;
     private int code;
     private String username;
     private String password;
     private String email;
 
-    public UserVerificationScreen(UserVerificationInputBoundary verificationInputBoundary){
+    public UserVerificationScreen(UserVerificationPresenter verificationInputBoundary){
         this.verificationInputBoundary = verificationInputBoundary;
     }
     /**

@@ -5,11 +5,11 @@ import entities.user_entities.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import use_cases.user_registration_use_cases.ISendVerificationCode;
-import use_cases.user_registration_use_cases.UserExistsInteractor;
+import use_cases.user_registration_use_cases.UserExistsPresenter;
 import use_cases.user_registration_use_cases.UserExistsOutputBoundary;
 import use_cases.user_registration_use_cases.createMailMan;
 
-public class TestUserExistsInputBoundary {
+public class TestUserExistsInteractor {
     //Objects used for testing
     // The below anonymous database is created to test cases where the user does not exist.
     Database userDontExist = new Database() {
@@ -103,7 +103,7 @@ public class TestUserExistsInputBoundary {
     //In the first test, the user exists in the database, and we will set verStream1 as the verification method
     @Test
     public void userExistsInDatabase1(){
-        UserExistsInteractor uInteractor = new UserExistsInteractor(userExists,
+        UserExistsPresenter uInteractor = new UserExistsPresenter(userExists,
                 userExistsOutputBoundary, mailManFactory);
         uInteractor.setCodeDeliveryMethod("0");
         uInteractor.register("a", "b", "c");
@@ -116,7 +116,7 @@ public class TestUserExistsInputBoundary {
     public void userExistsInDatabase2(){
         TestOutputBoundary userExists2 = new TestOutputBoundary();
         TestCreateMailMan createMailMan2 = new TestCreateMailMan();
-        UserExistsInteractor uInteractor2 = new UserExistsInteractor(userDontExist, userExists2, createMailMan2);
+        UserExistsPresenter uInteractor2 = new UserExistsPresenter(userDontExist, userExists2, createMailMan2);
         uInteractor2.setCodeDeliveryMethod("1");
         uInteractor2.register("a", "b", "c");
         //The quantity below should be 213

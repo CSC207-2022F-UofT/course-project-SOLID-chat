@@ -2,21 +2,19 @@ package use_cases.user_login_use_cases;
 
 import data_access.Database;
 import entities.user_entities.User;
-import use_cases.user_registration_use_cases.UserVerificationOutputBoundary;
 
-public class UserLoginInteractor implements UserLoginInputBoundary{
+public class UserLoginPresenter {
     private String username;
     private String password;
     private User user;
     Database database;
-    public UserLoginInteractor(Database database){
+    public UserLoginPresenter(Database database){
         this.database = database;
     }
 
-    @Override
     public void tryLogin() {
         try{
-            //TODO: issues here with serialization
+            //TODO: issues here with serialization, and dependency inversion
             user = database.getUser(username);
             if(user.PasswordMatch(this.password)){
                 user.login();
@@ -30,7 +28,6 @@ public class UserLoginInteractor implements UserLoginInputBoundary{
 
     }
 
-    @Override
     public void setLoginCredentials(String username, String password) {
         this.username = username;
         this.password = password;

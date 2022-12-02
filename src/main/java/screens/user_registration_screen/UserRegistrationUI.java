@@ -2,8 +2,7 @@ package screens.user_registration_screen;
 import data_access.Database;
 import data_access.UserDatabase;
 import screens.login_screen.UserLoginUI;
-import use_cases.user_login_use_cases.UserLoginInputBoundary;
-import use_cases.user_login_use_cases.UserLoginInteractor;
+import use_cases.user_login_use_cases.UserLoginPresenter;
 import use_cases.user_registration_use_cases.*;
 
 import javax.swing.*;
@@ -13,7 +12,7 @@ import java.io.File;
 
 /** This is screen on which the User enters his credentials in order to login**/
 public class UserRegistrationUI implements ActionListener, userRegCredentialsRetriever {
-    private final UserExistsInputBoundary verifyUser;
+    private final UserExistsPresenter verifyUser;
     private JTextField usernameText;
     private JTextField passwordText;
     private JTextField emailText;
@@ -23,7 +22,7 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
     */
     private JTextField deliveryText;
 
-    public UserRegistrationUI(UserExistsInputBoundary existsInputBoundary) {
+    public UserRegistrationUI(UserExistsPresenter existsInputBoundary) {
         this.verifyUser = existsInputBoundary;
     }
     /**
@@ -85,11 +84,11 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
 
     public static void main(String[] args){
         Database testDB = new UserDatabase(new File("newAccounts2"));
-        UserLoginInputBoundary userLoginInteractor = new UserLoginInteractor(testDB);
+        UserLoginPresenter userLoginInteractor = new UserLoginPresenter(testDB);
         UserVerificationOutputBoundary loginUI = new UserLoginUI(userLoginInteractor);
-        UserVerificationInputBoundary verificationInteractor = new UserVerificationInteractor(testDB, loginUI);
+        UserVerificationPresenter verificationInteractor = new UserVerificationPresenter(testDB, loginUI);
         UserExistsOutputBoundary verificationScreen = new UserVerificationScreen(verificationInteractor);
-        UserExistsInputBoundary existsInteractor = new UserExistsInteractor(testDB, verificationScreen, new verificationMethodFactory());
+        UserExistsPresenter existsInteractor = new UserExistsPresenter(testDB, verificationScreen, new verificationMethodFactory());
         UserRegistrationUI testUI = new UserRegistrationUI(existsInteractor);
         testUI.getUserCredentials();
 

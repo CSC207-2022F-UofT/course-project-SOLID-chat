@@ -4,10 +4,10 @@ import data_access.Database;
 import entities.user_entities.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import use_cases.user_registration_use_cases.UserVerificationInteractor;
+import use_cases.user_registration_use_cases.UserVerificationPresenter;
 import use_cases.user_registration_use_cases.UserVerificationOutputBoundary;
 
-public class TestUserVerificationInputBoundary {
+public class TestUserVerificationInteractor {
     private class testDatabase implements Database{
         public int x;
         @Override
@@ -48,7 +48,7 @@ public class TestUserVerificationInputBoundary {
     //The below test is to see if the verify function works in the case that the code is not right
     @Test
     public void testCodeNotRight(){
-        UserVerificationInteractor testInteractor = new UserVerificationInteractor(testDB, userVerificationOutputBdy);
+        UserVerificationPresenter testInteractor = new UserVerificationPresenter(testDB, userVerificationOutputBdy);
 
         testInteractor.setCode(123);
         testInteractor.setCredentials("a", "b", "c");
@@ -58,7 +58,7 @@ public class TestUserVerificationInputBoundary {
     //The below test is to see if the verify function works in the case that the code is right
     @Test
     public void testCodeRight(){
-        UserVerificationInteractor testInteractor = new UserVerificationInteractor(testDB, userVerificationOutputBdy);
+        UserVerificationPresenter testInteractor = new UserVerificationPresenter(testDB, userVerificationOutputBdy);
 
         testInteractor.setCode(123);
         testInteractor.setCredentials("a", "b", "c");

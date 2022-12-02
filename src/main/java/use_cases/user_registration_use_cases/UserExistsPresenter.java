@@ -6,12 +6,12 @@ import data_access.Database;
  * This is the class responsible for getting processing the input given by user, and either allowing verification,
  * presenting the 'user exists' message, and sending the verification code, depending on the business logic
  * */
-public class UserExistsInteractor implements UserExistsInputBoundary{
+public class UserExistsPresenter {
     private final VerificationCodeDeliveryManager verCodeDeliveryManager;
     Database database;
     UserExistsOutputBoundary existsOutputBoundary;
 
-    public UserExistsInteractor(Database database, UserExistsOutputBoundary existsOutputBoundary, createMailMan mailMan){
+    public UserExistsPresenter(Database database, UserExistsOutputBoundary existsOutputBoundary, createMailMan mailMan){
         this.database = database;
         this.existsOutputBoundary = existsOutputBoundary;
         //The responsibility of dealing with verification is passed onto this class
@@ -24,7 +24,7 @@ public class UserExistsInteractor implements UserExistsInputBoundary{
      * @param email Email
      * @param password Password
      * */
-    @Override
+
     public void register(String username, String password, String email) {
         if(!database.UserExists(username, email)){
             //This may need to change if verCodeDeliveryManager decides not to create integer codes.
@@ -41,7 +41,6 @@ public class UserExistsInteractor implements UserExistsInputBoundary{
      * Sets the verification stream given by the user, to send the code
      * @param type The verification stream
      * */
-    @Override
     public void setCodeDeliveryMethod(String type) {
         this.verCodeDeliveryManager.setMailMan(type);
     }
