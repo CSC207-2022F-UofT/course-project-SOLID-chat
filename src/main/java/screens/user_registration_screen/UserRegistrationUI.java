@@ -86,7 +86,7 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
     }
 
     public static void main(String[] args){
-        Database testDB = new UserDatabase(new File("newAccounts2"));
+        Database testDB = new UserDatabase(new File("newAccounts23"));
         UserLoginInteractor2 userLoginInteractor2 = new UserLoginInteractor2(testDB, new UserChatsPresenter());
         UserLoginPresenter userLoginPresenter = new UserLoginPresenter(testDB, userLoginInteractor2);
         UserVerificationOutputView loginUI = new UserLoginUI(userLoginPresenter);
