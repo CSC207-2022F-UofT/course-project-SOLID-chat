@@ -55,7 +55,7 @@ public class TestUserExistsInteractor {
         }
     };
     //This output boundary used in test cases
-    private class TestOutputBoundary implements UserExistsOutputView {
+    private static class TestOutputBoundary implements UserExistsOutputView {
         public int x = 0;
         @Override
         public void getVerificationCredentials() {

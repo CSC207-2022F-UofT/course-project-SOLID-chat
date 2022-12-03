@@ -24,6 +24,7 @@ public class UserLoginInteractor2 implements UserLoginInputBoundary {
         //TODO: change below, as its just temporary
         try {
             User user = database.getUser(username);
+            this.chatPresenter.setUsername(username);
             this.chatPresenter.setPasswordNotMatched(!user.PasswordMatch(password));
             this.chatPresenter.setUserNotExists(false);
             List<Chat> chats = user.getChats();
