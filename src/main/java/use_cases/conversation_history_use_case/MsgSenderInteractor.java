@@ -2,18 +2,23 @@ package use_cases.conversation_history_use_case;
 
 import entities.message.Message;
 import entities.message.MsgFactory;
+import interface_adapters.conversation_history_interface_adapters.ConvHistGateway;
 import interface_adapters.conversation_history_interface_adapters.ConvHistPresenter;
+import interface_adapters.conversation_history_interface_adapters.MsgSenderGateway;
 //import data_access.UserDatabase;
 
 /**
  * Interactor responsible for adding messages to a chat's conversation history
  */
 public class MsgSenderInteractor implements MsgSenderInputBoundary{
-//public class MsgSenderInteractor {
     /**
-     * File and in-memory storage of users and their chats (incl. conversation history)
+     * File and in-memory storage of users and their chats (incl. conversation history) for this interactor
      */
-    final ConvHistGateway userRepository;
+    final MsgSenderGateway msgSenderRepository;
+    /**
+     * File and in-memory storage of users for ConvHistInteractor
+     */
+    final ConvHistGateway convHistRepository;
     /**
      * Presenter with necessary information to display a chat's conversation history
      */
@@ -28,9 +33,10 @@ public class MsgSenderInteractor implements MsgSenderInputBoundary{
      * //@param userDatabase storage
      * @param msgFactory message factory
      */
-    public MsgSenderInteractor(ConvHistGateway userRepository, MsgFactory msgFactory, ConvHistPresenter convHistPresenter) {
-//    public MsgSenderInteractor(MsgFactory msgFactory) {
-        this.userRepository = userRepository;
+    public MsgSenderInteractor(MsgSenderGateway userRepository, ConvHistGateway convHistRepository,
+                               MsgFactory msgFactory, ConvHistPresenter convHistPresenter) {
+        this.msgSenderRepository = userRepository;
+        this.convHistRepository = convHistRepository;
         this.convHistPresenter = convHistPresenter;
         this.msgFactory = msgFactory;  // msgType of MsgFactory specified in Main
     }
@@ -52,11 +58,11 @@ public class MsgSenderInteractor implements MsgSenderInputBoundary{
         MsgSenderDsRequestModel dsRequestModel = new MsgSenderDsRequestModel(userID, chatID, message);
 
         // Access database (code for database will become functional after PR for issue 15 is merged)
-//        userDatabase.saveMessage(dsRequestModel);
+        msgSenderRepository.saveMessage(dsRequestModel);
 
         // Call convHistInteractor to display conversation history
         ConvHistRequestModel convHistRequestModel = new ConvHistRequestModel(userID, chatID);
-        ConvHistInteractor convHistInteractor = new ConvHistInteractor(userRepository, convHistPresenter);
+        ConvHistInteractor convHistInteractor = new ConvHistInteractor(convHistRepository, convHistPresenter);
         return convHistInteractor.create(convHistRequestModel);
     }
 }

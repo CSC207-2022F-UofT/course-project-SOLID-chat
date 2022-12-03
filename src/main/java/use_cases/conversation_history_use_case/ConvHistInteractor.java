@@ -1,9 +1,9 @@
 package use_cases.conversation_history_use_case;
 
 import entities.message.Message;
+import interface_adapters.conversation_history_interface_adapters.ConvHistGateway;
 import interface_adapters.conversation_history_interface_adapters.ConvHistPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
