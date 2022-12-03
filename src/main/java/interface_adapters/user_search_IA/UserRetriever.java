@@ -1,4 +1,4 @@
-package interface_adapters.User_search_IA;
+package interface_adapters.user_search_IA;
 import use_cases.user_registration_use_cases.UserExists;
 import entities.user_entities.User;
 

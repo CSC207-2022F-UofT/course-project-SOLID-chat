@@ -1,14 +1,15 @@
 package screens.appscreen;
 
 import entities.chat.CommonPrivatechat;
-import entities.chat.PrivateChatfactory;
+import entities.chat.PrivateChatFactory;
 import interface_adapters.appscreen.AppScreenPresenter;
 import interface_adapters.appscreen.Refresh;
-import screens.Profile_screen.UserSearchUI;
+import interface_adapters.chat.UserChats;
+import screens.profile_screen.UserSearchUI;
 import screens.chat_screen.ChatController;
 import screens.chat_screen.ChatView;
 import screens.profile_update_screen.UserModificationUI;
-import use_cases.appscreen.*;
+import use_cases.appscreen_use_case.*;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatInteractor;
 
@@ -44,10 +45,7 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         topPanel.setLayout(new GridLayout(1,2));
 
         JButton addPrivateChat = new JButton("+ Private Chat");
-        JButton addGroupChat = new JButton("+ Group Chat");
-
         addPrivateChat.setPreferredSize(new Dimension(40, 30));
-        addGroupChat.setPreferredSize(new Dimension(40, 30));
 
 
         // menu panel containing the buttons for searching for users or accessing profile settings
@@ -71,21 +69,14 @@ public class AppScreen implements AppScreenPresenter, Refresh {
 
         // adding the action listeners for the +private-chat and +group-chat buttons
         addPrivateChat.addActionListener(e -> {
-            PrivateChatfactory privateChatfactory = new CommonPrivatechat();
-            ChatInputBoundry inputBoundary = new ChatInteractor(privateChatfactory);
+            PrivateChatFactory privateChatFactory = new CommonPrivatechat();
+            ChatInputBoundry inputBoundary = new ChatInteractor(privateChatFactory);
             ChatController controller = new ChatController(inputBoundary, currentUsername);
             new ChatView(controller, true);
 
         });
-        //TODO: add group chat action
-//        addGroupChat.addActionListener(e -> {
-//            ChatView newChat = new ChatView(currentUsername, true);
-//            newChat.chatDisplay();
-//        });
-
 
         topPanel.add(addPrivateChat);
-        topPanel.add(addGroupChat);
         menuPanel.add(searchUsers);
         menuPanel.add(profileSettings);
         jFrame.add(topPanel, BorderLayout.NORTH);
@@ -117,9 +108,10 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         JPanel jPanel = new JPanel();
 
         // getting the names of each chat to display and creating buttons for each chat
+        UserChats gateway = new UserChats(currentUsername);
         for (int i = this.chats.size() - 1; i > -1; i--) {
 
-            ChatInfo chatInfo = new ChatInfo(currentUsername, this.chats.get(i));
+            ChatInfo chatInfo = new ChatInfo(gateway.getUserChats(currentUsername), chats.get(i));
 
             String chatName = chatInfo.getChatName();
             LocalDateTime lastUpdated = chatInfo.getLastMessageTime();
@@ -135,7 +127,7 @@ public class AppScreen implements AppScreenPresenter, Refresh {
 
 
         // making the chat list scrollable
-        scrollableChats(jPanel);
+        makeScrollable(jPanel);
 
         jFrame.setVisible(true);
 
@@ -145,7 +137,7 @@ public class AppScreen implements AppScreenPresenter, Refresh {
      Make the chat list scrollable
      @param jPanel The panel containing the chats
      */
-    private void scrollableChats(JPanel jPanel) {
+    private void makeScrollable(JPanel jPanel) {
         JScrollPane scrollFrame = new JScrollPane(jPanel);
         jScrollPane = scrollFrame;
         scrollFrame.setPreferredSize(new Dimension( 200,500));

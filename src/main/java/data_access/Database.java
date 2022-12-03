@@ -1,6 +1,6 @@
 package data_access;
 
-import interface_adapters.User_search_IA.UserRetriever;
+import interface_adapters.user_search_IA.UserRetriever;
 import use_cases.user_registration_use_cases.UserExists;
 import use_cases.user_registration_use_cases.UserCreator;
 

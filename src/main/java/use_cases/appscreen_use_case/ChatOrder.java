@@ -1,8 +1,6 @@
-package use_cases.appscreen;
+package use_cases.appscreen_use_case;
 
-import data_access.UserDatabase;
 import entities.chat.Chat;
-import java.io.File;
 import java.util.ArrayList;
 
 public class ChatOrder {
@@ -11,12 +9,12 @@ public class ChatOrder {
 
     /**
      * Create a chat order object
-     * @param username The username of the user
+     * @param userChats All the existing chats a user has
      * @param chat The given chat
      */
-    public ChatOrder(String username, Chat chat){
+    public ChatOrder(ArrayList<Chat> userChats, Chat chat){
         this.chat = chat;
-        this.userChats = new UserDatabase(new File("user_accounts")).getUserChats(username);
+        this.userChats = userChats;
 
     }
 

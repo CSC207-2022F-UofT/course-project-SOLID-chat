@@ -1,5 +1,5 @@
-package screens.Profile_screen;
-import interface_adapters.User_search_IA.UserPresenterClass;
+package screens.profile_screen;
+import interface_adapters.user_search_IA.UserPresenterClass;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

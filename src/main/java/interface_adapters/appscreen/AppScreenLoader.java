@@ -1,7 +1,6 @@
 package interface_adapters.appscreen;
 
 import screens.appscreen.AppScreen;
-import use_cases.appscreen.AppScreenStatus;
 
 import java.util.ArrayList;
 
@@ -9,7 +8,6 @@ public class AppScreenLoader implements AppScreenPresenter {
 
     private final String username;
     private final ArrayList<String> chats;
-    public AppScreen appScreen;
 
     /**
      * Create the app screen loader
@@ -23,15 +21,15 @@ public class AppScreenLoader implements AppScreenPresenter {
     }
 
     /**
-     * Create the screen to show to the user
+     * Create and save the screen to show to the user
      */
     @Override
     public void openScreen() {
         try {
-            this.appScreen = new AppScreen(this.username, this.chats);
+            AppScreen appScreen = new AppScreen(this.username, this.chats);
 
-            // set and save the current app screen
-            AppScreenStatus.setAppScreen(this.appScreen);
+            // set and save the current app screen to use later for refreshing
+            AppScreenStatus.setAppScreen(appScreen);
 
         } catch (Exception e) {
             throw new RuntimeException("Unexpected Interruption: cannot load screen");

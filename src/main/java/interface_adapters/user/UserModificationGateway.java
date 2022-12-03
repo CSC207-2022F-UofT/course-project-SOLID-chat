@@ -1,4 +1,4 @@
-package interface_adapters.User;
+package interface_adapters.user;
 
 import entities.user_entities.User;
 
