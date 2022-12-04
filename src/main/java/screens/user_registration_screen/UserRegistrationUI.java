@@ -1,9 +1,12 @@
 package screens.user_registration_screen;
 import data_access.Database;
 import data_access.UserDatabase;
-import use_cases.user_registration_use_cases.UserExistsInputBoundary;
-import use_cases.user_registration_use_cases.UserExistsInteractor;
-import use_cases.user_registration_use_cases.userRegCredentialsRetriever;
+import interface_adapters.login_interface_adapters.UserChatsPresenter;
+import interface_adapters.user_registration_interface_adapters.*;
+import screens.login_screen.UserLoginUI;
+import use_cases.user_login_use_cases.UserLoginInteractor2;
+import interface_adapters.login_interface_adapters.UserLoginPresenter;
+import use_cases.user_registration_use_cases.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +15,7 @@ import java.io.File;
 
 /** This is screen on which the User enters his credentials in order to login**/
 public class UserRegistrationUI implements ActionListener, userRegCredentialsRetriever {
-    private final UserExistsInputBoundary verifyUser;
+    private final UserExistsPresenter verifyUser;
     private JTextField usernameText;
     private JTextField passwordText;
     private JTextField emailText;
@@ -22,9 +25,12 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
     */
     private JTextField deliveryText;
 
-    public UserRegistrationUI(UserExistsInputBoundary verifyUser) {
-        this.verifyUser = verifyUser;
+    public UserRegistrationUI(UserExistsPresenter existsInputBoundary) {
+        this.verifyUser = existsInputBoundary;
     }
+    /**
+     * Creates the frame on which the user inputs account registration credentials
+     * **/
     @Override
     public void getUserCredentials(){
         //Front end related objects
@@ -80,10 +86,16 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
     }
 
     public static void main(String[] args){
-        //Testing purposes
-        Database testDB = new UserDatabase(new File("user_accounts"));
-        UserExistsInputBoundary interactor = new UserExistsInteractor(testDB);
-        new UserRegistrationUI(interactor).getUserCredentials();
+        Database testDB = new UserDatabase(new File("new"));
+        UserLoginInteractor2 userLoginInteractor2 = new UserLoginInteractor2(testDB, new UserChatsPresenter());
+        UserLoginPresenter userLoginPresenter = new UserLoginPresenter(testDB, userLoginInteractor2);
+        UserVerificationOutputView loginUI = new UserLoginUI(userLoginPresenter);
+        UserVerificationPresenter verificationInteractor = new UserVerificationPresenter(testDB, loginUI);
+        UserExistsOutputView verificationScreen = new UserVerificationScreen(verificationInteractor);
+        UserExistsPresenter existsInteractor = new UserExistsPresenter(testDB, verificationScreen, new verificationMethodFactory());
+        UserRegistrationUI testUI = new UserRegistrationUI(existsInteractor);
+        testUI.getUserCredentials();
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -91,6 +103,7 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
         String password = passwordText.getText();
         String email = emailText.getText();
 
+        // Makes sure that the credentials entered are of the correct format, may use regex to correct this
         if(username.equals("")|| password.equals("")|| email.equals("")){
             missingCredentials();
         }else{
@@ -99,7 +112,9 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
             verifyUser.register(username, password, email);
         }
     }
-
+    /**
+     * The frame that shows up when the credentials entered are not of the right format
+     * **/
     public void missingCredentials(){
         JFrame credentialsMissing = new JFrame();
         credentialsMissing.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

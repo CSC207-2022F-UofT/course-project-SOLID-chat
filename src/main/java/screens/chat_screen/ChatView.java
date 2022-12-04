@@ -19,33 +19,27 @@ import use_cases.chat_initiation_use_case.ChatInteractor;
 import use_cases.chat_initiation_use_case.ChatModel;
 
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 
 /**
- * ChatView is our UI for Private chat.It Containe a chatframe .At the top of the frame
- * there is a text file in which we type userB's username, and  chat frame will change into
- * "userB'S username." AT the bottom of the frame, there is another text field to type a message and
+ * ChatView is our UI for Private chat.It Contains a chat frame .At the top of the frame
+ * there is a text file in which we type userB's username, and  chat frame  title changes into
+ * "userB'S username."  AT the bottom of the frame, there is another text field to type a message and
  * send button to send the message
- *
- * In the middle of the frame there i sJpanel and Jlabels for the converstaion history.
- *
+ *-
+ * In the middle of the frame there is Panel and Labels for the conversation history.
  */
 
 
 public class ChatView extends JFrame implements  ActionListener{
-    //use Contrroller
-
-
+    /**
+     * use the Chat controller to pass the Recipient username to the create method of the Controller.
+     */
     private final ChatController controller;
 
-    //Use Jframes, butttons, labels ,textfileds, Jpannels,JMenuBar for UI.
+    /**
+     * Use J frames , buttons , Labels, text fields, Panels and menu-bar for visualizing the UI.
+     */
+
     final JFrame frame ;
     private JButton addbutton;
     final JButton sendbutton;
@@ -55,26 +49,26 @@ public class ChatView extends JFrame implements  ActionListener{
     final JTextField messagetextfield;
     final JMenuBar menubar;
     final JPanel panel;
-
-
-
-
-
-
     final JPanel conversationHistoryPanel;
 
     private JPanel messagePanel;
     private JLabel testMessageHeader;
     private JLabel testMessage;
 
-    //isNewchat check we already have a chat with a user
-    private final boolean isNewchat;
+    /**
+     *Using isNeW boolean to check if it is first time user open the chatUI or not.
+     *I sto check if the user have already  existing have a chat with user.
+     */
+
+    public final boolean isNewchat;
 
 
+    /**
+     * Construct a new  ChatView
+     * @param controller Controller Chat view
+     * @param isNewchat Boolean if the user have already a chat with my user.
+     */
 
-
-
-    //this is constructor
     public ChatView(ChatController controller , boolean isNewchat){
         this.controller = controller;
         this.isNewchat = isNewchat;
@@ -183,7 +177,12 @@ public class ChatView extends JFrame implements  ActionListener{
     }
 
 
-    //we implement ActionListener class and should override this method for our button's actions.
+    /**
+     *  This class implements the ActionListener and overrides the actionPerformed method.
+     *  This method checks for actions of our buttons. "add button" for username and
+     *  "send button" for sending a message.
+     */
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -191,7 +190,7 @@ public class ChatView extends JFrame implements  ActionListener{
         // STEP1: action for the  "add button" at the top of frame.
 
         if (e.getSource() == addbutton){
-            //  convert textfield input to String and set the frame title to that input is username exists.
+            // convert textfield input to String and set the frame title to that input is username exists.
 
             String input = usernametextfield.getText();
             controller.create(input);
@@ -215,21 +214,21 @@ public class ChatView extends JFrame implements  ActionListener{
 
 
 
-    public static void main(String[] args) {
-
-        PrivateChatFactory chatFactory = new CommonPrivatechat();
-        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
-        ChatController controller = new ChatController(Interactor, "current username");
-        new ChatView(controller,true);
-
-        controller.create(new ChatModel("Hi").getRecipientusername());
-
-        //new ChatView(controller,true);
-//        // find the created privatechat and the username
-//        System.out.println(controller.getNewprivatechat().getRecipientUsername());
-
-
-    }
+//    public static void main(String[] args) {
+//
+//        PrivateChatFactory chatFactory = new CommonPrivatechat();
+//        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
+//        ChatController controller = new ChatController(Interactor, "current username");
+//        new ChatView(controller,true);
+//
+//        controller.create(new ChatModel("Hi").getRecipientusername());
+//
+//        //new ChatView(controller,true);
+////        // find the created privatechat and the username
+////        System.out.println(controller.getNewprivatechat().getRecipientUsername());
+//
+//
+//    }
 
 
 }

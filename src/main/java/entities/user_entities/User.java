@@ -16,8 +16,6 @@ public abstract class User implements Serializable, Changeable, Loginable, UserA
     protected String email;
 
     protected ArrayList<Chat> userChats;
-    boolean verified = false;
-    boolean online = false;
     public User(String username, String password, String email, ArrayList<Chat> userChats){
         this.username = username;
         this.password = password;

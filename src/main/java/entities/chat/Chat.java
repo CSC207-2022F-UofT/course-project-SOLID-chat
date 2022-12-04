@@ -5,13 +5,32 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 // Chat is an abstract class
+
+/**
+ * This a chat abstarct class and the private chat extend this clss
+ *
+ */
 public class Chat implements Serializable {
 
+    /**
+     * name of chat sender which same as teh Recipent username that user is typing with
+     */
     protected String name;
+
+    /**
+     * Chat ID of chat sender
+     */
     protected String chatID;
+
+    /**
+     * sender username of chat (UUID)
+     */
     protected String senderUsername;
 
-    // chat's conversation history
+    /**
+     * Array List of messages that users has typed
+     */
+
     protected ArrayList<Message> convHist;
 
 
