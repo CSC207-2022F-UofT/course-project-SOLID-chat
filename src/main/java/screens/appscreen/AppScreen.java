@@ -108,7 +108,9 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         JPanel jPanel = new JPanel();
 
         // getting the names of each chat to display and creating buttons for each chat
+
         UserChats gateway = new UserChats(currentUsername);
+
         for (int i = this.chatNames.size() - 1; i > -1; i--) {
 
             ChatInfo chatInfo = new ChatInfo(gateway.getUserChats(currentUsername), chatNames.get(i));

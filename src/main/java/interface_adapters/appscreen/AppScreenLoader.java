@@ -12,7 +12,7 @@ public class AppScreenLoader implements AppScreenPresenter {
     /**
      * Create the app screen loader
      * @param username The username of the current user
-     * @param chats A list of chatIDs of all the chats the given user has
+     * @param chats A list of chat names of all the chats the given user has
      */
     public AppScreenLoader(String username, ArrayList<String> chats){
         this.username = username;

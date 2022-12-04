@@ -7,31 +7,15 @@ import java.util.ArrayList;
 public class ChatInfo {
 
     private final ArrayList<Chat> userChats;
-    private final String chatID;
+    private final String chatName;
 
     /**
      * Create an object pertaining to chat information
-     * @param chatID ID of the chat in context
+     * @param chatName The name of the chat in context
      */
-    public ChatInfo(ArrayList<Chat> chats, String chatID){
+    public ChatInfo(ArrayList<Chat> chats, String chatName){
         this.userChats = chats;
-        this.chatID = chatID;
-    }
-    /**
-     * Get the name of the chat
-     * @return chat name (or null if a chat with chatID does not exist in the user's list of chats)
-     */
-    public String getChatName(){
-        try{
-            for (Chat chat: userChats){
-                if (chat.getChatID().equals(chatID)){
-                    return chat.getName();
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to get indicated chat");
-        }
-        return null;
+        this.chatName = chatName;
     }
 
     /**
@@ -41,7 +25,7 @@ public class ChatInfo {
     public LocalDateTime getLastMessageTime(){
         try{
             for (Chat chat: userChats){
-                if (chat.getChatID().equals(chatID)){
+                if (chat.getName().equals(chatName)){
                     return chat.getLastUpdated();
                 }
             }
