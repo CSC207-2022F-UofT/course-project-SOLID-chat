@@ -25,14 +25,6 @@ public class UserLoginUI implements ActionListener, UserVerificationOutputView {
         this.loginPresenter = loginPresenter;
         this.loginPresenter.setLoginView(loginViewI);
     }
-    //For Testing Purposes
-    public static void main(String[] args){
-        Database userDB = new UserDatabase(new File("new"));
-        UserLoginInputBoundary inputBoundary = new UserLoginInteractor2(userDB, new UserChatsPresenter());
-        UserLoginPresenter loginPresenter1 = new UserLoginPresenter(userDB, inputBoundary);
-        UserLoginUI loginUI = new UserLoginUI(loginPresenter1);
-        loginUI.getLoginCredentials();
-    }
     /**
      * Frame to input login credentials
      * **/
