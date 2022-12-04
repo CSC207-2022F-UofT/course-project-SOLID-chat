@@ -1,4 +1,4 @@
-package use_cases.user_registration_use_cases;
+package interface_adapters.user_registration_interface_adapters;
 
 public interface userRegCredentialsRetriever {
     void getUserCredentials();
