@@ -9,7 +9,7 @@ public class TestAppScreenUI {
 
     public static void main(String[] args) {
 
-        UserDatabase userDatabase = new UserDatabase(new File("tester_file"));
+        UserDatabase userDatabase = new UserDatabase(new File("src/test/java/tester_file"));
 
         List<User> users = userDatabase.getList();
         for (User user: users){

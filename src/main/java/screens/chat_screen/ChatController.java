@@ -8,7 +8,6 @@ import use_cases.chat_initiation_use_case.ChatModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 
 //Interface adaptor of chat-Initiation.
 /**
@@ -55,7 +54,7 @@ public class ChatController {
     public ChatModel create (String username){
         ChatModel chatmodel = new ChatModel(username);
 
-        UserDatabase userdatabase = new UserDatabase(new File("user_accounts"));
+        UserDatabase userdatabase = new UserDatabase();
 
         // checks whether is typed username exist in or not if not open a window with error
         //and if yes create the ChatModel

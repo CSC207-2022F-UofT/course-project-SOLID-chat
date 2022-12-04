@@ -4,12 +4,11 @@ import data_access.UserDatabase;
 import entities.chat.Chat;
 import entities.user_entities.User;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class UserAppScreenGateway {
 
-    private final UserDatabase userDatabase = new UserDatabase(new File("user_accounts"));
+    private final UserDatabase userDatabase = new UserDatabase();
     private final String username;
 
     /**
