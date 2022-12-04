@@ -43,7 +43,9 @@ Each of us have created one or more PRs and most of these have been merged into 
 - The AppScreen UI is the screen that acts as a proxy between the user's login screen and their individual chats
 - Upon logging in, a user will will be rendered with a view of AppScreen
 - App screen provides a dashboard of buttons containing a user's existing chats, and the order that these chats appear will update whenever a new message or chat is recieved/created
+- 
 <img width="215" alt="Screenshot_20221201_090750" src="https://user-images.githubusercontent.com/71410005/205475385-87b103d7-6620-4b30-ac8e-ba0d39bb65aa.png">
+
 - Each chat button will also display a date indicating the date of the last message in a chat's conversation history, or no date if a chat has no messages 
 - ChatView (the window referenced above) will open upon clicking an existing chat to display the chat to the user
 
