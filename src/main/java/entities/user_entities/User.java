@@ -1,16 +1,13 @@
 package entities.user_entities;
 
-import data_access.UserDatabase;
 import entities.chat.Chat;
 import interface_adapters.profile_modification_IA.UserAuthenticationI;
 import use_cases.user_attribute_modification_use_case.Changeable;
-import interface_adapters.appscreen.UserAppScreenGateway;
-import use_cases.user_login_use_cases.Loginable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class User implements Serializable, Changeable, Loginable, UserAuthenticationI {
+public abstract class User implements Serializable, Changeable, UserAuthenticationI {
     protected String username;
     protected String password;
     protected String email;
@@ -38,11 +35,11 @@ public abstract class User implements Serializable, Changeable, Loginable, UserA
     @Override
 //    from Changeable
     public void changeFeature(String feature, String newFeature){
-        if (feature == "Username"){
+        if ("Username".equals(feature)){
             this.username = newFeature;
-        } else if (feature == "Password"){
+        } else if ("Password".equals(feature)){
             this.password = newFeature;
-        } else if (feature == "Email"){
+        } else if ("Email".equals(feature)){
             this.email = newFeature;
         }
     }
@@ -50,11 +47,6 @@ public abstract class User implements Serializable, Changeable, Loginable, UserA
     @Override
     public Boolean PasswordMatch(String attempt){
         return (this.getPassword().equals(attempt));
-    }
-
-    public void login(){
-        UserAppScreenGateway appScreenGateway = new UserAppScreenGateway(this.getUsername());
-        appScreenGateway.login();
     }
 
     public ArrayList<Chat> getChats() {
