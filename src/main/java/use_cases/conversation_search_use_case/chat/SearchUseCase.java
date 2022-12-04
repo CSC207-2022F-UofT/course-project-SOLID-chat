@@ -78,19 +78,19 @@ public class SearchUseCase implements SearchInputBoundary {
         return greater;
     }
 
-    public static void main(String[] args){
-
-        Chat a = new PrivateChat("Emma", "001", "John");
-        SearchUseCase b = new SearchUseCase(a);
-//        ArrayList<Message> test = new ArrayList<Message>(Arrays.asList(new TextMessage("James",
-//                "First test message!", LocalDateTime.now(), "x")));
-        TextMessage testMessage = new TextMessage("James",
-                "First test message!", LocalDateTime.now(), "x");
-        a.addToConvHist(testMessage);
+//    public static void main(String[] args){
 //
-        b.SearchBykeyword("test");
-        System.out.println(1);
-
-    }
+//        Chat a = new PrivateChat("Emma", "001", "John");
+//        SearchUseCase b = new SearchUseCase(a);
+////        ArrayList<Message> test = new ArrayList<Message>(Arrays.asList(new TextMessage("James",
+////                "First test message!", LocalDateTime.now(), "x")));
+//        TextMessage testMessage = new TextMessage("James",
+//                "First test message!", LocalDateTime.now(), "x");
+//        a.addToConvHist(testMessage);
+////
+//        b.SearchBykeyword("test");
+//        System.out.println(1);
+//
+//    }
 
 }
