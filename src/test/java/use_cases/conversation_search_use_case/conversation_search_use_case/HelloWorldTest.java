@@ -1,7 +1,8 @@
-package use_cases.conversation_search_use_case;
+package use_cases.conversation_search_use_case.conversation_search_use_case;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import use_cases.conversation_search_use_case.chat.HelloWorld;
 
 class HelloWorldTest {
 

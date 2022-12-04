@@ -1,7 +1,11 @@
-package use_cases.conversation_search_use_case;
+package use_cases.conversation_search_use_case.chat;
+
+import entities.chat.Chat;
+import entities.message.Message;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import entities.message.TextMessage;
 
 
 /**
@@ -11,9 +15,9 @@ import java.util.ArrayList;
 // It specifies what the input (arguments) and output (return type) are.
 
 public interface SearchInputBoundary {
-    ArrayList<Message> SearchBykeyword(Chat c, String word);
+    ArrayList<TextMessage> SearchBykeyword(String word);
 
-    ArrayList<Message> SearchBytime(Chat c, LocalDateTime time);
+    ArrayList<TextMessage> SearchBytime(Chat c, LocalDateTime time);
 
-    Message  SearchByNewest(ArrayList<Message> ar);
+    Message  SearchByNewest(ArrayList<TextMessage> ar);
 }
