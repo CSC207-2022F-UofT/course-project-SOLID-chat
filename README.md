@@ -42,9 +42,14 @@ Each of us have created one or more PRs and most of these have been merged into 
 - By Amy
 - The App Screen UI is the screen that acts as a proxy between the user's login screen and their individual chats
 - Upon logging in, a user will will be rendered with a view of app screen
-- App Screen provides an ordered list of a user's chats, allowing the user to open an individual chat by clicking the chat button
-- ChatView(the window referenced above) will open, displaying the chats's GUI
-- Apart from that, app screen also provides buttons that allow a user to create new chats
+- App screen provides an ordered list of a user's chats and also allows a user to create new chats
+- Each chat button will also display a date indicating the date of the last message in a chat's conversation history, or no date if a chat has no messages 
+- ChatView (the window referenced above) will open upon clicking an existing chat to display the chats's GUI
+- With respect to ChatView, clicking on the +Private Chat and +Group Chat buttons will also open an instance of ChatView for a user to create a new chat
+
+<img width="214" alt="appscreen-nov 25" src="https://user-images.githubusercontent.com/71410005/204060542-82bb8432-09fc-4379-aee6-7a9039e58029.png">
+
+
 
 ### User Registration and Login
 - By Madhav

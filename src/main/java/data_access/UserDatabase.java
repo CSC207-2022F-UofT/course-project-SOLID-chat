@@ -1,23 +1,20 @@
 package data_access;
 
 import entities.chat.Chat;
-import interface_adapters.User_search_IA.IRetrieveList;
-import interface_adapters.user_registration_interface_adapters.UserExists;
+import interface_adapters.user_search_IA.IRetrieveList;
 import entities.user_entities.User;
 import interface_adapters.profile_modification_IA.UserModificationGateway;
-import use_cases.user_registration_use_cases.UserCreator;
 import entities.user_entities.UserFactory;
-import interface_adapters.Chat.UserChatGateway;
-import interface_adapters.User_search_IA.UserRetriever;
+import interface_adapters.chat.UserChatGateway;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRetrieveList, UserModificationGateway, UserChatGateway {
+public class UserDatabase implements Database, IRetrieveList, UserModificationGateway, UserChatGateway {
     File accounts;
     List<User> accountList;
     public UserDatabase(){
-        this.accounts = new File("accounts");
+        this.accounts = new File("user_accounts");
         if(!accounts.exists()){
             try {
                 accounts.createNewFile();
@@ -146,9 +143,8 @@ public class UserDatabase implements UserExists, UserRetriever, UserCreator, IRe
     @Override
     public ArrayList<Chat> getUserChats(String username) {
         for (User user: accountList){
-            //if(getUser(username).equals(user)){
             if(user.getUsername().equals(username)){
-                return user.getUserChats();
+                return user.getChats();
             }
         }
         throw new RuntimeException("Invalid username");

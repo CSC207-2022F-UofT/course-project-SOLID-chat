@@ -1,5 +1,5 @@
 package interface_adapters.login_interface_adapters;
-import interface_adapters.User_search_IA.UserRetriever;
+import interface_adapters.user_search_IA.UserRetriever;
 public class UserLoginGateway {
     public UserRetriever database;
 
