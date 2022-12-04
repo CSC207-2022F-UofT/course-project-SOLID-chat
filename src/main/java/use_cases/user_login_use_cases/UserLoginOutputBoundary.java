@@ -1,7 +1,10 @@
 package use_cases.user_login_use_cases;
 
 import java.util.List;
-
+/**
+ * Objects that implement this interface are presenters that communicate with the view
+ * and the login interactor in order to implement login
+ * **/
 public interface UserLoginOutputBoundary {
     void setUsername(String username);
     void setChats(List<String> chats);

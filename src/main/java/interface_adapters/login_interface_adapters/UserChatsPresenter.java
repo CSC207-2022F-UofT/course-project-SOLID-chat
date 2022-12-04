@@ -4,7 +4,9 @@ import use_cases.user_login_use_cases.UserLoginOutputBoundary;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Just a bunch of getters and setters
+ * **/
 public class UserChatsPresenter implements UserLoginOutputBoundary {
     private List<String> chats;
     private boolean notExists;

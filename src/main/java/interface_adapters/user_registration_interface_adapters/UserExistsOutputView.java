@@ -10,6 +10,8 @@ public interface UserExistsOutputView {
     /**
      * Presents that the user exists in the database
      * */
+    /*TODO: Currently this violates Interface segregation principle, as the bottom method has nothing to do with
+       getting verification credentials.*/
     void presentUserExistsMessage();
     /**
      * Gets the code from the input boundary object

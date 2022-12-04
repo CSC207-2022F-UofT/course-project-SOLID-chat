@@ -33,6 +33,9 @@ public class UserLoginUI implements ActionListener, UserVerificationOutputView {
         UserLoginUI loginUI = new UserLoginUI(loginPresenter1);
         loginUI.getLoginCredentials();
     }
+    /**
+     * Frame to input login credentials
+     * **/
     @Override
     public void getLoginCredentials(){
         JFrame loginFrame = new JFrame();
@@ -65,7 +68,11 @@ public class UserLoginUI implements ActionListener, UserVerificationOutputView {
         loginFrame.setVisible(true);
 
     }
-
+    /**
+     * If the verification code is not right, this message shows up
+     * TODO: this has nothing to do with entering login credentials, so this is a violation of Interface segregation
+     *  principles
+     *  **/
     @Override
     public void cannotVerify() {
         JFrame cannotVerifyFrame = new JFrame();

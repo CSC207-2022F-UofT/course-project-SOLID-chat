@@ -17,11 +17,12 @@ public class UserLoginInteractor2 implements UserLoginInputBoundary {
         this.database = database;
         this.chatPresenter = chatPresenter;
     }
-
+    /**
+     * @param username Username of the user
+     * @param password password that the user entered
+     * **/
     @Override
     public void login(String username, String password) {
-        //will update this.chatPresenter
-        //TODO: change below, as its just temporary
         try {
             User user = database.getUser(username);
             this.chatPresenter.setUsername(username);
@@ -33,6 +34,7 @@ public class UserLoginInteractor2 implements UserLoginInputBoundary {
             }
             this.chatPresenter.setChats(this.chatsStrings);
         }catch(NullPointerException e){
+            //Null pointer exception returns when the user is not in the database
             this.chatPresenter.setUserNotExists(true);
             this.chatPresenter.setChats(this.chatsStrings);
         }

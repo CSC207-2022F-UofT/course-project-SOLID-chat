@@ -48,6 +48,7 @@ public class UserDatabase implements Database, IRetrieveList, UserModificationGa
     /**
      * Checks if a user with given Username exists.
      */
+    //TODO: this method can be be simplified to "return UserExists(username, "");"
     @Override
     public boolean UserExists(String username) {
         for(User user: this.accountList){
@@ -83,6 +84,7 @@ public class UserDatabase implements Database, IRetrieveList, UserModificationGa
      */
     @Override
 //  To be edited to get user from the array format rather than the serialized format.
+    //TODO: for loop can be replaced with enhanced for loop
     public User getUser(String username) {
         User ans = null;
         for (int i = 0; i < (this.accountList.size()); i++) {
@@ -101,15 +103,8 @@ public class UserDatabase implements Database, IRetrieveList, UserModificationGa
             ObjectInputStream in = new ObjectInputStream(fileIn)) {
 
             users = (ArrayList<User>) in.readObject();
-            /*
-            while(true){
-                try{
-                    Entities.User_Entities.User user = (Entities.User_Entities.User) in.readObject();
-                    users.add(user);}
-                catch(EOFException e){
-                    break;
-                }*/
             return users;
+        //TODO: this is not a good use of exceptions, but I could not find any other way to do it.
         }catch(EOFException e){
             return users;
             } catch (IOException | ClassNotFoundException ex) {
