@@ -1,4 +1,4 @@
-package use_cases.conversation_search_use_case.chat;
+package tutorial;
 import java.util.ArrayList;
 
 /**

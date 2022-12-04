@@ -51,4 +51,8 @@ public class GroupChat extends Chat {
     }
 
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/Conversation_Search
