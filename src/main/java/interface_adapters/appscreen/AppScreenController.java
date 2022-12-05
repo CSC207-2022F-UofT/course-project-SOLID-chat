@@ -21,7 +21,7 @@ public class AppScreenController{
     public void createGateway(ArrayList<Chat> newOrder){
         UserAppScreenGateway gateway = new UserAppScreenGateway(this.username);
         try{
-            gateway.updateUserChatList(this.username, newOrder);
+            gateway.updateUserChatList(newOrder);
         } catch (NullPointerException e) {
             throw new NullPointerException("New chat list is empty");
         }

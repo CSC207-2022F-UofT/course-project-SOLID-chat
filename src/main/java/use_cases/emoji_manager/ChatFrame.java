@@ -1,7 +1,7 @@
 package use_cases.emoji_manager;
 
+import emoji_manager.msg.Sender;
 import main.java.emoji_manager.msg.MsgType;
-import main.java.emoji_manager.msg.Sender;
 import main.java.emoji_manager.model.FontAndText;
 import main.java.emoji_manager.model.EmoInfo;
 

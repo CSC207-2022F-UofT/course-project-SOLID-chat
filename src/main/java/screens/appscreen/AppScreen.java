@@ -23,17 +23,17 @@ public class AppScreen implements AppScreenPresenter, Refresh {
     private final JFrame jFrame;
     private JScrollPane jScrollPane;
     private final String currentUsername;
-    private ArrayList<String> chats;
+    private ArrayList<String> chatNames;
 
 
     /**
      Create an AppScreen object
-     @param chats This is a list of chats given by the user (the list will always come as sorted with the
+     @param chatNames This is a list of chats names given by the user (the list will always come as sorted with the
      most recent chats at the end of the list)
      */
-    public AppScreen(String currentUsername, ArrayList<String> chats) {
+    public AppScreen(String currentUsername, ArrayList<String> chatNames) {
         this.currentUsername = currentUsername;
-        this.chats = chats;
+        this.chatNames = chatNames;
         jFrame = new JFrame();
         jFrame.setSize(300, 500);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -82,7 +82,7 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         jFrame.add(topPanel, BorderLayout.NORTH);
         jFrame.add(menuPanel, BorderLayout.SOUTH);
 
-        this.chats = chats;
+        this.chatNames = chatNames;
         openScreen();
 
     }
@@ -108,12 +108,14 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         JPanel jPanel = new JPanel();
 
         // getting the names of each chat to display and creating buttons for each chat
+
         UserChats gateway = new UserChats(currentUsername);
-        for (int i = this.chats.size() - 1; i > -1; i--) {
 
-            ChatInfo chatInfo = new ChatInfo(gateway.getUserChats(currentUsername), chats.get(i));
+        for (int i = this.chatNames.size() - 1; i > -1; i--) {
 
-            String chatName = chatInfo.getChatName();
+            ChatInfo chatInfo = new ChatInfo(gateway.getUserChats(currentUsername), chatNames.get(i));
+
+            String chatName = this.chatNames.get(i);
             LocalDateTime lastUpdated = chatInfo.getLastMessageTime();
 
             jPanel.add(ChatButton.createButton(chatName, currentUsername, lastUpdated));
@@ -122,7 +124,7 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         jPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 
         // set height of panel to appropriate size based on the number of chats
-        jPanel.setPreferredSize(new Dimension(100, 60 * this.chats.size()));
+        jPanel.setPreferredSize(new Dimension(100, 60 * this.chatNames.size()));
         jPanel.setBorder(BorderFactory.createTitledBorder("My Chats"));
 
 

@@ -1,4 +1,4 @@
-package main.java.emoji_manager.msg;
+package emoji_manager.msg;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

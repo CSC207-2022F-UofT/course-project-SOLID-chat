@@ -1,23 +1,14 @@
 package screens.user_registration_screen;
-
-import data_access.UserDatabase;
-import screens.login_screen.UserLoginUI;
+import screens.login_screen.UserLoginMain;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /** This is the screen in which the user chooses to either register or login. **/
-public class LoginRegisterScreen implements ActionListener {
-
-    private final UserRegistrationUI registrationUI;
-    private final UserLoginUI loginUI;
+public class LoginRegisterScreen {
     JButton login = new JButton("login");
     JButton register = new JButton("register");
 
-    public LoginRegisterScreen(UserRegistrationUI registrationUI, UserLoginUI loginUI){
-        this.registrationUI = registrationUI;
-        this.loginUI = loginUI;
+    public LoginRegisterScreen(){
         JFrame loginRegFrame = new JFrame();
         loginRegFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         loginRegFrame.setSize(400, 200);
@@ -27,23 +18,15 @@ public class LoginRegisterScreen implements ActionListener {
         message.setBounds(10, 30, 200, 25);
         loginRegPanel.add(message);
         login.setBounds(10, 60, 70, 30);
-        login.addActionListener(this);
+        login.addActionListener(new UserLoginMain());
         register.setBounds(110, 60, 70, 30);
-        register.addActionListener(this);
+        register.addActionListener(new UserRegistrationMain());
         loginRegPanel.add(login);
         loginRegPanel.add(register);
         loginRegFrame.setVisible(true);
 
     }
-    /*public static void main(String[] args){
-        LoginRegisterScreen screen = new LoginRegisterScreen();
-    }*/
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource().equals(login)){
-            loginUI.getLoginCredentials();
-        }else{
-            registrationUI.getUserCredentials();
-        }
+    public static void main(String[] args){
+        new LoginRegisterScreen();
     }
 }

@@ -4,12 +4,15 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
+/**
+ * This is the class that implements Email verification*/
 public class EmailDelivery implements ISendVerificationCode {
+    /**
+     * The method that implements email verification
+     * @param email Email address
+     * @param code  Verification Code
+     * */
     public void sendVerificationCode(String email, int code){
-        /*TODO: When this is implemented, the verification code will be sent to the email specified by String email*/
-        System.out.println("Verification code sent to " + email);
-
         //email address we will send the code to
         String to = email;
 
@@ -42,7 +45,6 @@ public class EmailDelivery implements ISendVerificationCode {
             message.setText("The verification code for your account is " + code + ". If this was not you, you can safely " +
                     "ignore this email");
             Transport.send(message);
-            System.out.println("success");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }

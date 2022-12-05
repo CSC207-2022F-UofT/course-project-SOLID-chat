@@ -1,21 +1,27 @@
 package screens.login_screen;
-import use_cases.user_login_use_cases.UserLoginInputBoundary;
-import use_cases.user_registration_use_cases.UserVerificationOutputBoundary;
+import interface_adapters.login_interface_adapters.UserLoginViewI;
+import interface_adapters.login_interface_adapters.UserLoginPresenter;
+import interface_adapters.user_registration_interface_adapters.UserVerificationOutputView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /** This is the screen on which the user enters his credentials in order to login **/
-public class UserLoginUI implements ActionListener, UserVerificationOutputBoundary {
+public class UserLoginUI implements ActionListener, UserVerificationOutputView {
 
-    private final UserLoginInputBoundary loginInteractor;
+    private final UserLoginPresenter loginPresenter;
     JTextField credentialText;
     JPasswordField passwordText;
 
-    public UserLoginUI(UserLoginInputBoundary loginInteractor){
-        this.loginInteractor = loginInteractor;
+    public UserLoginUI(UserLoginPresenter loginPresenter){
+        UserLoginViewI loginViewI = new AppScreenCreator();
+        this.loginPresenter = loginPresenter;
+        this.loginPresenter.setLoginView(loginViewI);
     }
+    /**
+     * Frame to input login credentials
+     * **/
     @Override
     public void getLoginCredentials(){
         JFrame loginFrame = new JFrame();
@@ -48,7 +54,11 @@ public class UserLoginUI implements ActionListener, UserVerificationOutputBounda
         loginFrame.setVisible(true);
 
     }
-
+    /**
+     * If the verification code is not right, this message shows up
+     * TODO: this has nothing to do with entering login credentials, so this is a violation of Interface segregation
+     *  principles
+     *  **/
     @Override
     public void cannotVerify() {
         JFrame cannotVerifyFrame = new JFrame();
@@ -69,7 +79,7 @@ public class UserLoginUI implements ActionListener, UserVerificationOutputBounda
     public void actionPerformed(ActionEvent e) {
         String username = credentialText.getText();
         String password = passwordText.getText();
-        loginInteractor.setLoginCredentials(username, password);
-        loginInteractor.tryLogin();
+        loginPresenter.setLoginCredentials(username, password);
+        loginPresenter.tryLogin();
     }
 }
