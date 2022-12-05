@@ -7,7 +7,7 @@ import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatModel;
 
 import javax.swing.*;
-import java.awt.*;
+
 
 //Interface adaptor of chat-Initiation.
 /**
@@ -56,21 +56,20 @@ public class ChatController {
 
         UserDatabase userdatabase = new UserDatabase();
 
-        // checks whether is typed username exist in or not if not open a window with error
-        //and if yes create the ChatModel
-
-        if (!(userdatabase.UserExists(username))) {
+        // checks whether is typed username exist in or not if yes create a new private chat obj and
+        // a chat model
 
 
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");
-        }
-        // create a private chat obj
-        this.newprivatechat = chatinputboundry.create(chatmodel);
+        if (userdatabase.UserExists(username)) {
 
-        //Adding the chat to dashboard App-screen and then update it in database
-        new AppScreenChatProxy(currentusername, this.newprivatechat).proxyChat();
-        return chatmodel;
+
+            // create a private chat obj
+            this.newprivatechat = chatinputboundry.create(chatmodel);
+
+            //Adding the chat to dashboard App-screen and then update it in database
+            new AppScreenChatProxy(currentusername, this.newprivatechat).proxyChat();
+            return chatmodel;
+        } return null;
 
 
     }
@@ -82,6 +81,9 @@ public class ChatController {
 
     public PrivateChat getNewprivatechat() {
         return newprivatechat;
-    }}
+    }
+
+
+}
 
 

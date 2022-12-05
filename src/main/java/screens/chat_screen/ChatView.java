@@ -3,6 +3,7 @@ package screens.chat_screen;
 
 
 
+import data_access.UserDatabase;
 import entities.chat.CommonPrivatechat;
 import entities.chat.PrivateChatFactory;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
@@ -187,6 +188,10 @@ public class ChatView extends JFrame implements  ActionListener{
      *  This class implements the ActionListener and overrides the actionPerformed method.
      *  This method checks for actions of our buttons. "add button" for username and
      *  "send button" for sending a message.
+     *  -
+     * when a user type a Recipient username and click the add button it checks if the username
+     * exists in the data base if yes the frame title will changed to the recipient username .
+     * if not a window pups up saying "username doesn't found"
      */
 
 
@@ -200,9 +205,12 @@ public class ChatView extends JFrame implements  ActionListener{
 
             String input = usernametextfield.getText();
             controller.create(input);
+            // checks whether is typed username exist in or not if not open a window with error
+            UserDatabase userdatabase = new UserDatabase();
+            if (!userdatabase.UserExists(input)){
 
-
-            frame.setTitle(input);
+                JOptionPane.showMessageDialog(frame, "username does not found");
+            }else {frame.setTitle(input);}
 
         }
 
@@ -223,23 +231,23 @@ public class ChatView extends JFrame implements  ActionListener{
 
 
 
-//    public static void main(String[] args) {
-//
-//        PrivateChatFactory chatFactory = new CommonPrivatechat();
-//        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
-//        ChatController controller = new ChatController(Interactor, "current username");
-//
-//        controller.getNewprivatechat();
-//        new ChatView(controller,true);
-//
-//        controller.create(new ChatModel("Hi").getRecipientusername());
-//
-//        //new ChatView(controller,true);
-////        // find the created privatechat and the username
-////        System.out.println(controller.getNewprivatechat().getRecipientUsername());
-//
-//
-//    }
+    public static void main(String[] args) {
+
+        PrivateChatFactory chatFactory = new CommonPrivatechat();
+        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
+        ChatController controller = new ChatController(Interactor, "current username");
+
+        controller.getNewprivatechat();
+        new ChatView(controller,true);
+
+        controller.create(new ChatModel("Hi").getRecipientusername());
+
+        //new ChatView(controller,true);
+//        // find the created privatechat and the username
+//        System.out.println(controller.getNewprivatechat().getRecipientUsername());
+
+
+    }
 
 
 }
