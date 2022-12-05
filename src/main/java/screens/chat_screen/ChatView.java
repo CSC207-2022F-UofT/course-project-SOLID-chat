@@ -3,6 +3,13 @@ package screens.chat_screen;
 
 
 
+import data_access.UserDatabase;
+import entities.chat.CommonPrivatechat;
+import entities.chat.PrivateChatFactory;
+import use_cases.chat_initiation_use_case.ChatInputBoundry;
+import use_cases.chat_initiation_use_case.ChatInteractor;
+import use_cases.chat_initiation_use_case.ChatModel;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -10,14 +17,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-
-import entities.chat.CommonPrivatechat;
-import entities.chat.PrivateChatFactory;
-import use_cases.chat_initiation_use_case.ChatInputBoundry;
-import use_cases.chat_initiation_use_case.ChatInteractor;
-import use_cases.chat_initiation_use_case.ChatModel;
-
 
 
 /**
@@ -41,8 +40,11 @@ public class ChatView extends JFrame implements  ActionListener{
      */
 
     final JFrame frame ;
-    private JButton addbutton;
+    final JButton addbutton;
     final JButton sendbutton;
+
+    final JButton searchbutton;
+
     final JLabel l;
     final JLabel label;
     final JTextField usernametextfield;
@@ -65,8 +67,9 @@ public class ChatView extends JFrame implements  ActionListener{
 
     /**
      * Construct a new  ChatView
-     * @param controller Controller Chat view
-     * @param isNewchat Boolean if the user have already a chat with my user.
+     *
+     * @param controller   Controller Chat view
+     * @param isNewchat    Boolean if the user have already a chat with my user.
      */
 
     public ChatView(ChatController controller , boolean isNewchat){
@@ -83,12 +86,14 @@ public class ChatView extends JFrame implements  ActionListener{
         // create a label called l , and text field called "txt"
         l = new JLabel("  username");
         usernametextfield = new JTextField(10);
-        addbutton = new JButton("add");
-        addbutton.setFocusable(false);
 
 
-        // create two buttom called "addbuttom" and a "groupchat buttom"
+
+
+        // create two buttom called "addbuttom" and a "search a message buttom"
         addbutton = new JButton("add");
+        searchbutton = new JButton("search a message");
+        searchbutton.setFocusable(false);
         addbutton.setFocusable(false);
 
         // create conversation history-related components
@@ -118,6 +123,7 @@ public class ChatView extends JFrame implements  ActionListener{
         menubar.add(l);
         menubar.add(usernametextfield);
         menubar.add(addbutton);
+        menubar.add(searchbutton);
 
 
         // adding label and textfiled1 to our panel .
@@ -172,6 +178,7 @@ public class ChatView extends JFrame implements  ActionListener{
 
         this.addbutton.addActionListener(this);
         this.sendbutton.addActionListener(this);
+        this.searchbutton.addActionListener(this);
 
 
     }
@@ -181,6 +188,10 @@ public class ChatView extends JFrame implements  ActionListener{
      *  This class implements the ActionListener and overrides the actionPerformed method.
      *  This method checks for actions of our buttons. "add button" for username and
      *  "send button" for sending a message.
+     *  -
+     * when a user type a Recipient username and click the add button it checks if the username
+     * exists in the data base if yes the frame title will changed to the recipient username .
+     * if not a window pups up saying "username doesn't found"
      */
 
 
@@ -194,9 +205,12 @@ public class ChatView extends JFrame implements  ActionListener{
 
             String input = usernametextfield.getText();
             controller.create(input);
+            // checks whether is typed username exist in or not if not open a window with error
+            UserDatabase userdatabase = new UserDatabase();
+            if (!userdatabase.UserExists(input)){
 
-
-            frame.setTitle(input);
+                JOptionPane.showMessageDialog(frame, "username does not found");
+            }else {frame.setTitle(input);}
 
         }
 
@@ -209,26 +223,31 @@ public class ChatView extends JFrame implements  ActionListener{
 
 
         }
+        if (e.getSource()== sendbutton){
+            //TODO calling the search GUI.
+        }
 
     }
 
 
 
-//    public static void main(String[] args) {
-//
-//        PrivateChatFactory chatFactory = new CommonPrivatechat();
-//        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
-//        ChatController controller = new ChatController(Interactor, "current username");
-//        new ChatView(controller,true);
-//
-//        controller.create(new ChatModel("Hi").getRecipientusername());
-//
-//        //new ChatView(controller,true);
-////        // find the created privatechat and the username
-////        System.out.println(controller.getNewprivatechat().getRecipientUsername());
-//
-//
-//    }
+    public static void main(String[] args) {
+
+        PrivateChatFactory chatFactory = new CommonPrivatechat();
+        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
+        ChatController controller = new ChatController(Interactor, "current username");
+
+        controller.getNewprivatechat();
+        new ChatView(controller,true);
+
+        controller.create(new ChatModel("Hi").getRecipientusername());
+
+        //new ChatView(controller,true);
+//        // find the created privatechat and the username
+//        System.out.println(controller.getNewprivatechat().getRecipientUsername());
+
+
+    }
 
 
 }

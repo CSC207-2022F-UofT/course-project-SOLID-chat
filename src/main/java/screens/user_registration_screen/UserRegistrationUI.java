@@ -1,17 +1,9 @@
 package screens.user_registration_screen;
-import data_access.Database;
-import data_access.UserDatabase;
-import interface_adapters.login_interface_adapters.UserChatsPresenter;
 import interface_adapters.user_registration_interface_adapters.*;
-import screens.login_screen.UserLoginUI;
-import use_cases.user_login_use_cases.UserLoginInteractor2;
-import interface_adapters.login_interface_adapters.UserLoginPresenter;
-import use_cases.user_registration_use_cases.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 /** This is screen on which the User enters his credentials in order to login**/
 public class UserRegistrationUI implements ActionListener, userRegCredentialsRetriever {
@@ -83,19 +75,6 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
         registerButton.addActionListener(this);
         registerPanel.add(registerButton);
         registerFrame.setVisible(true);
-    }
-
-    public static void main(String[] args){
-        Database testDB = new UserDatabase(new File("new"));
-        UserLoginInteractor2 userLoginInteractor2 = new UserLoginInteractor2(testDB, new UserChatsPresenter());
-        UserLoginPresenter userLoginPresenter = new UserLoginPresenter(testDB, userLoginInteractor2);
-        UserVerificationOutputView loginUI = new UserLoginUI(userLoginPresenter);
-        UserVerificationPresenter verificationInteractor = new UserVerificationPresenter(testDB, loginUI);
-        UserExistsOutputView verificationScreen = new UserVerificationScreen(verificationInteractor);
-        UserExistsPresenter existsInteractor = new UserExistsPresenter(testDB, verificationScreen, new verificationMethodFactory());
-        UserRegistrationUI testUI = new UserRegistrationUI(existsInteractor);
-        testUI.getUserCredentials();
-
     }
     @Override
     public void actionPerformed(ActionEvent e) {
