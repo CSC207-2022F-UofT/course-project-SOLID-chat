@@ -33,6 +33,7 @@ public class PrivateChat extends Chat {
         this.chatID = chatID;
         this.recipientUsername = recipientUsername;
         this.convHist = new ArrayList<>();
+        System.out.println(22222);
 
     }
 
