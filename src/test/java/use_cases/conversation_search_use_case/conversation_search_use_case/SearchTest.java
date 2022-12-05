@@ -9,6 +9,7 @@ import entities.message.Message;
 import entities.message.TextMessage;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.jupiter.api.Assertions;
@@ -39,5 +40,68 @@ public class SearchTest{
                 "First test message!", LocalDateTime.now(), "x")));
         Assertions.assertEquals(b.SearchBykeyword("Emma"), new ArrayList<>());
     }
+
+    @Test
+    public void Search_word_three(){ //test for having more than one message satifies
+        Chat a = new PrivateChat("Emma", "001", "John");
+        SearchUseCase b = new SearchUseCase(a);
+        TextMessage testMessage1 = new TextMessage("James",
+                "First test message!", LocalDateTime.now(), "x");
+        TextMessage testMessage2 = new TextMessage("Emma",
+                "Second test message!", LocalDateTime.now(), "x");
+        a.addToConvHist(testMessage1);
+        a.addToConvHist(testMessage2);
+        ArrayList<TextMessage> actuala = new ArrayList<>();
+        actuala.add(testMessage1);
+        actuala.add(testMessage2);
+
+        Assertions.assertEquals(b.SearchBykeyword("test"), actuala);
+    }
+
+    @Test
+    public void Search_time_one(){ //test for search by time with two messages, only one qualify
+        Chat a = new PrivateChat("Emma", "001", "John");
+        SearchUseCase b = new SearchUseCase(a);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        TextMessage testMessage1 = new TextMessage("James",
+                "First test message!", LocalDateTime.parse("2022-09-25 10:30", formatter), "3");
+        TextMessage testMessage2 = new TextMessage("Emma",
+                "Second test message!", LocalDateTime.parse("2022-07-20 08:30", formatter), "x");
+        a.addToConvHist(testMessage1);
+        a.addToConvHist(testMessage2);
+        ArrayList<TextMessage> actuala = new ArrayList<>();
+        actuala.add(testMessage2);
+        Assertions.assertEquals(b.SearchBytime("2022-07-20 08:30"), actuala);
+    }
+
+    @Test
+    public void Search_time_two(){ //test for having more than one message satifies
+        Chat a = new PrivateChat("Emma", "001", "John");
+        SearchUseCase b = new SearchUseCase(a);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        ArrayList<TextMessage> actuala = new ArrayList<>();
+        Assertions.assertEquals(b.SearchBytime("2022-07-20 08:30"), actuala);
+    }
+
+    @Test
+    public void Search_newest_test(){ //test for having more than one message satifies
+        Chat a = new PrivateChat("Emma", "001", "John");
+        SearchUseCase b = new SearchUseCase(a);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        TextMessage testMessage1 = new TextMessage("James",
+                "First test message!",  LocalDateTime.parse("2022-09-25 10:30", formatter), "x");
+        TextMessage testMessage2 = new TextMessage("Emma",
+                "Second test message!", LocalDateTime.now(), "x");
+        a.addToConvHist(testMessage1);
+        a.addToConvHist(testMessage2);
+        ArrayList<TextMessage> actuala = new ArrayList<>();
+        actuala.add(testMessage1);
+        actuala.add(testMessage2);
+
+        Assertions.assertEquals(b.SearchByNewest(b.SearchBykeyword("test")), testMessage2);
+    }
+
+
+
 
 }

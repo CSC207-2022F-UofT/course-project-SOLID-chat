@@ -17,7 +17,7 @@ import entities.message.TextMessage;
 public interface SearchInputBoundary {
     ArrayList<TextMessage> SearchBykeyword(String word);
 
-    ArrayList<TextMessage> SearchBytime(Chat c, LocalDateTime time);
+    ArrayList<TextMessage> SearchBytime(String input);
 
-    Message  SearchByNewest(ArrayList<TextMessage> ar);
+    TextMessage  SearchByNewest(ArrayList<TextMessage> ar);
 }

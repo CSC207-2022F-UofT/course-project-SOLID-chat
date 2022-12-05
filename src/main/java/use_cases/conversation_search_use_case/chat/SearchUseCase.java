@@ -6,6 +6,7 @@ import entities.message.*;
 import org.w3c.dom.Text;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 //try to push
@@ -30,6 +31,9 @@ public class SearchUseCase implements SearchInputBoundary {
         this.size= c.getConvHist().size();
     }
 
+    public int getSize() {
+        return size;
+    }
 
     public ArrayList<TextMessage>  SearchBykeyword(String word) {
         System.out.println(c.getConvHist().size());
@@ -51,11 +55,18 @@ public class SearchUseCase implements SearchInputBoundary {
         return Found;
     }
 
-    public ArrayList<TextMessage> SearchBytime(Chat c, LocalDateTime time){
+    public ArrayList<TextMessage> SearchBytime(String input){
+        this.size= c.getConvHist().size();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime time = LocalDateTime.parse(input, formatter);
+        System.out.println("input: "+time);
         for(int i=0; i<size; i++) {
             temp = c.getConvHist().get(i);
+
             if (temp instanceof TextMessage){
-                if (temp.getTimestamp() == time) {
+                System.out.println("temp: "+temp.getTimestamp());
+                if (temp.getTimestamp().equals(time)) {
+                    System.out.println(10);
                     Found.add((TextMessage) temp);
                 }
             }
@@ -63,7 +74,7 @@ public class SearchUseCase implements SearchInputBoundary {
         return Found;
     }
 
-    public Message SearchByNewest(ArrayList<TextMessage> ar){
+    public TextMessage SearchByNewest(ArrayList<TextMessage> ar){
         if(ar.isEmpty()){
             return null;
         }
