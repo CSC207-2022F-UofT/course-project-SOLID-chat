@@ -84,19 +84,6 @@ public class UserRegistrationUI implements ActionListener, userRegCredentialsRet
         registerPanel.add(registerButton);
         registerFrame.setVisible(true);
     }
-
-    public static void main(String[] args){
-        Database testDB = new UserDatabase(new File("new"));
-        UserLoginInteractor2 userLoginInteractor2 = new UserLoginInteractor2(testDB, new UserChatsPresenter());
-        UserLoginPresenter userLoginPresenter = new UserLoginPresenter(testDB, userLoginInteractor2);
-        UserVerificationOutputView loginUI = new UserLoginUI(userLoginPresenter);
-        UserVerificationPresenter verificationInteractor = new UserVerificationPresenter(testDB, loginUI);
-        UserExistsOutputView verificationScreen = new UserVerificationScreen(verificationInteractor);
-        UserExistsPresenter existsInteractor = new UserExistsPresenter(testDB, verificationScreen, new verificationMethodFactory());
-        UserRegistrationUI testUI = new UserRegistrationUI(existsInteractor);
-        testUI.getUserCredentials();
-
-    }
     @Override
     public void actionPerformed(ActionEvent e) {
         String username = usernameText.getText();
