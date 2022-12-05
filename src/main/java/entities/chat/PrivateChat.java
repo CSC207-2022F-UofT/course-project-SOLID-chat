@@ -33,10 +33,8 @@ public class PrivateChat extends Chat {
         this.chatID = chatID;
         this.recipientUsername = recipientUsername;
         this.convHist = new ArrayList<>();
-        System.out.println(22222);
 
     }
-
 
 
 
@@ -49,13 +47,6 @@ public class PrivateChat extends Chat {
     }
 
 
-    public void setRecipientUsername(String recipientUsername) {
-        this.recipientUsername= recipientUsername;
-    }
-
-    public String getRecipientUsername(String recipientUsername) {
-        return this.recipientUsername;
-    }
 
     /**
      * Get the sender's username
@@ -64,9 +55,7 @@ public class PrivateChat extends Chat {
     public String getSenderUsername(){
         return this.senderUsername;
     }
-    public void setSenderUsername(String recipientUsername){
-        this.recipientUsername = recipientUsername;
-    }
+
 
 
 }

@@ -212,6 +212,8 @@ public class ChatView extends JFrame implements  ActionListener{
                 JOptionPane.showMessageDialog(frame, "username does not found");
             }else {frame.setTitle(input);}
 
+
+
         }
 
 
@@ -231,23 +233,23 @@ public class ChatView extends JFrame implements  ActionListener{
 
 
 
-    public static void main(String[] args) {
-
-        PrivateChatFactory chatFactory = new CommonPrivatechat();
-        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
-        ChatController controller = new ChatController(Interactor, "current username");
-
-        controller.getNewprivatechat();
-        new ChatView(controller,true);
-
-        controller.create(new ChatModel("Hi").getRecipientusername());
-
-        //new ChatView(controller,true);
-//        // find the created privatechat and the username
+//    public static void main(String[] args) {
+//
+//        PrivateChatFactory chatFactory = new CommonPrivatechat();
+//        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
+//        ChatController controller = new ChatController(Interactor, "current username");
+//
+//        controller.getNewprivatechat();
+////        new ChatView(controller,true);
+//
+//        controller.create(new ChatModel("Hi").getRecipientusername());
+//
+//        //new ChatView(controller,true);
+////        // find the created privatechat and the username
 //        System.out.println(controller.getNewprivatechat().getRecipientUsername());
-
-
-    }
+//
+//
+//    }
 
 
 }

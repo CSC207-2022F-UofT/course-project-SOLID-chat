@@ -2,11 +2,12 @@ package screens.chat_screen;
 
 import data_access.UserDatabase;
 import entities.chat.PrivateChat;
+import entities.user_entities.User;
 import interface_adapters.appscreen.AppScreenChatProxy;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatModel;
 
-import javax.swing.*;
+
 
 
 //Interface adaptor of chat-Initiation.
@@ -30,18 +31,19 @@ public class ChatController {
     /**
      *  the current username currently using the UI.
      */
-
     String currentusername;
+
 
     /**
      * Construct a new message
      * @param chatinputboundry chat input boundary Interface obj
-     * @param currentusername current username
+     *
      */
 
-    public ChatController(ChatInputBoundry chatinputboundry, String currentusername) {
+    public ChatController(ChatInputBoundry chatinputboundry,String currentusername) {
         this.chatinputboundry = chatinputboundry;
-        this.currentusername= currentusername;
+        this.currentusername = currentusername;
+
     }
 
     /**
@@ -53,24 +55,8 @@ public class ChatController {
     // this method is used in UI to set the recipient username
     public ChatModel create (String username){
         ChatModel chatmodel = new ChatModel(username);
-
-        UserDatabase userdatabase = new UserDatabase();
-
-        // checks whether is typed username exist in or not if yes create a new private chat obj and
-        // a chat model
-
-
-        if (userdatabase.UserExists(username)) {
-
-
-            // create a private chat obj
-            this.newprivatechat = chatinputboundry.create(chatmodel);
-
-            //Adding the chat to dashboard App-screen and then update it in database
-            new AppScreenChatProxy(currentusername, this.newprivatechat).proxyChat();
-            return chatmodel;
-        } return null;
-
+        this.newprivatechat = chatinputboundry.create(chatmodel);
+        return chatmodel;
 
     }
 
@@ -82,7 +68,15 @@ public class ChatController {
     public PrivateChat getNewprivatechat() {
         return newprivatechat;
     }
+    /**
+     * Adding the chat to dashboard App-screen and then update it in database
+     *
+     */
+    public void addto_appscreen(){
 
+        new AppScreenChatProxy(currentusername, this.newprivatechat).proxyChat();
+
+    }
 
 }
 
