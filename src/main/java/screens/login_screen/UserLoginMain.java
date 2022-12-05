@@ -9,7 +9,6 @@ import use_cases.user_login_use_cases.UserLoginInteractor2;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 public class UserLoginMain implements ActionListener {
     @Override

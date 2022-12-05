@@ -65,6 +65,10 @@ public class UserDatabase implements Database, IRetrieveList, UserModificationGa
     @Override
     public void createUser(String username, String password, String email, String type){
         User newUser = UserFactory.BirthUser(username, password, email, type);
+        addUserToFile(newUser);
+    }
+
+    private void addUserToFile(User newUser) {
         this.accountList.add(newUser);
         try(FileOutputStream fileOut = new FileOutputStream(accounts)){
             try(ObjectOutputStream out = new ObjectOutputStream(fileOut)){
@@ -87,9 +91,9 @@ public class UserDatabase implements Database, IRetrieveList, UserModificationGa
     //TODO: for loop can be replaced with enhanced for loop
     public User getUser(String username) {
         User ans = null;
-        for (int i = 0; i < (this.accountList.size()); i++) {
-            if (this.accountList.get(i).getUsername().equals(username)) {
-                ans = this.accountList.get(i);
+        for (User user : this.accountList) {
+            if (user.getUsername().equals(username)) {
+                ans = user;
             }
         }
         return ans;
@@ -114,25 +118,14 @@ public class UserDatabase implements Database, IRetrieveList, UserModificationGa
 
     /**
      * modifyUser updates the serialized database with modified user information.
+     * TODO: There is a code smell here, since it contains duplicated lines from createUser, this can be fixed by first
+     *  removing the user, then calling this.createUser
      */
     @Override
     public void modifyUser(String oldUsername, User modified){
 //        swap in modified user to accountList
         this.accountList.remove(this.getUser(oldUsername));
-        this.accountList.add(modified);
-
-//        overwrite the serialized file
-        try(FileOutputStream fileOut = new FileOutputStream(accounts)){
-            try(ObjectOutputStream out = new ObjectOutputStream(fileOut)){
-                out.writeObject(this.accountList);
-                out.close();
-                fileOut.close();
-            }catch(Exception e){
-                System.out.println("Error");
-            }
-        }catch(Exception e){
-            System.out.println("Error");
-        }
+        addUserToFile(modified);
     }
 
     @Override

@@ -29,6 +29,7 @@ public class AppScreenCreator implements UserLoginViewI {
     /**
      * Shows a frame that displays a message
      * **/
+    /* TODO: complete this method, to output a JPanel */
     private void showUnableToLogin() {
         System.out.println("unable to login");
     }

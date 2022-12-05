@@ -1,17 +1,11 @@
 package screens.login_screen;
-import data_access.Database;
-import data_access.UserDatabase;
-import interface_adapters.login_interface_adapters.UserChatsPresenter;
 import interface_adapters.login_interface_adapters.UserLoginViewI;
-import use_cases.user_login_use_cases.UserLoginInputBoundary;
 import interface_adapters.login_interface_adapters.UserLoginPresenter;
-import use_cases.user_login_use_cases.UserLoginInteractor2;
 import interface_adapters.user_registration_interface_adapters.UserVerificationOutputView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 /** This is the screen on which the user enters his credentials in order to login **/
 public class UserLoginUI implements ActionListener, UserVerificationOutputView {
