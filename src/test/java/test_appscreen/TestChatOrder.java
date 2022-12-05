@@ -5,6 +5,7 @@ import entities.chat.PrivateChat;
 import use_cases.appscreen_use_case.ChatOrder;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class TestChatOrder {
 
@@ -15,18 +16,11 @@ public class TestChatOrder {
     static PrivateChat pv5 = new PrivateChat("name5", "5", "recipient5");
     static PrivateChat pv6 = new PrivateChat("name6", "6", "recipient6");
 
-    public static void main(String[] args) {
-        leastRecentChat();
-        mostRecentChat();
-        noExistingChats();
-        newChatWithExistingChats();
-        longChatList();
-        multipleChanges();
-    }
     /**
      * Test order when the least recent chat has an update
      */
-    public static void leastRecentChat(){
+    @Test
+    public void leastRecentChat(){
         ArrayList<Chat> myChats = new ArrayList<>();
         myChats.add(pv1);
         myChats.add(pv2);
@@ -40,7 +34,8 @@ public class TestChatOrder {
     /**
      * Test order when the most recent chat has an update
      */
-    public static void mostRecentChat(){
+    @Test
+    public void mostRecentChat(){
         ArrayList<Chat> myChats = new ArrayList<>();
         myChats.add(pv1);
         myChats.add(pv2);
@@ -54,7 +49,8 @@ public class TestChatOrder {
     /**
      * Test order when there are no existing chats
      */
-    public static void noExistingChats(){
+    @Test
+    public void noExistingChats(){
         ArrayList<Chat> myChats = new ArrayList<>();
         ChatOrder chatOrder = new ChatOrder(myChats, pv1);
         chatOrder.changeOrder();
@@ -65,7 +61,8 @@ public class TestChatOrder {
     /**
      * Test order when adding a new chat to a list of existing chats
      */
-    public static void newChatWithExistingChats(){
+    @Test
+    public void newChatWithExistingChats(){
         ArrayList<Chat> myChats = new ArrayList<>();
         myChats.add(pv1);
         myChats.add(pv2);
@@ -79,7 +76,8 @@ public class TestChatOrder {
     /**
      * Test order on a longer list
      */
-    public static void longChatList(){
+    @Test
+    public void longChatList(){
         ArrayList<Chat> myChats = new ArrayList<>();
         myChats.add(pv1);
         myChats.add(pv2);
@@ -95,7 +93,8 @@ public class TestChatOrder {
     /**
      * Test order for multiple changes
      */
-    public static void multipleChanges(){
+    @Test
+    public void multipleChanges(){
         ArrayList<Chat> myChats = new ArrayList<>();
         myChats.add(pv1);
         myChats.add(pv2);
