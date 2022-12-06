@@ -9,6 +9,7 @@ import screens.profile_screen.UserSearchUI;
 import screens.chat_screen.ChatController;
 import screens.chat_screen.ChatView;
 import screens.profile_update_screen.UserModificationUI;
+import screens.user_registration_screen.LoginRegisterScreen;
 import use_cases.appscreen_use_case.*;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatInteractor;
@@ -68,6 +69,11 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         // adding the action listeners for the Profile Settings button
         profileSettings.addActionListener(e -> new UserModificationUI());
 
+        // adding logout functionality
+        logout.addActionListener(e -> {
+            this.jFrame.dispose();
+            new LoginRegisterScreen();
+        });
 
 
         // adding the action listeners for the +private-chat and +group-chat buttons
@@ -147,8 +153,8 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         JScrollPane scrollFrame = new JScrollPane(jPanel);
         jScrollPane = scrollFrame;
         scrollFrame.setPreferredSize(new Dimension( 200,500));
-        scrollFrame. getVerticalScrollBar().setUnitIncrement(5);
-        jFrame.getContentPane().add(scrollFrame);
+        scrollFrame.getVerticalScrollBar().setUnitIncrement(5);
+        jFrame.add(scrollFrame);
     }
 
 
@@ -163,5 +169,15 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         // refresh the screen
         displayAppScreen();
     }
+
+    /**
+     * Set the chats names of AppScreen
+     * @param chatNames An ordered list of chat names
+     */
+    public void setChatNames(ArrayList<String> chatNames){
+        this.chatNames = chatNames;
+    }
+
+
 
 }
