@@ -1,6 +1,7 @@
 package screens.chat_screen;
 
 import data_access.UserDatabase;
+import entities.chat.Chat;
 import entities.chat.PrivateChat;
 import interface_adapters.appscreen.AppScreenChatProxy;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
@@ -54,12 +55,16 @@ public class ChatController {
 
         UserDatabase userdatabase = new UserDatabase();
 
-        // checks whether is typed username exist in or not if yes create a new private chat obj and
+        // checks whether the typed username exists or not, if yes create a new private chat obj and
         // a chat model
-
-
         if (userdatabase.UserExists(username)) {
 
+            // check if the current user already has a chat with this user
+            for (Chat chat: userdatabase.getUserChats(currentusername)){
+                if (chat.getName().equals(username)){
+                    return null;
+                }
+            }
 
             // create a private chat obj
             this.newprivatechat = chatinputboundry.create(chatmodel);
