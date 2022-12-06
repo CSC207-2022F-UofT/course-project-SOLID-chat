@@ -6,8 +6,6 @@ import interface_adapters.appscreen.AppScreenChatProxy;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatModel;
 
-import javax.swing.*;
-
 
 //Interface adaptor of chat-Initiation.
 /**

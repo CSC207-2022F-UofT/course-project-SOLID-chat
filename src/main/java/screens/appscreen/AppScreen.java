@@ -44,6 +44,9 @@ public class AppScreen implements AppScreenPresenter, Refresh {
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(1,2));
 
+        JButton logout = new JButton("Logout");
+        logout.setPreferredSize(new Dimension(40,30));
+
         JButton addPrivateChat = new JButton("+ Private Chat");
         addPrivateChat.setPreferredSize(new Dimension(40, 30));
 
@@ -76,6 +79,7 @@ public class AppScreen implements AppScreenPresenter, Refresh {
 
         });
 
+        topPanel.add(logout);
         topPanel.add(addPrivateChat);
         menuPanel.add(searchUsers);
         menuPanel.add(profileSettings);
