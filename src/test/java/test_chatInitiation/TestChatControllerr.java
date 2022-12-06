@@ -19,7 +19,7 @@ public class TestChatControllerr {
         @Test
         public void checkaddbutton() {
 
-
+\
             PrivateChatFactory chatFactory = new CommonPrivatechat();
             ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
             ChatController controller = new ChatController(Interactor, "parmism");

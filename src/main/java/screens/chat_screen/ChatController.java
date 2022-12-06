@@ -65,7 +65,7 @@ public class ChatController {
         return newprivatechat;
     }
 
-    /**
+    /*
      * Adding the chat to dashboard App-screen and then update it in database
      */
 
