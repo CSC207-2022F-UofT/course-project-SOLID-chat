@@ -232,24 +232,23 @@ public class ChatView extends JFrame implements  ActionListener{
     }
 
 
+    public static void main(String[] args) {
 
-//    public static void main(String[] args) {
-//
-//        PrivateChatFactory chatFactory = new CommonPrivatechat();
-//        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
-//        ChatController controller = new ChatController(Interactor, "current username");
-//
-//        controller.getNewprivatechat();
-////        new ChatView(controller,true);
-//
-//        controller.create(new ChatModel("Hi").getRecipientusername());
-//
-//        //new ChatView(controller,true);
-////        // find the created privatechat and the username
-//        System.out.println(controller.getNewprivatechat().getRecipientUsername());
-//
-//
-//    }
+        PrivateChatFactory chatFactory = new CommonPrivatechat();
+        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
+        ChatController controller = new ChatController(Interactor, "parmism");
+
+        controller.getNewprivatechat();
+        new ChatView(controller,true);
+
+        controller.create(new ChatModel("amy").getRecipientusername());
+
+        //new ChatView(controller,true);
+//        // find the created privatechat and the username
+        System.out.println(controller.getNewprivatechat().getRecipientUsername());
+
+
+    }
 
 
 }
