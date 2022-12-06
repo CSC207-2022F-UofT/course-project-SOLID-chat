@@ -9,7 +9,9 @@ public class AppScreenResponseModel {
      */
     public static void refreshScreen() {
         try{
-            AppScreenStatus.refreshAppScreen();
+            if (AppScreenStatus.appScreen != null){
+                AppScreenStatus.refreshAppScreen();
+            }
         } catch (Exception e) {
             throw new RuntimeException("Unable to refresh");
         }
