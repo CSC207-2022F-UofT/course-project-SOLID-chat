@@ -23,7 +23,8 @@ public class AppScreenChatProxy {
     }
 
     /**
-     * Main source for managing chat order and updating it in user database (for the current user)
+     * Main source for managing and displaying chat order in AppScreen, and updating it in the user database
+     * (for the current user)
      */
     public void proxyChat() {
         // get the new chat order
@@ -36,6 +37,10 @@ public class AppScreenChatProxy {
         controller.createGateway(newOrder);
 
         // update the AppScreen UI
-        AppScreenResponseModel.refreshScreen();
+        ArrayList<String> newChatNameOrder = new ArrayList<>();
+        for (Chat chat: newOrder){
+            newChatNameOrder.add(chat.getName());
+        }
+        AppScreenResponseModel.refreshScreen(newChatNameOrder);
     }
 }
