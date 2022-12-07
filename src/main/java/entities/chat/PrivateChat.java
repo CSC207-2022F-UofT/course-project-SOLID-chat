@@ -2,6 +2,11 @@ package entities.chat;
 
 import java.util.ArrayList;
 
+/**
+ * This class is a Private chat class, entity layer. containing the chat name, chat ID, Senderusername
+ * which is the current user's username and the Recipient username with which the person is chatting.
+ */
+
 public class PrivateChat extends Chat {
 
     /*
@@ -12,43 +17,41 @@ public class PrivateChat extends Chat {
         Arraylist<Message> convHist;
      */
     protected String recipientUsername;
+    protected String senderUsername;
 
     /**
      * Create a private chat
      *
      * @param name  The name of the chat (also the username of the recipient)
      * @param chatID The ID of the chat
-     * @param senderUsername    The user sending the messages
      * @param recipientUsername The user receiving the messages
      *
+     *
      */
-    public PrivateChat(String name, String chatID, String senderUsername, String recipientUsername ){
+    public PrivateChat(String name, String chatID, String recipientUsername ){
         this.name = name;
         this.chatID = chatID;
-        this.senderUsername = senderUsername;
         this.recipientUsername = recipientUsername;
         this.convHist = new ArrayList<Message>();
-    }
 
+    }
 
     /**
      * Get the recipient's username
-     * @return senderRecipient
+     * @return recipientRecipient
      */
     public String getRecipientUsername(){
         return this.recipientUsername;
     }
 
-    public void setRecipientUsername(String recipientUsername) {
-        this.recipientUsername= recipientUsername;
-    }
-
-    public String getSendertUsername(){
+    /**
+     * Get the sender's username
+     * @return senderRecipient
+     */
+    public String getSenderUsername(){
         return this.senderUsername;
     }
-    public String setSendertUsername(String recipientUsername){
-        this.recipientUsername = recipientUsername;
-    }
+
 
 
 }

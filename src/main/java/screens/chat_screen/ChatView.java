@@ -1,8 +1,11 @@
 package screens.chat_screen;
-
-
+import data_access.UserDatabase;
+import entities.chat.CommonPrivatechat;
+import entities.chat.PrivateChatFactory;
+import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatInteractor;
-import use_cases.chat_initiation_use_case.CheckUsername_Interactor;
+import use_cases.chat_initiation_use_case.ChatModel;
+import use_cases.conversation_search_use_case.chat.SearchUI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,48 +17,60 @@ import java.awt.event.ActionListener;
 
 
 /**
- * ChatView is our UI for Private chat.It Containe a chatframe .At the top of the frame
- * there is a text file in which we type userB's username, and  chat frame will change into
- * "userB'S username." AT the bottom of the frame, there is another text field to type a message and
+ * ChatView is our UI for Private chat.It Contains a chat frame .At the top of the frame
+ * there is a text file in which we type userB's username, and  chat frame  title changes into
+ * "userB'S username."  AT the bottom of the frame, there is another text field to type a message and
  * send button to send the message
- *
- * In the middle of the frame there i sJpanel and Jlabels for the converstaion history.
- *
+ *-
+ * In the middle of the frame there is Panel and Labels for the conversation history.
  */
 
 
+public class ChatView extends JFrame implements  ActionListener{
+    /**
+     * use the Chat controller to pass the Recipient username to the create method of the Controller.
+     */
+    private final ChatController controller;
 
-class ChatView extends JFrame implements  ActionListener{
-    //use two Interactors .
-    private ChatInteractor chatInteractor;
-    private CheckUsername_Interactor checkusername_interactor;
+    /**
+     * Use J frames , buttons , Labels, text fields, Panels and menu-bar for visualizing the UI.
+     */
 
-    //Use Jframes, butttons, labels ,textfileds, Jpannels,JMenuBar for UI.
     final JFrame frame ;
-    private JButton addbutton;
+    final JButton addbutton;
     final JButton sendbutton;
+
+    final JButton searchbutton;
+
     final JLabel l;
     final JLabel label;
     final JTextField usernametextfield;
     final JTextField messagetextfield;
     final JMenuBar menubar;
     final JPanel panel;
-
     final JPanel conversationHistoryPanel;
 
     private JPanel messagePanel;
     private JLabel testMessageHeader;
     private JLabel testMessage;
 
-    //isNewchat check we already have a chat with a user
-    private boolean isNewchat;
+    /**
+     *Using isNeW boolean to check if it is first time user open the chatUI or not.
+     *I sto check if the user have already  existing have a chat with user.
+     */
+
+    public final boolean isNewchat;
 
 
+    /**
+     * Construct a new  ChatView
+     *
+     * @param controller   Controller Chat view
+     * @param isNewchat    Boolean if the user have already a chat with my user.
+     */
 
-
-    //this is constructor
-    public ChatView( boolean isNewchat){
-
+    public ChatView(ChatController controller , boolean isNewchat){
+        this.controller = controller;
         this.isNewchat = isNewchat;
 
 
@@ -68,12 +83,14 @@ class ChatView extends JFrame implements  ActionListener{
         // create a label called l , and text field called "txt"
         l = new JLabel("  username");
         usernametextfield = new JTextField(10);
-        addbutton = new JButton("add");
-        addbutton.setFocusable(false);
 
 
-        // create two buttom called "addbuttom" and a "groupchat buttom"
+
+
+        // create two buttom called "addbuttom" and a "search a message buttom"
         addbutton = new JButton("add");
+        searchbutton = new JButton("search a message");
+        searchbutton.setFocusable(false);
         addbutton.setFocusable(false);
 
         // create conversation history-related components
@@ -90,30 +107,26 @@ class ChatView extends JFrame implements  ActionListener{
         sendbutton.setFocusable(false);
 
 
-    }
-
-
-    // create a setup for display of buttons and other component of the frame.
-    public void chatdisplay(){
+        // create a setup for display of buttons and other component of the frame.
 
         // set frame size and frame title
         frame.setSize(450, 500);
         frame.setTitle("Chat box");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocation(587, 100);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 
         // adding "addbutton" and "groupchatbutton"  to the menu bar
         menubar.add(l);
         menubar.add(usernametextfield);
         menubar.add(addbutton);
-
+        menubar.add(searchbutton);
 
 
         // adding label and textfiled1 to our panel .
         panel.add(label);
         panel.add(messagetextfield);
         panel.add(sendbutton);
-
 
 
         // add content to conversationHistoryPanel
@@ -148,84 +161,91 @@ class ChatView extends JFrame implements  ActionListener{
         conversationHistoryPanel.add(messagePanel2);
 
 
-
-
         //Locating the Components to the frame.
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        if (isNewchat){
+        if (isNewchat) {
             frame.getContentPane().add(BorderLayout.NORTH, menubar);
         }
 
 
         frame.getContentPane().add(BorderLayout.CENTER, conversationHistoryPanel);
 
-        // set the frame visibile
+        // set the frame visible
         frame.setVisible(true);
 
         this.addbutton.addActionListener(this);
         this.sendbutton.addActionListener(this);
+        this.searchbutton.addActionListener(this);
 
 
     }
 
 
+    /**
+     *  This class implements the ActionListener and overrides the actionPerformed method.
+     *  This method checks for actions of our buttons. "add button" for username and
+     *  "send button" for sending a message.
+     *  -
+     * when a user type a Recipient username and click the add button it checks if the username
+     * exists in the data base if yes the frame title will changed to the recipient username .
+     * if not a window pups up saying "username doesn't found"
+     */
 
-    //we implement ActionListener class and should override this method for our button's actions.
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         // STEP1: action for the  "add button" at the top of frame.
-        // goal : click on add button will change the chat frame's title to user'sB username(typed in  the textfiled)
-
 
         if (e.getSource() == addbutton){
-            //  convert textfield input to String and set the frame title to that input is username exists.
-            String input = usernametextfield.getText();
-            if (checkusername_interactor.checkusername(input)){
-                frame.setTitle(input);
-            }
+            // convert textfield input to String and set the frame title to that input is username exists.
 
-            // also set the input -will change the private chat's RecipientUsername .
-            chatInteractor.setRecipientUsername(input);
+            String input = usernametextfield.getText();
+            controller.create(input);
+            // checks whether is typed username exist in or not if not open a window with error
+            UserDatabase userdatabase = new UserDatabase();
+            if (!userdatabase.UserExists(input)){
+
+                JOptionPane.showMessageDialog(frame, "username does not found");
+            }else {frame.setTitle(input);}
+
+
 
         }
 
 
         // STEP2: action for the "send button".
-        // goal : to write a message in txt filed and click "send button"
-        // so the message will come in the middle  of the frame
 
         if (e.getSource() == sendbutton){
 
-            //convert the text field input to a String
-            String  input = usernametextfield.getText();
-
-            // setting our messge in the chatInteractor- will add this message to conv history.
-            chatInteractor.setMessage(input);
-
-            //TODO:this is chatHisroy action.
+            //TODO:this is chatHistory action.
 
 
         }
+        if (e.getSource()== searchbutton){
+            new SearchUI(controller.getNewprivatechat());
+        }
+
     }
-//    public static void main(String args[]) {
-//        EventQueue.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                ChatView chat = new ChatView(true);
-////                chat.getframe().setTitle("AMMY")
-//                chat.chatdisplay();
+
+
+//    public static void main(String[] args) {
 //
+//        PrivateChatFactory chatFactory = new CommonPrivatechat();
+//        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
+//        ChatController controller = new ChatController(Interactor, "parmism");
 //
-//                //todo
-//                //chat history
+//        controller.getNewprivatechat();
+//        new ChatView(controller,true);
 //
+//        controller.create(new ChatModel("amy").getRecipientusername());
 //
-//            }
-//        });
+//        //new ChatView(controller,true);
+////        // find the created privatechat and the username
+//        System.out.println(controller.getNewprivatechat().getRecipientUsername());
+//
 //
 //    }
 
-}
 
+}
