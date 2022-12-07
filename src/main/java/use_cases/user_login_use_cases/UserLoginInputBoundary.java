@@ -7,4 +7,5 @@ public interface UserLoginInputBoundary {
     /** Returns a presenter object that communicates with the view, about next steps**/
     UserLoginOutputBoundary getChatsPresenter();
 
+    void loginNoPassword(String username);
 }

@@ -1,4 +1,5 @@
 package screens.login_screen;
+import interface_adapters.login_interface_adapters.ForgotPasswordPresenter;
 import interface_adapters.login_interface_adapters.UserLoginViewI;
 import interface_adapters.login_interface_adapters.UserLoginPresenter;
 import interface_adapters.user_registration_interface_adapters.UserVerificationOutputView;
@@ -11,13 +12,19 @@ import java.awt.event.ActionListener;
 public class UserLoginUI implements ActionListener, UserVerificationOutputView {
 
     private final UserLoginPresenter loginPresenter;
+    private final ForgotPasswordPresenter forgotPasswordPresenter;
     JTextField credentialText;
     JPasswordField passwordText;
+    //Ignoring the below warning, just incase we add more buttons
+    private JButton forgotPassword;
+    private JButton loginButton;
 
-    public UserLoginUI(UserLoginPresenter loginPresenter){
+    public UserLoginUI(UserLoginPresenter loginPresenter, ForgotPasswordPresenter forgotPasswordPresenter){
         UserLoginViewI loginViewI = new AppScreenCreator();
         this.loginPresenter = loginPresenter;
         this.loginPresenter.setLoginView(loginViewI);
+        //Related to Forgotten Password
+        this.forgotPasswordPresenter = forgotPasswordPresenter;
     }
     /**
      * Frame to input login credentials
@@ -47,10 +54,15 @@ public class UserLoginUI implements ActionListener, UserVerificationOutputView {
         loginPanel.add(passwordLabel);
         loginPanel.add(passwordText);
 
-        JButton loginButton = new JButton("login");
+        loginButton = new JButton("login");
         loginButton.setBounds(210, 95, 100, 25);
         loginPanel.add(loginButton);
         loginButton.addActionListener(this);
+
+        forgotPassword = new JButton("forgot password?");
+        forgotPassword.setBounds(210, 120, 150, 25);
+        loginPanel.add(forgotPassword);
+        forgotPassword.addActionListener(this);
         loginFrame.setVisible(true);
 
     }
@@ -78,8 +90,15 @@ public class UserLoginUI implements ActionListener, UserVerificationOutputView {
     @Override
     public void actionPerformed(ActionEvent e) {
         String username = credentialText.getText();
+        if(e.getSource().equals(loginButton)){
         String password = passwordText.getText();
         loginPresenter.setLoginCredentials(username, password);
         loginPresenter.tryLogin();
+        } else{
+            System.out.println("forgot password");
+            forgotPasswordPresenter.setUsername(username);
+            ForgotPasswordScreen forgotPasswordScreen = new ForgotPasswordScreen(this.forgotPasswordPresenter);
+            forgotPasswordScreen.getEntryCode();
+        }
     }
 }

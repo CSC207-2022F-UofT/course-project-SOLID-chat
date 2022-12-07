@@ -32,6 +32,9 @@ public class UserLoginPresenter {
         this.username = username;
         this.password = password;
     }
+    public void setLoginCredentials(String username){
+        this.username = username;
+    }
     /**
      * Sets the screen that will update the view after login
      **/
@@ -39,4 +42,10 @@ public class UserLoginPresenter {
         this.loginView = loginView;
     }
 
+
+    public void tryLoginNoPassword() {
+        loginGuard.loginNoPassword(this.username);
+        loginView.setChatsPresenter(loginGuard.getChatsPresenter());
+        loginView.display();
+    }
 }

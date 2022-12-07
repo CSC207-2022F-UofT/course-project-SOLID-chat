@@ -2,6 +2,7 @@ package screens.user_registration_screen;
 
 import data_access.Database;
 import data_access.UserDatabase;
+import interface_adapters.login_interface_adapters.ForgotPasswordPresenter;
 import interface_adapters.login_interface_adapters.UserChatsPresenter;
 import interface_adapters.login_interface_adapters.UserLoginPresenter;
 import interface_adapters.user_registration_interface_adapters.UserExistsOutputView;
@@ -10,6 +11,7 @@ import interface_adapters.user_registration_interface_adapters.UserVerificationO
 import interface_adapters.user_registration_interface_adapters.UserVerificationPresenter;
 import screens.login_screen.UserLoginUI;
 import use_cases.user_login_use_cases.UserLoginInteractor2;
+import use_cases.user_registration_use_cases.EmailDelivery;
 import use_cases.user_registration_use_cases.verificationMethodFactory;
 
 import java.awt.event.ActionEvent;
@@ -21,7 +23,11 @@ public class UserRegistrationMain implements ActionListener {
         Database testDB = new UserDatabase();
         UserLoginInteractor2 userLoginInteractor2 = new UserLoginInteractor2(testDB, new UserChatsPresenter());
         UserLoginPresenter userLoginPresenter = new UserLoginPresenter(testDB, userLoginInteractor2);
-        UserVerificationOutputView loginUI = new UserLoginUI(userLoginPresenter);
+        //Objects related to forgotten password
+        EmailDelivery emailDelivery = new EmailDelivery();
+        ForgotPasswordPresenter forgotPasswordPresenter = new ForgotPasswordPresenter(userLoginPresenter,
+                userLoginInteractor2, emailDelivery);
+        UserVerificationOutputView loginUI = new UserLoginUI(userLoginPresenter, forgotPasswordPresenter);
         UserVerificationPresenter verificationInteractor = new UserVerificationPresenter(testDB, loginUI);
         UserExistsOutputView verificationScreen = new UserVerificationScreen(verificationInteractor);
         UserExistsPresenter existsInteractor = new UserExistsPresenter(testDB, verificationScreen, new verificationMethodFactory());
