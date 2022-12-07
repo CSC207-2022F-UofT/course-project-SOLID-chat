@@ -226,8 +226,8 @@ public class ChatView extends JFrame implements  ActionListener{
 
 
         }
-        if (e.getSource()== sendbutton){
-            new SearchUI(controller.newprivatechat);
+        if (e.getSource()== searchbutton){
+            new SearchUI(controller.getNewprivatechat());
         }
 
     }
