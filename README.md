@@ -40,22 +40,20 @@ Each of us have created one or more PRs and most of these have been merged into 
 
 ### App Screen UI
 - By Amy
-- The AppScreen UI is the screen that acts as a proxy between the user's login screen and their individual chats
-- Upon logging in, a user will will be rendered with a view of AppScreen
-- App screen provides a dashboard of buttons containing a user's existing chats, and the order that these chats appear will update whenever a new message or chat is recieved/created
-- 
-<img width="215" alt="Screenshot_20221201_090750" src="https://user-images.githubusercontent.com/71410005/205475385-87b103d7-6620-4b30-ac8e-ba0d39bb65aa.png">
+- The AppScreen UI is the screen that acts as a proxy between the user's login screen and their individual chats.
+- Upon logging in, a user will will be rendered with a view of AppScreen.
+- App screen provides a dashboard of buttons containing a user's existing chats, and the order that these chats appear will update whenever a new message or chat is recieved/created.
+
+<img width="218" alt="Screenshot 2022-12-07 113506" src="https://user-images.githubusercontent.com/71410005/206237009-b5dc955f-110c-48fc-9d00-fce72c8d4c94.png">
+
 
 - Each chat button will also display a date indicating the date of the last message in a chat's conversation history, or no date if a chat has no messages 
-- ChatView (the window referenced above) will open upon clicking an existing chat to display the chat to the user
+- ChatView (the window referenced above) will open upon clicking an existing chat to display the chat to the user.
+- With respect to ChatView, clicking on the +Private Chat button will also open an instance of ChatView for a user to create a new chat.
 
-<img width="542" alt="Screenshot_20221201_090810" src="https://user-images.githubusercontent.com/71410005/205475331-e94b97a1-6a6d-4884-942b-431e001cbe35.png">
+<img width="541" alt="Screenshot_20221206_014045" src="https://user-images.githubusercontent.com/71410005/206237398-8cc0e023-fdcb-41ec-9d7f-52de459fd407.png">
 
-- With respect to ChatView, clicking on the +Private Chat button will also open an instance of ChatView for a user to create a new chat
-
-<img width="541" alt="Screenshot_20221201_090903" src="https://user-images.githubusercontent.com/71410005/205475322-f4b2a9cc-26e4-4538-b393-a73116602f07.png">
-
-- Along with that, at the bottom of AppScreen are two buttons for a user to search for other users and edit their profile (see #Profile display and #Profile feature modification above)
+- Along with that, at the bottom of AppScreen are two buttons for a user to search for other users and edit their profile (see #Profile display and #Profile feature modification above). As well as a logout button on the top left which allows a user to logout.
 
 
 

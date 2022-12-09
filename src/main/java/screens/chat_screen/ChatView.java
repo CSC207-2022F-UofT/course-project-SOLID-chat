@@ -9,6 +9,7 @@ import entities.chat.PrivateChatFactory;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatInteractor;
 import use_cases.chat_initiation_use_case.ChatModel;
+import use_cases.conversation_search_use_case.chat.SearchUI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -225,30 +226,30 @@ public class ChatView extends JFrame implements  ActionListener{
 
 
         }
-        if (e.getSource()== sendbutton){
-            //TODO calling the search GUI.
+        if (e.getSource()== searchbutton){
+            new SearchUI(controller.getNewprivatechat());
         }
 
     }
 
 
-    public static void main(String[] args) {
-
-        PrivateChatFactory chatFactory = new CommonPrivatechat();
-        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
-        ChatController controller = new ChatController(Interactor, "parmism");
-
-        controller.getNewprivatechat();
-        new ChatView(controller,true);
-
-        controller.create(new ChatModel("amy").getRecipientusername());
-
-        //new ChatView(controller,true);
-//        // find the created privatechat and the username
-        System.out.println(controller.getNewprivatechat().getRecipientUsername());
-
-
-    }
+//    public static void main(String[] args) {
+//
+//        PrivateChatFactory chatFactory = new CommonPrivatechat();
+//        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
+//        ChatController controller = new ChatController(Interactor, "parmism");
+//
+//        controller.getNewprivatechat();
+//        new ChatView(controller,true);
+//
+//        controller.create(new ChatModel("amy").getRecipientusername());
+//
+//        //new ChatView(controller,true);
+////        // find the created privatechat and the username
+//        System.out.println(controller.getNewprivatechat().getRecipientUsername());
+//
+//
+//    }
 
 
 }
