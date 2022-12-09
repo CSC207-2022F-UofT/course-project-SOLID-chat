@@ -19,7 +19,7 @@ public class SearchUI implements ActionListener{
 
     private boolean first=true;
 
-    private SearchUseCase b;
+    private SearchInputBoundary b;
     private JLabel label, title, instruction, note;
 
     private JFrame frame;
@@ -71,7 +71,7 @@ public class SearchUI implements ActionListener{
 
         frame.add(panel,BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Our GUI");
+        frame.setTitle("Search Messages in Chat");
         frame.pack();
         frame.setVisible(true);
     }
@@ -149,6 +149,4 @@ public class SearchUI implements ActionListener{
 
 
     }
-
-
 }
