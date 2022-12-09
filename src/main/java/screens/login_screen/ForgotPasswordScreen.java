@@ -1,6 +1,7 @@
 package screens.login_screen;
 
 import interface_adapters.login_interface_adapters.ForgotPasswordPresenter;
+import screens.user_registration_screen.ViewHelper;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,26 +16,8 @@ public class ForgotPasswordScreen implements ActionListener {
     }
 
     public void getEntryCode(){
-        //TODO: this is a code smell, as this is copypasta programming(method copied from UserVerificationScreen)
-        JFrame verificationFrame = new JFrame();
-        verificationFrame.setSize(250, 200);
-        verificationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JPanel verificationPanel = new JPanel();
-        verificationPanel.setLayout(null);
-        verificationFrame.add(verificationPanel);
-
-        JLabel verificationLabel = new JLabel("Enter the verification code:");
-        verificationLabel.setBounds(20, 30, 200, 25);
-        verificationPanel.add(verificationLabel);
-        verText.setBounds(10, 60, 200, 25);
-        verificationPanel.add(verText);
-
-        JButton verifyButton = new JButton("verify");
-        verifyButton.addActionListener(this);
-        verifyButton.setBounds(50, 90, 150, 30);
-        verificationPanel.add(verifyButton);
-        verificationFrame.setVisible(true);
-
+        ViewHelper.simpleTextEntryFrame("Enter the verification code, sent to your email:",
+                this, 300, verText);
     }
 
     @Override
