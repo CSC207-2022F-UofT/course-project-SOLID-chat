@@ -35,4 +35,20 @@ public class ChatInfo {
         return null;
     }
 
+    /**
+     * Get the chat's ID
+     * @return chatID
+     */
+    public String getChatID() {
+        try{
+            for (Chat chat: userChats){
+                if (chat.getName().equals(chatName)){
+                    return chat.getChatID();
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to get indicated chat");
+        }
+        return null;
+    }
 }

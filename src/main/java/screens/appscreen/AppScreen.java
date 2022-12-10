@@ -81,7 +81,7 @@ public class AppScreen implements AppScreenPresenter, Refresh {
             PrivateChatFactory privateChatFactory = new CommonPrivatechat();
             ChatInputBoundry inputBoundary = new ChatInteractor(privateChatFactory);
             ChatController controller = new ChatController(inputBoundary, currentUsername);
-            new ChatView(controller, true);
+            new ChatView(controller, true, null);
 
         });
 
@@ -126,9 +126,10 @@ public class AppScreen implements AppScreenPresenter, Refresh {
             ChatInfo chatInfo = new ChatInfo(gateway.getUserChats(currentUsername), chatNames.get(i));
 
             String chatName = this.chatNames.get(i);
+            String chatID = chatInfo.getChatID();
             LocalDateTime lastUpdated = chatInfo.getLastMessageTime();
 
-            jPanel.add(ChatButton.createButton(chatName, currentUsername, lastUpdated));
+            jPanel.add(ChatButton.createButton(chatName, currentUsername, lastUpdated, chatID));
         }
 
         jPanel.setAlignmentY(Component.CENTER_ALIGNMENT);

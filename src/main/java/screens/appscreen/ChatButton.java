@@ -21,7 +21,7 @@ public class ChatButton {
      *                    (this is null if there are no messages in its conversation history)
      * @return The button created
      */
-    public static JButton createButton(String chatName, String currentUsername, LocalDateTime lastUpdated){
+    public static JButton createButton(String chatName, String currentUsername, LocalDateTime lastUpdated, String chatID){
         JButton jButton = new JButton(chatName);
         jButton.setPreferredSize(new Dimension(280, 50));
 
@@ -42,7 +42,7 @@ public class ChatButton {
             PrivateChatFactory privateChatFactory = new CommonPrivatechat();
             ChatInputBoundry inputBoundary = new ChatInteractor(privateChatFactory);
             ChatController controller = new ChatController(inputBoundary, currentUsername);
-            new ChatView(controller, false);
+            new ChatView(controller, false, chatID);
         });
         return jButton;
     }
