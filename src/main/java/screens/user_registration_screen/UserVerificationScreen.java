@@ -25,42 +25,14 @@ public class UserVerificationScreen implements UserExistsOutputView, ActionListe
      * */
     @Override
     public void getVerificationCredentials() {
-        JFrame verificationFrame = new JFrame();
-        verificationFrame.setSize(250, 200);
-        verificationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JPanel verificationPanel = new JPanel();
-        verificationPanel.setLayout(null);
-        verificationFrame.add(verificationPanel);
-
-        JLabel verificationLabel = new JLabel("Enter the verification code:");
-        verificationLabel.setBounds(20, 30, 200, 25);
-        verificationPanel.add(verificationLabel);
-
-        verText.setBounds(10, 60, 200, 25);
-        verificationPanel.add(verText);
-
-        JButton verifyButton = new JButton("verify");
-        verifyButton.addActionListener(this);
-        verifyButton.setBounds(50, 90, 150, 30);
-        verificationPanel.add(verifyButton);
-        verificationFrame.setVisible(true);
+        ViewHelper.simpleTextEntryFrame("Enter the verification code:", this, 200, verText);
     }
     /**
      * This method presents that verification is not possible, because the user exists in the database
      * */
     @Override
     public void presentUserExistsMessage() {
-        JFrame userExistsFrame = new JFrame();
-        userExistsFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        userExistsFrame.setSize(400, 100);
-        JPanel userExistsPanel = new JPanel();
-        userExistsPanel.setLayout(null);
-        userExistsFrame.add(userExistsPanel);
-
-        JLabel accountExists = new JLabel("A user with this email or username already exists");
-        accountExists.setBounds(10, 25, 350, 30);
-        userExistsPanel.add(accountExists);
-        userExistsFrame.setVisible(true);
+        ViewHelper.simpleMessage("A user with this email or username already exists", 350);
     }
     /**
      * Retrieves code from the input boundary, to set the code onto the other input boundary in the constructor

@@ -14,6 +14,7 @@ public class UserLoginPresenter {
     private UserLoginViewI loginView;
 
     public UserLoginPresenter(Database database, UserLoginInputBoundary loginGuard){
+        //TODO: this object does not use this.database, so must change the arguments.
         this.database = database;
         this.loginGuard = loginGuard;
     }

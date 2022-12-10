@@ -1,6 +1,7 @@
 package screens.login_screen;
 import interface_adapters.appscreen.AppScreenLoader;
 import interface_adapters.login_interface_adapters.UserLoginViewI;
+import screens.user_registration_screen.ViewHelper;
 import use_cases.user_login_use_cases.UserLoginOutputBoundary;
 
 import java.util.ArrayList;
@@ -18,20 +19,14 @@ public class AppScreenCreator implements UserLoginViewI {
      * **/
     @Override
     public void display() {
-        if(userNotExists|| passNotMatched){
-            showUnableToLogin();
+        if(userNotExists){
+            ViewHelper.simpleMessage("An account with this username does not exist", 300);
+        } else if (passNotMatched) {
+            ViewHelper.simpleMessage("Wrong username or password, please try again", 300);
         }else{
-            /*this.appScreen = new AppScreen(username, chats);*/
             //Could be null pointer exception if setChatsPresenter is not called before the below
             appScreenLoader.openScreen();
         }
-    }
-    /**
-     * Shows a frame that displays a message
-     * **/
-    /* TODO: complete this method, to output a JPanel */
-    private void showUnableToLogin() {
-        System.out.println("unable to login");
     }
     /**
      * Gets the info from the presenter in order to output info into the screen

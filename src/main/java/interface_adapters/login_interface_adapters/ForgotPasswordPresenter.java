@@ -1,5 +1,6 @@
 package interface_adapters.login_interface_adapters;
 
+import screens.user_registration_screen.ViewHelper;
 import use_cases.user_login_use_cases.RetrieveEmail;
 import use_cases.user_registration_use_cases.ISendVerificationCode;
 
@@ -28,7 +29,7 @@ public class ForgotPasswordPresenter {
             loginPresenter.tryLoginNoPassword();
         }else{
             //TODO: have this take in a view object, that will output this message, so that this will only be a presenter
-            System.out.println("wrong verification code, please try again");
+            ViewHelper.simpleMessage("Wrong verification code, try again", 250);
         }
     }
     public void tryGetEmail(){

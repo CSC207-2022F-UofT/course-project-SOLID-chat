@@ -3,6 +3,7 @@ import interface_adapters.login_interface_adapters.ForgotPasswordPresenter;
 import interface_adapters.login_interface_adapters.UserLoginViewI;
 import interface_adapters.login_interface_adapters.UserLoginPresenter;
 import interface_adapters.user_registration_interface_adapters.UserVerificationOutputView;
+import screens.user_registration_screen.ViewHelper;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -73,18 +74,7 @@ public class UserLoginUI implements ActionListener, UserVerificationOutputView {
      *  **/
     @Override
     public void cannotVerify() {
-        JFrame cannotVerifyFrame = new JFrame();
-        cannotVerifyFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        cannotVerifyFrame.setSize(400, 100);
-        JPanel cannotVerifyPanel = new JPanel();
-        cannotVerifyPanel.setLayout(null);
-        cannotVerifyFrame.add(cannotVerifyPanel);
-
-        JLabel cannotVerifyLabel = new JLabel("Incorrect verification code, please try again");
-        cannotVerifyLabel.setBounds(10, 25, 350, 30);
-        cannotVerifyPanel.add(cannotVerifyLabel);
-        cannotVerifyFrame.setVisible(true);
-        
+        ViewHelper.simpleMessage("Incorrect verification code, please try again", 350);
     }
 
     @Override
