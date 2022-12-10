@@ -2,6 +2,7 @@ package screens.chat_screen;
 import data_access.UserDatabase;
 import entities.chat.Chat;
 import entities.chat.PrivateChat;
+import entities.user_entities.User;
 import interface_adapters.appscreen.AppScreenChatProxy;
 import use_cases.chat_initiation_use_case.ChatInputBoundry;
 import use_cases.chat_initiation_use_case.ChatModel;
@@ -69,6 +70,14 @@ public class ChatController {
         //create a private chat obj
 
         this.newprivatechat = chatinputboundry.create(chatmodel);
+
+        //creat a private chat at same time for the recipeint username
+        PrivateChat pv = chatinputboundry.create(new ChatModel(currentusername));
+        User user = db.getUser(chatmodel.getRecipientusername());
+        user.getChats().add(pv);
+        db.modifyUser(chatmodel.getRecipientusername(),user);
+
+
 
         //adding the chat to dashboard App-screen and then update in data base
         new AppScreenChatProxy(currentusername,this.newprivatechat).proxyChat();
