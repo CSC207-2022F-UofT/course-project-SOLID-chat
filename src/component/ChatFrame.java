@@ -1,7 +1,7 @@
-package src.component;
+package component;
 
-import src.model.FontAndText;
-import src.model.EmoInfo;
+import model.FontAndText;
+import model.EmoInfo;
 import src.msg.MsgType;
 import src.msg.Sender;
 

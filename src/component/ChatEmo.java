@@ -1,4 +1,4 @@
-package src.component;
+package component;
 
 import javax.swing.*;
 import java.net.URL;
