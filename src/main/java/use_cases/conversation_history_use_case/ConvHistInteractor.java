@@ -1,41 +1,34 @@
 package use_cases.conversation_history_use_case;
 
 import entities.message.Message;
-import entities.message.MsgFactory;
-import data_access.UserDatabase;
+import interface_adapters.conversation_history_interface_adapters.ConvHistGateway;
+import interface_adapters.conversation_history_interface_adapters.ConvHistPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Interactor responsible for displaying this history upon opening a chat
  */
-//public class ConvHistInteractor implements ConversationHistoryInputBoundary{
-public class ConvHistInteractor{
+public class ConvHistInteractor implements ConvHistInputBoundary{
+//public class ConvHistInteractor{
     /**
      * File and in-memory storage of users and their chats (incl. conversation history)
      */
-    final UserDatabase userDatabase;
+    final ConvHistGateway userRepository;
     /**
-     * Factory for creating a new Message
+     * Presenter with necessary information to display a chat's conversation history
      */
-    final MsgFactory msgFactory;
-//    /**
-//     * Presenter with necessary information to display a chat's conversation history
-//     */
-//    final ConvHistPresenter convHistPresenter;
+    final ConvHistPresenter convHistPresenter;
 
     /**
      * Construct ConvHistInteractor given storage, message factory, and presenter
-     * @param userDatabase storage
-     * @param msgFactory message factory
+     * //@param userDatabase storage
      * //@param convHistPresenter presenter
      */
-//    public ConvHistInteractor(UserDatabase userDatabase, MsgFactory msgFactory, ConvHistPresenter convHistPresenter) {
-    public ConvHistInteractor(UserDatabase userDatabase, MsgFactory msgFactory) {
-        this.userDatabase = userDatabase;
-        this.msgFactory = msgFactory;  // msgType of MsgFactory specified in Main
-//        this.convHistPresenter = convHistPresenter;
+    public ConvHistInteractor(ConvHistGateway userDatabase, ConvHistPresenter convHistPresenter) {
+//    public ConvHistInteractor(ConvHistPresenter convHistPresenter) {
+        this.userRepository = userDatabase;
+        this.convHistPresenter = convHistPresenter;
     }
 
     /**
@@ -43,7 +36,7 @@ public class ConvHistInteractor{
      * @param requestModel input data
      * @return a response model for presenter
      */
-//    @Override
+    @Override
     public ConvHistResponseModel create(ConvHistRequestModel requestModel) {
         String userID = requestModel.getUserID();
         String chatID = requestModel.getChatID();
@@ -51,10 +44,11 @@ public class ConvHistInteractor{
         ConvHistDsRequestModel dsRequestModel = new ConvHistDsRequestModel(userID, chatID);
 
         // Access database (code for database will become functional after PR for issue 15 is merged)
-//        List<Message> conversationHistory = userDatabase.getConversationHistory(dsRequestModel);
+        List<Message> conversationHistory = userRepository.getConversationHistory(dsRequestModel);
 
-        // Presenter show success view (code to be written); below is temporary
-        List<Message> conversationHistory = new ArrayList<>();
-        return new ConvHistResponseModel(conversationHistory);
+        // Presenter show success view
+//        List<Message> conversationHistory = new ArrayList<>();
+        ConvHistResponseModel responseModel = new ConvHistResponseModel(conversationHistory);
+        return convHistPresenter.prepareSuccessView(responseModel);
     }
 }

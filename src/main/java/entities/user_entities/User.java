@@ -54,4 +54,17 @@ public abstract class User implements Serializable, Changeable, UserAuthenticati
     }
 
 
+    public Chat getChatByID(String chatID) {
+        for (Chat chat : this.getChats()) {
+            if (chatID.equals(chat.getChatID())) {
+                return chat;
+            }
+        }
+        return null;
+    }
+
+    public void addChat(Chat chat) {
+        userChats.add(chat);
+    }
 }
+

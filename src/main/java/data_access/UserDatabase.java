@@ -1,16 +1,27 @@
 package data_access;
 
 import entities.chat.Chat;
-import interface_adapters.user_search_IA.IRetrieveList;
+
+import entities.chat.PrivateChat;
+import entities.message.Message;
 import entities.user_entities.User;
-import interface_adapters.profile_modification_IA.UserModificationGateway;
 import entities.user_entities.UserFactory;
+import interface_adapters.user_search_IA.IRetrieveList;
+import interface_adapters.profile_modification_IA.UserModificationGateway;
 import interface_adapters.chat.UserChatGateway;
+import interface_adapters.conversation_history_interface_adapters.ConvHistGateway;
+import interface_adapters.conversation_history_interface_adapters.MsgSenderGateway;
+import use_cases.conversation_history_use_case.ConvHistDsRequestModel;
+import use_cases.conversation_history_use_case.MsgSenderDsRequestModel;
+
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-public class UserDatabase implements Database, IRetrieveList, UserModificationGateway, UserChatGateway {
+
+public class UserDatabase implements ConvHistGateway, MsgSenderGateway, Database, 
+									 IRetrieveList, UserModificationGateway, UserChatGateway {
+
     File accounts;
     List<User> accountList;
     public UserDatabase(){
@@ -108,10 +119,12 @@ public class UserDatabase implements Database, IRetrieveList, UserModificationGa
 
             users = (ArrayList<User>) in.readObject();
             return users;
-        //TODO: this is not a good use of exceptions, but I could not find any other way to do it.
+
+            //TODO: this is not a good use of exceptions, but I could not find any other way to do it.
         }catch(EOFException e){
             return users;
-            } catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
+
             throw new RuntimeException(ex);
         }
     }
@@ -138,35 +151,50 @@ public class UserDatabase implements Database, IRetrieveList, UserModificationGa
         throw new RuntimeException("Invalid username");
     }
 
+    public void addChatToUser(String username, Chat chat) {
+        for (User user: accountList){
+            if(user.getUsername().equals(username)){
+                user.addChat(chat);
+            }
+        }
+    }
+
     // Below two methods are used by conversation history-related interactors
     // (Commented as objects are not found)
-//    /**
-//     * Pushes a new message to a chat's conversation history (in memory not persisting storage)
-//     * @param dsRequestModel input data containing user ID, chat ID, message content
-//     */
-//    public void saveMessage(MsgSenderDsRequestModel dsRequestModel) {
-//        String userID = dsRequestModel.getUserID();
-//        String chatID = dsRequestModel.getChatID();
-//        Message message = dsRequestModel.getMessage();
-//
-//        // Find chat under specified Entities.User_Entities.User
-//        Chat chat = this.getUser(userID).getChat(chatID);
-//
-//        chat.addMessage(message);
-//    }
-//
-//    /**
-//     * Gets a chat's conversation history (from memory not persisting storage)
-//     * @param dsRequestModel input data containing user ID, chat ID
-//     * @return a chat's conversation history
-//     */
-//    public ArrayList<Message> getConversationHistory(ConvHistDsRequestModel dsRequestModel) {
-//        String userID = dsRequestModel.getUserID();
-//        String chatID = dsRequestModel.getChatID();
-//
-//        // Find chat under specified Entities.User_Entities.User
-//        Chat chat = this.getUser(userID).getChat(chatID);
-//
-//        return Chat.getConversationHistory();
-//    }
+    /**
+     * Pushes a new message to a chat's conversation history (in memory not persisting storage)
+     * @param dsRequestModel input data containing user ID, chat ID, message content
+     */
+    public void saveMessage(MsgSenderDsRequestModel dsRequestModel) {
+        String userID = dsRequestModel.getUserID();
+        String chatID = dsRequestModel.getChatID();
+        Message message = dsRequestModel.getMessage();
+
+        // Find chat under specified Entities.User_Entities.User
+        Chat chat = this.getUser(userID).getChatByID(chatID);
+
+        String recipientUsername = ((PrivateChat) chat).getRecipientUsername();
+        // currently assuming all chats are private chats
+
+        Chat recipientChat = this.getUser(recipientUsername).getChatByID(chatID);
+
+        chat.addToConvHist(message);
+        recipientChat.addToConvHist(message);
+    }
+
+    /**
+     * Gets a chat's conversation history (from memory not persisting storage)
+     * @param dsRequestModel input data containing user ID, chat ID
+     * @return a chat's conversation history
+     */
+    public ArrayList<Message> getConversationHistory(ConvHistDsRequestModel dsRequestModel) {
+        String userID = dsRequestModel.getUserID();
+        String chatID = dsRequestModel.getChatID();
+
+        // Find chat under specified Entities.User_Entities.User
+        Chat chat = this.getUser(userID).getChatByID(chatID);
+
+        return chat.getConvHist();
+    }
 }
+

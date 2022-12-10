@@ -24,4 +24,17 @@ public class ConvHistDsRequestModel {
     public void setChatID(String chatID) {
         this.chatID = chatID;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ConvHistDsRequestModel)) return false;
+
+        ConvHistDsRequestModel that = (ConvHistDsRequestModel) o;
+        return this.getUserID().equals(that.getUserID()) && this.getChatID().equals(that.getChatID());
+    }
+
+    @Override
+    public int hashCode() {
+        return (31 + userID.hashCode()) * 31 + chatID.hashCode();
+    }
 }

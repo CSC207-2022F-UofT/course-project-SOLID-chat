@@ -2,40 +2,43 @@ package use_cases.conversation_history_use_case;
 
 import entities.message.Message;
 import entities.message.MsgFactory;
-import data_access.UserDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
+import interface_adapters.conversation_history_interface_adapters.ConvHistGateway;
+import interface_adapters.conversation_history_interface_adapters.ConvHistPresenter;
+import interface_adapters.conversation_history_interface_adapters.MsgSenderGateway;
+//import data_access.UserDatabase;
 
 /**
  * Interactor responsible for adding messages to a chat's conversation history
  */
-//public class ConvHistInteractor implements ConversationHistoryInputBoundary{
-public class MsgSenderInteractor {
+public class MsgSenderInteractor implements MsgSenderInputBoundary{
     /**
-     * File and in-memory storage of users and their chats (incl. conversation history)
+     * File and in-memory storage of users and their chats (incl. conversation history) for this interactor
      */
-    final UserDatabase userDatabase;
+    final MsgSenderGateway msgSenderRepository;
+    /**
+     * File and in-memory storage of users for ConvHistInteractor
+     */
+    final ConvHistGateway convHistRepository;
+    /**
+     * Presenter with necessary information to display a chat's conversation history
+     */
+    final ConvHistPresenter convHistPresenter;
     /**
      * Factory for creating a new Message
      */
     final MsgFactory msgFactory;
-//    /**
-//     * Presenter with necessary information to display a chat's conversation history
-//     */
-//    final ConvHistPresenter convHistPresenter;
 
     /**
      * Construct ConvHistInteractor given storage, message factory, and presenter
-     * @param userDatabase storage
+     * //@param userDatabase storage
      * @param msgFactory message factory
-     * //@param convHistPresenter presenter
      */
-//    public ConvHistInteractor(UserDatabase userDatabase, MsgFactory msgFactory, ConvHistPresenter convHistPresenter) {
-    public MsgSenderInteractor(UserDatabase userDatabase, MsgFactory msgFactory) {
-        this.userDatabase = userDatabase;
+    public MsgSenderInteractor(MsgSenderGateway userRepository, ConvHistGateway convHistRepository,
+                               MsgFactory msgFactory, ConvHistPresenter convHistPresenter) {
+        this.msgSenderRepository = userRepository;
+        this.convHistRepository = convHistRepository;
+        this.convHistPresenter = convHistPresenter;
         this.msgFactory = msgFactory;  // msgType of MsgFactory specified in Main
-//        this.convHistPresenter = convHistPresenter;
     }
 
     /**
@@ -55,10 +58,11 @@ public class MsgSenderInteractor {
         MsgSenderDsRequestModel dsRequestModel = new MsgSenderDsRequestModel(userID, chatID, message);
 
         // Access database (code for database will become functional after PR for issue 15 is merged)
-//        List<Message> conversationHistory  = userDatabase.saveMessage(dsRequestModel);
+        msgSenderRepository.saveMessage(dsRequestModel);
 
-        // Presenter show success view (code to be written); below is temporary
-        List<Message> conversationHistory = new ArrayList<>();
-        return new ConvHistResponseModel(conversationHistory);
+        // Call convHistInteractor to display conversation history
+        ConvHistRequestModel convHistRequestModel = new ConvHistRequestModel(userID, chatID);
+        ConvHistInputBoundary convHistInteractor = new ConvHistInteractor(convHistRepository, convHistPresenter);
+        return convHistInteractor.create(convHistRequestModel);
     }
 }
