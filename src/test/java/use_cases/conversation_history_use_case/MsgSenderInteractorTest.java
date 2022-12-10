@@ -1,3 +1,10 @@
+/**
+ * Test for MsgSenderInteractor
+ * Important note to reader: To run this test successfully, there cannot be a user_accounts file in course-project-
+ * SOLID-chat (outermost folder). Please move that file away temporarily when running this test and move it back if
+ * needed.
+ */
+
 package use_cases.conversation_history_use_case;
 
 import data_access.InMemoryUserDataAccess;
