@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public abstract class User implements Serializable, Changeable, UserAuthenticationI {
+    private static final long serialVersionUID = 1L;
     protected String username;
     protected String password;
     protected String email;
