@@ -133,9 +133,12 @@ public class ChatView extends JFrame implements ActionListener {
 
 
             // adding "addbutton" and "groupchatbutton"  to the menu bar
-            menubar.add(l);
-            menubar.add(usernametextfield);
-            menubar.add(addbutton);
+            if (isNewchat) {
+                menubar.add(l);
+                menubar.add(usernametextfield);
+                menubar.add(addbutton);
+            }
+
             menubar.add(searchbutton);
 
 
@@ -180,9 +183,7 @@ public class ChatView extends JFrame implements ActionListener {
 
             //Locating the Components to the frame.
             frame.getContentPane().add(BorderLayout.SOUTH, panel);
-            if (isNewchat) {
-                frame.getContentPane().add(BorderLayout.NORTH, menubar);
-            }
+            frame.getContentPane().add(BorderLayout.NORTH, menubar);
 
 
             frame.getContentPane().add(BorderLayout.CENTER, conversationHistoryPanel);
@@ -228,7 +229,13 @@ public class ChatView extends JFrame implements ActionListener {
                     frame.setTitle(input);
                 }
 
-
+                // Update menubar to only have search button (and not button for adding user and related components)
+                menubar.remove(2);
+                menubar.remove(1);
+                menubar.remove(0);
+                menubar.revalidate();
+                frame.getContentPane().revalidate();
+                frame.getContentPane().repaint();
             }
 
 
