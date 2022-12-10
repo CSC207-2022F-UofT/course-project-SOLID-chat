@@ -81,7 +81,7 @@ public class AppScreen implements AppScreenPresenter, Refresh {
             PrivateChatFactory privateChatFactory = new CommonPrivatechat();
             ChatInputBoundry inputBoundary = new ChatInteractor(privateChatFactory);
             ChatController controller = new ChatController(inputBoundary, currentUsername);
-            new ChatView(controller, true, null);
+            new ChatView(controller, true, currentUsername, null);
 
         });
 

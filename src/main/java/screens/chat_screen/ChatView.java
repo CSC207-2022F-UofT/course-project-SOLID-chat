@@ -2,6 +2,7 @@ package screens.chat_screen;
 
 
 
+import data_access.Database;
 import data_access.InMemoryUserDataAccess;
 import data_access.UserDatabase;
 import entities.chat.*;
@@ -10,6 +11,7 @@ import entities.user_entities.User;
 import interface_adapters.conversation_history_interface_adapters.*;
 import use_cases.conversation_history_use_case.*;
 import use_cases.chat_initiation_use_case.*;
+import use_cases.conversation_search_use_case.chat.SearchUI;
 
 
 import javax.swing.*;
@@ -78,7 +80,6 @@ public class ChatView extends JFrame implements ActionListener {
 
         private String username;
         private String chatID;
-        private UserDatabase repository;
 
 
         /**
@@ -88,12 +89,11 @@ public class ChatView extends JFrame implements ActionListener {
          * @param isNewchat  Boolean if the user have already a chat with my user.
          */
 
-        public ChatView(ChatController controller, boolean isNewchat, String username, String chatID, UserDatabase repository) {
+        public ChatView(ChatController controller, boolean isNewchat, String username, String chatID) {
             this.controller = controller;
             this.isNewchat = isNewchat;
             this.username = username;
             this.chatID = chatID;
-            this.repository = repository;
 
             frame = new JFrame();
 
@@ -256,8 +256,8 @@ public class ChatView extends JFrame implements ActionListener {
 
                 ConvHistPresenter convHistPresenter = new ConvHistResponseFormatter();
 
-                MsgSenderInputBoundary msgSenderInputBoundary = new MsgSenderInteractor(repository,
-                        repository, msgFactory, convHistPresenter);
+                MsgSenderInputBoundary msgSenderInputBoundary = new MsgSenderInteractor(new UserDatabase(),
+                        new UserDatabase(), msgFactory, convHistPresenter);
 
                 // Run interactor and get conversation history
                 MsgSenderRequestModel msgSenderRequestModel = new MsgSenderRequestModel(username, input, chatID);

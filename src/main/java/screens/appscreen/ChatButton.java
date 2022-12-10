@@ -42,7 +42,7 @@ public class ChatButton {
             PrivateChatFactory privateChatFactory = new CommonPrivatechat();
             ChatInputBoundry inputBoundary = new ChatInteractor(privateChatFactory);
             ChatController controller = new ChatController(inputBoundary, currentUsername);
-            new ChatView(controller, false, chatID);
+            new ChatView(controller, false, currentUsername, chatID);
         });
         return jButton;
     }
