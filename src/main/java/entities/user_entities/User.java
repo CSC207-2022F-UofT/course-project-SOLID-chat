@@ -53,6 +53,7 @@ public abstract class User implements Serializable, Changeable, UserAuthenticati
         return this.userChats;
     }
 
+
     public Chat getChatByID(String chatID) {
         for (Chat chat : this.getChats()) {
             if (chatID.equals(chat.getChatID())) {
@@ -66,3 +67,4 @@ public abstract class User implements Serializable, Changeable, UserAuthenticati
         userChats.add(chat);
     }
 }
+

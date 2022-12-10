@@ -1,6 +1,7 @@
 package screens.chat_screen;
 
 
+
 import data_access.InMemoryUserDataAccess;
 import data_access.UserDatabase;
 import entities.chat.*;
@@ -10,6 +11,7 @@ import interface_adapters.conversation_history_interface_adapters.*;
 import use_cases.conversation_history_use_case.*;
 import use_cases.chat_initiation_use_case.*;
 
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -17,9 +19,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 
 
 /**
@@ -30,6 +34,7 @@ import java.util.Arrays;
  *-
  * In the middle of the frame there is Panel and Labels for the conversation history.
  */
+
 
 //todo: we should complete the chatHistory in this class.
 
@@ -336,6 +341,7 @@ public class ChatView extends JFrame implements ActionListener {
 //    }
 
         //    public static void main(String[] args) {
+
 //
 //        PrivateChatFactory chatFactory = new CommonPrivatechat();
 //        ChatInputBoundry Interactor = new ChatInteractor(chatFactory);
@@ -353,4 +359,6 @@ public class ChatView extends JFrame implements ActionListener {
 //
 //    }
 
-    }
+
+}
+

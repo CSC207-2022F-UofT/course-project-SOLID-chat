@@ -1,6 +1,7 @@
 package data_access;
 
 import entities.chat.Chat;
+
 import entities.chat.PrivateChat;
 import entities.message.Message;
 import entities.user_entities.User;
@@ -13,11 +14,14 @@ import interface_adapters.conversation_history_interface_adapters.MsgSenderGatew
 import use_cases.conversation_history_use_case.ConvHistDsRequestModel;
 import use_cases.conversation_history_use_case.MsgSenderDsRequestModel;
 
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
 public class UserDatabase implements ConvHistGateway, MsgSenderGateway, Database, 
 									 IRetrieveList, UserModificationGateway, UserChatGateway {
+
     File accounts;
     List<User> accountList;
     public UserDatabase(){
@@ -115,10 +119,12 @@ public class UserDatabase implements ConvHistGateway, MsgSenderGateway, Database
 
             users = (ArrayList<User>) in.readObject();
             return users;
+
             //TODO: this is not a good use of exceptions, but I could not find any other way to do it.
         }catch(EOFException e){
             return users;
         } catch (IOException | ClassNotFoundException ex) {
+
             throw new RuntimeException(ex);
         }
     }
@@ -191,3 +197,4 @@ public class UserDatabase implements ConvHistGateway, MsgSenderGateway, Database
         return chat.getConvHist();
     }
 }
+
