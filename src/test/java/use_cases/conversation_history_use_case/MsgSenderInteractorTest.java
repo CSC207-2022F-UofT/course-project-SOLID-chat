@@ -22,29 +22,25 @@ class MsgSenderInteractorTest {
 
     @Test
     void create() {
-        // Initialize objects for MsgSenderInteractor
-
-//        // These 3 lines below does not affect functionality of code (here for testing purposes)
-//        ConvHistDsRequestModel dsRequestModel = new ConvHistDsRequestModel("1121", "207");
-//        ArrayList<Message> test = new ArrayList<Message>(Arrays.asList(new TextMessage("James",
-//                "First test message!", LocalDateTime.now(), "x")));
-//
-//        // Create gateways, presenter, input boundary
-//        MsgSenderGateway msgSenderRepository = new InMemoryUserDataAccess(dsRequestModel, test);
-//        // currently not saving message in memory (next step: save it in a conv hist regardless of chatid)
-//
-//        ConvHistGateway convHistRepository = new InMemoryUserDataAccess(dsRequestModel, test);  // not sure how to make
-//        // these refer to the same object (not sure if casting works)
-
+        // Setting up the use case (doing it manually here but will be done by user when using program)
         UserDatabase repository = new UserDatabase();
 
-        // Create user
-        repository.createUser("james", "123456", "james@solid-chat-csc207.com", "basic");
+        // 1. Create users
+        repository.createUser("james", "123456", "james@solid-chat-csc207.com",
+                "basic");
 
-        // Create chat
+        repository.createUser("test_receiver", "123456", "test@solid-chat-csc207.com",
+                "basic");
+
+        // 2. Create chats (same ID but two copies -- one for each user)
         Chat newChat = new PrivateChat("test_receiver", "1", "test_receiver");
 
         repository.addChatToUser("james", newChat);
+
+        Chat newChat2 = new PrivateChat("james", "1", "james");
+
+        repository.addChatToUser("test_receiver", newChat2);
+
 
 
         MsgFactory msgFactory = new MsgFactory("text");  // create text message
@@ -52,9 +48,7 @@ class MsgSenderInteractorTest {
         ConvHistPresenter presenter = new ConvHistPresenter() {
             @Override
             public ConvHistResponseModel prepareSuccessView(ConvHistResponseModel conversationHistory) {
-                Message msg = conversationHistory.getConversationHistory().get(0);  // Note this retrieves message in
-                // test arraylist, not added message because it was not added to database; but this doesn't solve
-                // nullpointerex
+                Message msg = conversationHistory.getConversationHistory().get(0);
 
                 assertEquals("james", msg.getSenderID());
                 assertEquals("First sent message!", ((TextMessage) msg).getMsgContent());

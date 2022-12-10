@@ -1,11 +1,13 @@
 package entities.user_entities;
 
 import entities.chat.Chat;
+import interface_adapters.profile_modification_IA.UserAuthenticationI;
+import use_cases.user_attribute_modification_use_case.Changeable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class User implements Serializable{
+public abstract class User implements Serializable, Changeable, UserAuthenticationI {
     protected String username;
     protected String password;
     protected String email;
@@ -30,22 +32,22 @@ public abstract class User implements Serializable{
         return  this.userChats;
     }
 
-//    @Override
-////    from Changeable
-//    public void changeFeature(String feature, String newFeature){
-//        if ("Username".equals(feature)){
-//            this.username = newFeature;
-//        } else if ("Password".equals(feature)){
-//            this.password = newFeature;
-//        } else if ("Email".equals(feature)){
-//            this.email = newFeature;
-//        }
-//    }
+    @Override
+//    from Changeable
+    public void changeFeature(String feature, String newFeature){
+        if ("Username".equals(feature)){
+            this.username = newFeature;
+        } else if ("Password".equals(feature)){
+            this.password = newFeature;
+        } else if ("Email".equals(feature)){
+            this.email = newFeature;
+        }
+    }
 
-//    @Override
-//    public Boolean PasswordMatch(String attempt){
-//        return (this.getPassword().equals(attempt));
-//    }
+    @Override
+    public Boolean PasswordMatch(String attempt){
+        return (this.getPassword().equals(attempt));
+    }
 
     public ArrayList<Chat> getChats() {
         return this.userChats;

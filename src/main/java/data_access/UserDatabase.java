@@ -1,9 +1,13 @@
 package data_access;
 
 import entities.chat.Chat;
+import entities.chat.PrivateChat;
 import entities.message.Message;
 import entities.user_entities.User;
 import entities.user_entities.UserFactory;
+import interface_adapters.user_search_IA.IRetrieveList;
+import interface_adapters.profile_modification_IA.UserModificationGateway;
+import interface_adapters.chat.UserChatGateway;
 import interface_adapters.conversation_history_interface_adapters.ConvHistGateway;
 import interface_adapters.conversation_history_interface_adapters.MsgSenderGateway;
 import use_cases.conversation_history_use_case.ConvHistDsRequestModel;
@@ -12,7 +16,8 @@ import use_cases.conversation_history_use_case.MsgSenderDsRequestModel;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-public class UserDatabase implements ConvHistGateway, MsgSenderGateway {
+public class UserDatabase implements ConvHistGateway, MsgSenderGateway, Database, 
+									 IRetrieveList, UserModificationGateway, UserChatGateway {
     File accounts;
     List<User> accountList;
     public UserDatabase(){
@@ -37,7 +42,7 @@ public class UserDatabase implements ConvHistGateway, MsgSenderGateway {
         this.accounts = accounts;
         this.accountList = this.getList();
     }
-//    @Override
+    @Override
     public boolean UserExists(String username, String email) {
         for(User user: this.accountList){
             if(user.getUsername().equals(username) || user.getEmail().equals(email)){
@@ -51,7 +56,7 @@ public class UserDatabase implements ConvHistGateway, MsgSenderGateway {
      * Checks if a user with given Username exists.
      */
     //TODO: this method can be be simplified to "return UserExists(username, "");"
-//    @Override
+    @Override
     public boolean UserExists(String username) {
         for(User user: this.accountList){
             if(user.getUsername().equals(username)){
@@ -64,7 +69,7 @@ public class UserDatabase implements ConvHistGateway, MsgSenderGateway {
     // Creates a new user with a username and password, and an email address
     // The order is username, password, email address, verification status, status
     //
-//    @Override
+    @Override
     public void createUser(String username, String password, String email, String type){
         User newUser = UserFactory.BirthUser(username, password, email, type);
         addUserToFile(newUser);
@@ -88,7 +93,7 @@ public class UserDatabase implements ConvHistGateway, MsgSenderGateway {
     /**
      * getUser retrieves a User object based on passed username.
      */
-//    @Override
+    @Override
 //  To be edited to get user from the array format rather than the serialized format.
     //TODO: for loop can be replaced with enhanced for loop
     public User getUser(String username) {
@@ -102,7 +107,7 @@ public class UserDatabase implements ConvHistGateway, MsgSenderGateway {
     }
 
     //Returns an ArrayList with the users that is extracted from the file, so that other objects can use this list.
-//    @Override
+    @Override
     public List<User> getList() {
         List<User> users = new ArrayList<>();
         try(FileInputStream fileIn = new FileInputStream(accounts);
@@ -123,14 +128,14 @@ public class UserDatabase implements ConvHistGateway, MsgSenderGateway {
      * TODO: There is a code smell here, since it contains duplicated lines from createUser, this can be fixed by first
      *  removing the user, then calling this.createUser
      */
-//    @Override
+    @Override
     public void modifyUser(String oldUsername, User modified){
 //        swap in modified user to accountList
         this.accountList.remove(this.getUser(oldUsername));
         addUserToFile(modified);
     }
 
-//    @Override
+    @Override
     public ArrayList<Chat> getUserChats(String username) {
         for (User user: accountList){
             if(user.getUsername().equals(username)){
@@ -162,7 +167,13 @@ public class UserDatabase implements ConvHistGateway, MsgSenderGateway {
         // Find chat under specified Entities.User_Entities.User
         Chat chat = this.getUser(userID).getChatByID(chatID);
 
+        String recipientUsername = ((PrivateChat) chat).getRecipientUsername();
+        // currently assuming all chats are private chats
+
+        Chat recipientChat = this.getUser(recipientUsername).getChatByID(chatID);
+
         chat.addToConvHist(message);
+        recipientChat.addToConvHist(message);
     }
 
     /**

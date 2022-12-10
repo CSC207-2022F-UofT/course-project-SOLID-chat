@@ -62,7 +62,7 @@ public class MsgSenderInteractor implements MsgSenderInputBoundary{
 
         // Call convHistInteractor to display conversation history
         ConvHistRequestModel convHistRequestModel = new ConvHistRequestModel(userID, chatID);
-        ConvHistInteractor convHistInteractor = new ConvHistInteractor(convHistRepository, convHistPresenter);
+        ConvHistInputBoundary convHistInteractor = new ConvHistInteractor(convHistRepository, convHistPresenter);
         return convHistInteractor.create(convHistRequestModel);
     }
 }
