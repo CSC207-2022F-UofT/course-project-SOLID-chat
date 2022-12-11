@@ -6,6 +6,14 @@
 
 A summary of the test coverage is below. To view a full report, please open the file full-test-coverage-report.html.
 
+![image](https://user-images.githubusercontent.com/18428059/206886626-25572769-6dd9-4572-beee-4f9c1aa496d4.png)
+
+### Conversation History Notes
+- This feature currently does not work in the main branch, likely due to a feature added impacting it negatively. Sorry about that.
+- Other future modifications:
+- Design
+     - Using a controller for ConvHistInteractor
+
 ### Chat UI
 - By Nasim, James, and Amy
 - The UI is rendered by ChatView
