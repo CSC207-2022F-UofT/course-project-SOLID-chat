@@ -18,14 +18,18 @@ public class ChatModel {
      */
 
     private final String recipientusername;
+    private final String chatID;
 
     /**
      * Construct a new ChatModel
+     *
      * @param recipientusername is the username of the Rcipient username.
+     * @param chatID
      */
 
-    public ChatModel (String recipientusername){
+    public ChatModel (String recipientusername, String chatID){
         this.recipientusername = recipientusername;
+        this.chatID = chatID;
     }
 
 
@@ -36,5 +40,9 @@ public class ChatModel {
 
     public String getRecipientusername() {
         return recipientusername;
+    }
+
+    public String getChatID() {
+        return chatID;
     }
 }

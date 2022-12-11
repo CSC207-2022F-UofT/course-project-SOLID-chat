@@ -52,7 +52,7 @@ public class ChatController {
     // this method is used in UI to set the recipient username
     public ChatModel create (String username){
 
-    ChatModel chatmodel = new ChatModel(username);
+    ChatModel chatmodel = new ChatModel(username, null);
 
     UserDatabase db = new UserDatabase();
 
@@ -70,12 +70,13 @@ public class ChatController {
         //create a private chat obj
 
         this.newprivatechat = chatinputboundry.create(chatmodel);
-
-        //creat a private chat at same time for the recipeint username
-        PrivateChat pv = chatinputboundry.create(new ChatModel(currentusername));
-        User user = db.getUser(chatmodel.getRecipientusername());
-        user.getChats().add(pv);
-        db.modifyUser(chatmodel.getRecipientusername(),user);
+//        String chatID = chatinputboundry.getChatID();
+//
+//        //creat a private chat at same time for the recipeint username
+//        PrivateChat pv = chatinputboundry.create(new ChatModel(currentusername, chatID));
+//        User user = db.getUser(chatmodel.getRecipientusername());
+//        user.getChats().add(pv);
+//        db.modifyUser(chatmodel.getRecipientusername(),user);
 
 
 

@@ -256,8 +256,10 @@ public class ChatView extends JFrame implements ActionListener {
 
                 ConvHistPresenter convHistPresenter = new ConvHistResponseFormatter();
 
-                MsgSenderInputBoundary msgSenderInputBoundary = new MsgSenderInteractor(new UserDatabase(),
-                        new UserDatabase(), msgFactory, convHistPresenter);
+                UserDatabase userDatabase = new UserDatabase();
+
+                MsgSenderInputBoundary msgSenderInputBoundary = new MsgSenderInteractor(userDatabase,
+                        userDatabase, msgFactory, convHistPresenter);
 
                 // Run interactor and get conversation history
                 MsgSenderRequestModel msgSenderRequestModel = new MsgSenderRequestModel(username, input, chatID);

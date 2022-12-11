@@ -176,10 +176,10 @@ public class UserDatabase implements ConvHistGateway, MsgSenderGateway, Database
         String recipientUsername = ((PrivateChat) chat).getRecipientUsername();
         // currently assuming all chats are private chats
 
-        Chat recipientChat = this.getUser(recipientUsername).getChatByID(chatID);
+//        Chat recipientChat = this.getUser(recipientUsername).getChatByID(chatID);
 
         chat.addToConvHist(message);
-        recipientChat.addToConvHist(message);
+//        recipientChat.addToConvHist(message);
     }
 
     /**

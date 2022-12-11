@@ -22,6 +22,7 @@ public class ChatInteractor implements ChatInputBoundry{
      */
 
     PrivateChatFactory chatFactory;
+    String chatID;
 
     /**
      * Construct a new ChatInteractor
@@ -50,11 +51,20 @@ public class ChatInteractor implements ChatInputBoundry{
     //create a private chat with the Recipient username that user typed in the textfield UI of the private chat.
     @Override
     public PrivateChat create(ChatModel chatmodel) {
+        if (chatmodel.getChatID() == null) {
+            this.chatID = UUID.randomUUID().toString();
+        }
+        else {
+            this.chatID = chatmodel.getChatID();
+        }
 
-
-        return chatFactory.create(chatmodel.getRecipientusername(), UUID.randomUUID().toString(),chatmodel.getRecipientusername());
+        return chatFactory.create(chatmodel.getRecipientusername(), chatID,chatmodel.getRecipientusername());
 
     }
 
+    @Override
+    public String getChatID() {
+        return chatID;
+    }
 
 }

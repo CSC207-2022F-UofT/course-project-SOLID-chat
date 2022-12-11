@@ -16,4 +16,5 @@ import entities.chat.PrivateChat;
 public interface ChatInputBoundry {
 
     PrivateChat create(ChatModel chatmodel);
+    String getChatID();
 }
