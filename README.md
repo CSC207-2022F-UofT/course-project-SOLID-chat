@@ -79,6 +79,14 @@ Finally, if the user enters the correct login credentials, his chats will show u
 ![image](https://user-images.githubusercontent.com/59711147/203241762-b549a6ca-1d90-4d3b-abde-6889f1219490.png)
 
 
+##Search in Coversation History
+-By Emma
+- THe user will be prompted to type either a time or a keyword for each private chat
+- The user will have the option to choose whether they want to search by time or search by word
+- The input will be searched in the current chat's conversation history
+
+
+<img width="547" alt="Screen Shot 2022-12-08 at 5 03 47 PM" src="https://user-images.githubusercontent.com/113369239/206885580-6d93ee3e-5522-4996-85f9-c5e30f862cab.png">
 
 
 
