@@ -139,9 +139,9 @@ public class SearchUI implements ActionListener{
         Chat a= new PrivateChat("Amy", "001", "Bin");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         TextMessage testMessage1 = new TextMessage("James",
-                "Hi, my name is", LocalDateTime.parse("2022-09-25 10:30", formatter), "3");
+                "Hi, my name is James!", LocalDateTime.parse("2022-09-25 10:30", formatter), "3");
         TextMessage testMessage2 = new TextMessage("Emma",
-                "Hi, my name is two!", LocalDateTime.parse("2022-07-20 08:30", formatter), "x");
+                "Hi, my name is Emma!", LocalDateTime.parse("2022-07-20 08:30", formatter), "x");
         a.addToConvHist(testMessage1);
         a.addToConvHist(testMessage2);
         //demo
