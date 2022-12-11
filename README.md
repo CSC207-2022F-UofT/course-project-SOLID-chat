@@ -1,8 +1,10 @@
 # SOLID Chat
 
-## Our Progress (Last Updated on Nov 21)
+## Our Progress (Last Updated on Dec 10)
 
-Each of us have created one or more PRs and most of these have been merged into the main branch. Many members have functional UI's (and they are likely happy to demonstrate in tutorial) and others have a basic non-interactive UI and the inner layers of clean architecture. While they may not be able to do an interactive demo, screenshots of these user interfaces are included below.
+### Test Coverage
+
+A summary of the test coverage is below. To view a full report, please open the file full-test-coverage-report.html.
 
 ### Chat UI
 - By Nasim, James, and Amy
