@@ -31,10 +31,11 @@ A summary of the test coverage is below. To view a full report, please open the 
 ### Chat Chat Initiation and add button
 - By Nasim
 - Significance:
--Visualize the Private Chat 
--User types a Recipient Username and clicks on the “add button”
--New private chat obj created with the username just typed
--The UI’s title will change
+- Visualize the Private Chat
+- User types a Recipient Username and clicks on the “add button”
+- New private chat obj created with the username just typed
+- The UI’s title will change
+
 ![chat initation ](https://github.com/CSC207-2022F-UofT/course-project-SOLID-chat/assets/113414219/96ebe620-9ce1-4a04-b0f4-188ae7e8a684)
 ![chat intiaition 2](https://github.com/CSC207-2022F-UofT/course-project-SOLID-chat/assets/113414219/a9047dd4-bea0-4266-b539-8475bbfeede1)
 
